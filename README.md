@@ -1,136 +1,240 @@
-# RozgaarAI
+# <div align="center">RozgaarAI</div>
 
-**Tagline:** Digital Career Identity for India's Informal Workforce.
+<p align="center">
+  <strong>Digital Career Identity & Income Passport for India's Informal Workforce</strong>
+</p>
 
-RozgaarAI is a voice-first AI employment assistant for informal workers in India. It helps daily wage workers, domestic workers, plumbers, electricians, drivers, tailors, construction workers, cooks, delivery workers, beauticians, and security guards turn real-world skills into a verified digital career identity, professional resume, job matches, fair wage insight, fake-job safety check, and interview readiness.
+<p align="center">
+  Turning spoken work experience into trusted employment.
+</p>
 
-Built for the **Build for Good national hackathon** as a polished, demo-safe social-impact platform.
+<p align="center">
+  <a href="https://github.com/Sam-wan30/RozgaarAI">
+    <img alt="Build for Good" src="https://img.shields.io/badge/Build%20for%20Good-National%20Hackathon-2563EB?style=for-the-badge" />
+  </a>
+  <img alt="React" src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=0F172A" />
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
+  <img alt="Firebase" src="https://img.shields.io/badge/Firebase-Auth-FFCA28?style=for-the-badge&logo=firebase&logoColor=0F172A" />
+  <img alt="Gemini AI" src="https://img.shields.io/badge/Gemini%20AI-Ready-4285F4?style=for-the-badge&logo=googlegemini&logoColor=white" />
+  <img alt="MIT License" src="https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge" />
+  <img alt="Deploy" src="https://img.shields.io/badge/Deploy-Vercel%20%2B%20Render-0F172A?style=for-the-badge&logo=vercel&logoColor=white" />
+  <img alt="GitHub stars" src="https://img.shields.io/github/stars/Sam-wan30/RozgaarAI?style=for-the-badge&logo=github" />
+</p>
 
-## Operating Modes
+<p align="center">
+  <a href="https://rozgaarai.vercel.app"><strong>Live Demo</strong></a>
+  ·
+  <a href="./HACKATHON_SUBMISSION.md"><strong>Presentation</strong></a>
+  ·
+  <a href="./HACKATHON_SUBMISSION.md"><strong>Demo Video</strong></a>
+  ·
+  <a href="./DEPLOYMENT.md"><strong>Documentation</strong></a>
+</p>
 
-RozgaarAI supports two clear modes:
+---
 
-### Demo Mode
+## Table Of Contents
 
-Demo Mode works offline. Judges can explore complete worker journeys instantly using local demo data with no login, database, or paid AI key required.
+- [Product Preview](#product-preview)
+- [About RozgaarAI](#about-rozgaarai)
+- [Key Features](#key-features)
+- [Complete Product Flow](#complete-product-flow)
+- [System Architecture](#system-architecture)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Environment Variables](#environment-variables)
+- [Deployment](#deployment)
+- [AI Features](#ai-features)
+- [Security](#security)
+- [Performance](#performance)
+- [Future Roadmap](#future-roadmap)
+- [Build For Good](#build-for-good)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
 
-Demo Mode includes five realistic worker profiles, digital career identity cards, QR profile routes, resume downloads, job recommendations, explainable match scores, wage estimates, work history, income history, employer actions, and public worker profiles.
+---
 
-### Real Usage Mode
+## Product Preview
 
-Production mode supports secure login, persistent profiles, and database-backed worker records. The current implementation includes a production-ready architecture layer for:
+> [!NOTE]
+> Add final product screenshots to `docs/screenshots/` before public submission. The app is already built with deploy-ready routes and polished UI states; these placeholders document the recommended showcase set.
 
-- Login / Signup
-- Role selection for Worker, Employer, and NGO / Admin
-- Worker profile storage
-- Employer saved workers and shortlists
-- NGO/Admin impact data
-- Supabase/PostgreSQL environment variables
-- AI provider keys with local fallback
+| Landing Page | Digital Career Identity |
+| --- | --- |
+| ![Landing Page](docs/screenshots/landing-page.png) | ![Digital Career Identity](docs/screenshots/digital-career-identity.png) |
 
-If Supabase/PostgreSQL credentials are missing, RozgaarAI falls back to local storage and demo data so no screen breaks.
+| Worker Workspace | Work & Income Passport |
+| --- | --- |
+| ![Worker Workspace](docs/screenshots/worker-workspace.png) | ![Income Passport](docs/screenshots/income-passport.png) |
 
-Optional production persistence is routed through a database service layer. When Supabase credentials are configured and the tables exist, the frontend writes to:
+| Employer Dashboard | Resume Preview |
+| --- | --- |
+| ![Employer Dashboard](docs/screenshots/employer-dashboard.png) | ![Resume Preview](docs/screenshots/resume-preview.png) |
 
-- `rozgaar_accounts` for optional role-based accounts
-- `rozgaar_worker_profiles` for saved worker profiles and generated AI profiles
-- `rozgaar_employer_saved_workers` for employer shortlists
-- `rozgaar_impact_metrics` for NGO/Admin impact data
+| Interview Coach | Product Walkthrough |
+| --- | --- |
+| ![Interview Coach](docs/screenshots/interview-coach.png) | ![RozgaarAI Walkthrough](docs/screenshots/product-walkthrough.gif) |
 
-If any database request fails, the app automatically falls back to local storage so Demo Mode stays reliable during judging.
+---
 
-## Problem Statement
+## About RozgaarAI
 
-India's informal workers often have strong practical skills but no portable proof of work, formal resume, verified profile, or safe way to evaluate job offers. Workers may depend on verbal references, middlemen, unclear wages, and risky messages that ask for money or documents before an interview.
+India's informal workforce powers homes, construction sites, transport networks, local businesses, housing societies, and urban services. Yet millions of skilled workers remain excluded from formal digital employment systems because their experience is difficult to verify, package, and share.
 
-This creates barriers for workers, employers, NGOs, and public programs:
+RozgaarAI is a voice-first AI employment platform that turns real-world work experience into a trusted digital career identity, income passport, professional resume, safer job opportunities, and interview readiness.
 
-- Workers cannot easily prove skill, experience, or availability.
-- Employers struggle to discover verified workers quickly.
-- NGOs spend time manually collecting worker details.
-- Fake or unsafe job offers exploit first-time and low-literacy workers.
-- Wage negotiation often happens without local benchmarks.
-- English-first employment tools exclude many Hindi-speaking workers.
+### The Problem
 
-## Solution
+| Challenge | Real-World Consequence |
+| --- | --- |
+| No verified identity | Workers cannot prove skills, availability, or trustworthiness beyond word of mouth. |
+| No formal resume | Employers struggle to evaluate practical experience quickly. |
+| No income proof | Workers cannot demonstrate financial consistency to employers, NGOs, or financial partners. |
+| Low interview confidence | Workers know the job but may struggle to present themselves clearly. |
+| Unsafe job offers | Fake recruiters exploit workers through registration fees, missing addresses, and document misuse. |
+| Language barriers | English-first job systems exclude workers who are more comfortable in Hindi or regional languages. |
 
-RozgaarAI converts simple voice or text input into a structured worker profile and complete employability kit:
+### The RozgaarAI Solution
 
-1. Worker enters or speaks details in English or Hindi.
-2. AI/local fallback extracts name, city, skill, experience, wage, language, and availability.
-3. RozgaarAI generates a worker profile, resume, and Digital Career Identity with QR.
-4. The platform matches jobs using skill, city, experience, wage, language, safety, and verification.
-5. Workers receive fair wage guidance, fake-job risk warnings, and interview coaching.
-6. Employers and NGOs can search, view, shortlist, and track worker outcomes.
+| Worker Need | RozgaarAI Response |
+| --- | --- |
+| Speak instead of typing | Voice/text onboarding extracts worker details from natural Hindi or English. |
+| Prove work identity | Digital Career Identity with QR-linked public profile and verified worker ID. |
+| Share professional profile | AI-generated resume and downloadable Digital Worker Card. |
+| Build economic credibility | Work & Income Passport records daily wage, payment history, and verified work records. |
+| Find safer jobs | Explainable job matching with employer trust and safety signals. |
+| Prepare for interviews | AI Interview Coach gives role-specific practice and feedback. |
+| Avoid fraud | AI Rights & Safety Assistant analyzes job offers and WhatsApp messages for scam indicators. |
 
-The app works even when paid AI keys, database access, or voice input are unavailable.
+---
 
 ## Key Features
 
-- Premium bilingual UI: English default, Hindi switch with localStorage persistence.
-- Voice/text onboarding with fallback parser.
-- AI-generated worker profile with deterministic local fallback.
-- Digital Career Identity card with QR-linked public profile.
-- Professional resume generation and PDF-friendly print flow.
-- AI Skill Certificate with verification ID.
-- 40 realistic mock job records for informal work roles.
-- Explainable job matching with match percentage and reasons.
-- Fair wage estimator based on role, city, and experience.
-- Fake job detector for deposits, missing address, unrealistic salary, unknown employer, early document requests, and weak contact details.
-- Interview coach with role-specific questions, sample answers, scoring, and improvement tips.
-- Employer dashboard for searching and shortlisting workers.
-- NGO/Impact dashboard with demo analytics.
-- Employment Readiness Score with actionable suggestions.
-- Loading states, empty states, error messages, and mobile-first responsive UI.
-
-## Demo Data
-
-The app includes realistic Indian demo worker profiles:
-
-| Name | Role | City | Experience |
+| Feature | Problem | Solution | User Benefit |
 | --- | --- | --- | --- |
-| Asha Kumari | Domestic Worker | Delhi | 4 years |
-| Ramesh Patel | Plumber | Bhopal | 6 years |
-| Rekha Devi | Tailor | Raipur | 8 years |
-| Imran Khan | Electrician | Lucknow | 5 years |
-| Sanjay Verma | Driver | Nagpur | 7 years |
+| Voice AI Onboarding | Forms are difficult for low-literacy or first-time digital users. | Workers speak naturally in Hindi or English; AI/local parsing extracts profile data. | Faster onboarding with less typing. |
+| Digital Career Identity | Informal skills are invisible and hard to verify. | Premium credential card with worker ID, QR, verification badge, skills, and readiness. | Portable trust signal for employers and NGOs. |
+| AI Resume Generator | Workers lack employer-ready resumes. | Converts real experience into a structured, professional resume preview and download. | Workers can apply with confidence. |
+| Work & Income Passport | Wage history is fragmented and informal. | Tracks work records, income, pending payments, and downloadable proof. | Builds economic credibility. |
+| Explainable Job Matching | Job recommendations often feel opaque. | Shows why jobs match across skill, wage, location, language, safety, and experience. | Workers understand and trust recommendations. |
+| AI Interview Coach | Workers may not know how to present experience. | Role-specific questions, voice/text answers, scoring, feedback, and improved answers. | Better interview readiness. |
+| Rights & Safety Assistant | Fraudulent job messages are common. | Detects registration fees, missing employer identity, document risks, and suspicious contact patterns. | Safer decisions before accepting work. |
+| Employer Dashboard | Employers struggle to discover verified informal workers. | Search, filter, view profiles, shortlist, and contact demo workers. | Faster, safer hiring workflow. |
+| Impact Dashboard | NGOs need outcome visibility. | Tracks worker registrations, wage uplift, interviews, skill cards, and income unlocked. | Better program measurement. |
+| Fair Wage Estimator | Workers negotiate without market benchmarks. | Estimates fair wages using skill, city, and experience. | Stronger wage confidence. |
+| Google Authentication | Production users need secure workspace access. | Firebase Google Auth with persisted sessions and user-scoped local storage fallback. | Personal dashboard and saved worker profiles. |
 
-Job data includes 40 role-specific mock jobs across Indian cities with wage ranges, employer type, required experience, skills, language preference, safety score, and verified/unverified status.
+---
+
+## Complete Product Flow
+
+```mermaid
+flowchart LR
+  A["Voice Input"] --> B["AI Profile"]
+  B --> C["Digital Career Identity"]
+  C --> D["AI Resume"]
+  D --> E["Income Passport"]
+  E --> F["Job Matching"]
+  F --> G["Interview Coach"]
+  G --> H["Employment"]
+```
+
+### Judge Walkthrough
+
+| Step | Experience | What To Show |
+| --- | --- | --- |
+| 1 | Explore demo worker | Open a complete worker journey instantly. |
+| 2 | Create profile | Speak or type worker details; generate AI profile. |
+| 3 | View identity | Show Digital Career Identity, QR, worker ID, readiness, and quick actions. |
+| 4 | Download assets | Download resume and Digital Worker Card. |
+| 5 | Review income proof | Open Work & Income Passport. |
+| 6 | Match jobs | Explain why AI recommended each job. |
+| 7 | Practice interview | Score an answer and show AI improvement. |
+| 8 | Check safety | Paste risky WhatsApp job message and show safety report. |
+| 9 | Employer view | Search and shortlist verified workers. |
+
+---
+
+## System Architecture
+
+```mermaid
+flowchart TB
+  U["Worker / Employer / NGO"] --> FE["React + Vite Frontend"]
+  FE --> AUTH["Firebase Authentication"]
+  FE --> API["FastAPI Backend API"]
+  FE --> LOCAL["Local Demo + User Storage Fallback"]
+  API --> AI["Gemini / OpenAI Provider Layer"]
+  API --> MOCK["Deterministic Local AI Fallback"]
+  API --> DB["Supabase / PostgreSQL Ready Layer"]
+  AUTH --> DASH["Authenticated Workspace"]
+  LOCAL --> DEMO["Public Demo Mode"]
+  DB --> EMP["Employer Portal"]
+  DB --> IMP["Impact Dashboard"]
+```
+
+### Request Flow
+
+```mermaid
+sequenceDiagram
+  participant Worker
+  participant Frontend as React Frontend
+  participant Auth as Firebase Auth
+  participant API as FastAPI API
+  participant AI as AI/Fallback Engine
+  participant Store as LocalStorage / DB-ready Layer
+
+  Worker->>Frontend: Speak or type work details
+  Frontend->>AI: Parse details locally or through API
+  AI-->>Frontend: Structured worker profile
+  Frontend->>Auth: Optional Google Sign-In
+  Auth-->>Frontend: Authenticated user session
+  Frontend->>Store: Save user-scoped worker profile
+  Frontend->>API: Optional profile/resume/jobs/wage requests
+  API->>AI: Generate or fallback
+  AI-->>API: Profile, resume, jobs, wage, safety insights
+  API-->>Frontend: Employment intelligence
+  Frontend-->>Worker: Digital identity, resume, income passport, job matches
+```
+
+---
 
 ## Tech Stack
 
-**Frontend**
+| Category | Technology |
+| --- | --- |
+| Frontend | React 18, Vite 6, Tailwind CSS |
+| UI System | Lucide React, custom responsive components, brand assets |
+| Authentication | Firebase Authentication, Google Sign-In |
+| QR / Export | `qrcode.react`, `html2canvas` |
+| Backend | FastAPI, Pydantic, Uvicorn |
+| AI Layer | Gemini-ready, OpenAI-ready, deterministic local fallback |
+| Data | JSON mock data, localStorage user scopes, Supabase/PostgreSQL-ready architecture |
+| Deployment | Vercel frontend, Render backend, Firebase Auth |
+| Languages | JavaScript, Python |
+| Tooling | ESLint, PostCSS, Tailwind, Vite build pipeline |
 
-- React
-- Vite
-- Tailwind CSS
-- lucide-react
-- qrcode.react
-- Local JSON i18n files
+---
 
-**Backend**
-
-- FastAPI
-- Pydantic
-- Uvicorn
-- JSON mock data
-
-**AI**
-
-- Optional Gemini API
-- Optional OpenAI API
-- Local fallback logic when API keys are missing or provider calls fail
-
-**Deployment**
-
-- Vercel-ready frontend
-- Render-ready backend
-- Supabase/PostgreSQL-ready production architecture with local fallback
-
-## Architecture
+## Project Structure
 
 ```text
 RozgaarAI
+├── backend/
+│   ├── app/
+│   │   ├── data/
+│   │   │   └── jobs.json
+│   │   ├── services/
+│   │   │   ├── ai.py
+│   │   │   └── mock_engine.py
+│   │   ├── main.py
+│   │   └── models.py
+│   ├── .python-version
+│   ├── .env.example
+│   └── requirements.txt
+├── docs/
+│   └── screenshots/
 ├── frontend/
 │   ├── public/
 │   ├── src/
@@ -147,81 +251,49 @@ RozgaarAI
 │   │   │   └── translations.js
 │   │   ├── lib/
 │   │   │   ├── api.js
-│   │   │   └── database.js
+│   │   │   ├── database.js
+│   │   │   └── firebaseAuth.js
 │   │   ├── App.jsx
 │   │   ├── main.jsx
 │   │   └── styles.css
+│   ├── .env.example
 │   ├── package.json
+│   ├── vercel.json
 │   └── vite.config.js
-├── backend/
-│   ├── app/
-│   │   ├── data/
-│   │   │   └── jobs.json
-│   │   ├── services/
-│   │   │   ├── ai.py
-│   │   │   └── mock_engine.py
-│   │   ├── main.py
-│   │   └── models.py
-│   └── requirements.txt
-├── docs/
-│   └── screenshots/
-├── .env.example
+├── DEPLOYMENT.md
 ├── HACKATHON_SUBMISSION.md
 ├── render.yaml
 ├── vercel.json
 └── README.md
 ```
 
-## Demo Flow
+| Path | Purpose |
+| --- | --- |
+| `frontend/src/App.jsx` | Main product shell, routes, dashboard, worker journey, landing page. |
+| `frontend/src/components/` | Reusable product components, including the Digital Career Identity card. |
+| `frontend/src/lib/api.js` | Frontend AI/API abstraction with demo-safe fallbacks. |
+| `frontend/src/lib/firebaseAuth.js` | Firebase Google Auth configuration from environment variables. |
+| `frontend/src/data/mockData.js` | Demo personas, local job data, income history, and fallback content. |
+| `backend/app/main.py` | FastAPI routes for profile, resume, jobs, wages, safety, and interview logic. |
+| `backend/app/services/` | AI service layer and deterministic fallback engine. |
 
-Use the in-app guided demo mode or follow this judge walkthrough:
+---
 
-1. **Voice/text onboarding:** Load Asha Kumari or speak/type worker details.
-2. **AI profile generated:** Click the profile generation action and show fallback-safe AI output.
-3. **Resume generated:** Open the resume card and download/print the resume.
-4. **Digital Career Identity with QR:** Show the premium card and scan/open the QR public profile.
-5. **Job matches:** Explain match percentage and the skill, location, wage, language, and safety breakdown.
-6. **Interview coach:** Generate role-specific questions and score a sample answer.
-7. **Employer views worker profile:** Use the employer dashboard to search and shortlist a worker.
-8. **Impact dashboard:** Close with worker registrations, women supported, jobs matched, wage uplift, and income unlocked.
+## Installation
 
-## Screenshots
+### Prerequisites
 
-Add final screenshots before submission in `docs/screenshots/`.
+- Node.js 18+
+- npm 9+
+- Python 3.11 recommended for backend deployment parity
+- Firebase project for Google Sign-In
 
-Suggested captures:
+### Clone
 
-- Landing page
-- Guided demo mode
-- Worker onboarding
-- Digital Career Identity card
-- Public worker profile QR route
-- Resume generator
-- Job matches with explainability
-- Interview coach
-- Employer dashboard
-- Impact dashboard
-- Hindi language mode
-- Mobile view
-
-## Impact Statement
-
-RozgaarAI supports dignity and economic mobility for informal workers by making skills visible, shareable, and safer to monetize. It can help workers negotiate fair wages, avoid risky offers, prepare for interviews, and present experience professionally without needing English fluency or formal resume-writing skills.
-
-For NGOs, skilling partners, and public programs, RozgaarAI can reduce onboarding effort and create measurable employment-readiness data for field pilots.
-
-## Reliability and Fallbacks
-
-RozgaarAI is designed for hackathon demo reliability:
-
-- If an AI API key is missing, local AI-style logic generates profiles, resumes, jobs, wages, risk checks, and interview questions.
-- If the backend is unavailable, frontend API calls fall back to local logic.
-- If voice input is unsupported, workers can use text input.
-- If a database is unavailable, JSON/mock data keeps the demo working.
-- If network is slow, loading states and error messages keep the UI understandable.
-- Public worker profile routes work through Vercel rewrites.
-
-## Local Setup
+```bash
+git clone https://github.com/Sam-wan30/RozgaarAI.git
+cd RozgaarAI
+```
 
 ### Frontend
 
@@ -242,28 +314,50 @@ http://localhost:5173
 
 ```bash
 cd backend
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env
-uvicorn app.main:app --reload --port 8000
+uvicorn app.main:app --reload
 ```
 
-Backend health check:
+Backend runs at:
 
 ```text
-http://localhost:8000/health
+http://localhost:8000
 ```
+
+### Build
+
+```bash
+cd frontend
+npm run build
+npm run preview
+```
+
+---
 
 ## Environment Variables
 
-Root `.env.example`:
+Never commit real `.env` files. Use `.env.example` for documentation and configure production secrets in Vercel/Render.
+
+### Frontend `.env`
 
 ```bash
 VITE_API_URL=http://localhost:8000
 VITE_PUBLIC_APP_URL=http://localhost:5173
 VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+```
+
+### Backend `.env`
+
+```bash
 ALLOWED_ORIGINS=http://localhost:5173
 OPENAI_API_KEY=
 OPENAI_MODEL=gpt-4.1-mini
@@ -273,87 +367,216 @@ SUPABASE_ANON_KEY=
 DATABASE_URL=
 ```
 
-AI and database variables are optional for the MVP. Demo Mode works without them. Add Supabase/PostgreSQL values to enable production persistence.
+### Required For Google Sign-In
 
-## Build Scripts
+| Variable | Source |
+| --- | --- |
+| `VITE_FIREBASE_API_KEY` | Firebase project web app config |
+| `VITE_FIREBASE_AUTH_DOMAIN` | Firebase project web app config |
+| `VITE_FIREBASE_PROJECT_ID` | Firebase project web app config |
+| `VITE_FIREBASE_STORAGE_BUCKET` | Firebase project web app config |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | Firebase project web app config |
+| `VITE_FIREBASE_APP_ID` | Firebase project web app config |
 
-Frontend:
+---
 
-```bash
-npm run dev
-npm run lint
-npm run build
-npm run preview
+## Deployment
+
+Detailed deployment instructions live in [DEPLOYMENT.md](./DEPLOYMENT.md).
+
+### Frontend: Vercel
+
+Recommended Vercel settings:
+
+```text
+Root Directory: frontend
+Framework Preset: Vite
+Install Command: npm install
+Build Command: npm run build
+Output Directory: dist
 ```
 
-Backend:
+SPA routing is handled by `frontend/vercel.json`:
 
-```bash
-uvicorn app.main:app --reload --port 8000
+```json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
 ```
 
-## Deployment Guide
+### Backend: Render
 
-### Frontend on Vercel
-
-1. Import the repository into Vercel.
-2. Use the included `vercel.json`.
-3. Set environment variables:
-
-```bash
-VITE_API_URL=https://your-render-api.onrender.com
-VITE_PUBLIC_APP_URL=https://your-vercel-app.vercel.app
-VITE_SUPABASE_URL=
-VITE_SUPABASE_ANON_KEY=
-```
-
-4. Deploy.
-
-### Backend on Render
-
-Use the included `render.yaml`, or configure manually:
+Recommended Render settings:
 
 ```text
 Root Directory: backend
+Runtime: Python 3
 Build Command: pip install -r requirements.txt
 Start Command: uvicorn app.main:app --host 0.0.0.0 --port $PORT
 ```
 
-Set:
+Set this environment variable on Render:
 
 ```bash
-ALLOWED_ORIGINS=https://your-vercel-app.vercel.app
-OPENAI_API_KEY=
-OPENAI_MODEL=gpt-4.1-mini
-GEMINI_API_KEY=
-SUPABASE_URL=
-SUPABASE_ANON_KEY=
-DATABASE_URL=
+PYTHON_VERSION=3.11.9
 ```
+
+### Firebase Auth
+
+In Firebase Console:
+
+1. Enable Google provider.
+2. Add authorized domains:
+   - `localhost`
+   - your Vercel domain without `https://`
+3. Do not add the Render backend domain. Google Sign-In happens in the browser on the Vercel frontend.
+
+---
+
+## AI Features
+
+RozgaarAI is designed to be demo-safe without paid AI keys and production-ready when AI providers are configured.
+
+```mermaid
+flowchart LR
+  INPUT["Voice / Text Input"] --> PARSE["Local Parser or AI Extraction"]
+  PARSE --> PROFILE["Worker Profile"]
+  PROFILE --> RESUME["AI Resume"]
+  PROFILE --> JOBS["Explainable Job Matching"]
+  PROFILE --> WAGE["Fair Wage Estimate"]
+  PROFILE --> COACH["Interview Coach"]
+  INPUT --> SAFETY["Rights & Safety Assistant"]
+```
+
+| AI Capability | What It Does | Fallback Behavior |
+| --- | --- | --- |
+| Voice processing | Uses browser speech recognition where available. | Text input remains available. |
+| Profile generation | Structures name, skill, city, experience, language, wage, and availability. | Local parser and deterministic profile generator. |
+| Resume generation | Creates employer-ready summary and work sections. | Local resume templates by role. |
+| Interview scoring | Scores answer clarity, confidence, technical relevance, and professionalism. | Deterministic scoring with role-specific feedback. |
+| Rights analysis | Flags suspicious fees, missing address, document requests, WhatsApp-only contact. | Local scam signal rules. |
+| Job matching | Scores roles by skill, city, wage, language, safety, and experience. | Mock jobs and transparent scoring engine. |
+| Wage estimation | Estimates fair wage range from skill, city, and experience. | Local wage tables and role heuristics. |
+
+---
+
+## Security
+
+| Area | Implementation |
+| --- | --- |
+| Authentication | Firebase Google Authentication with persisted browser sessions. |
+| Config safety | Firebase values are read only from `import.meta.env`. Missing values warn gracefully. |
+| Secrets | Real `.env` files are ignored by Git. Production secrets belong in Vercel/Render settings. |
+| Route model | Public demo routes remain accessible; signed-in dashboards use user-scoped local storage. |
+| Data separation | Demo profiles and authenticated user profiles are stored separately. |
+| Backend CORS | Render backend accepts configured `ALLOWED_ORIGINS`. |
+
+---
+
+## Performance
+
+- Vite production build with optimized static assets.
+- `html2canvas` is dynamically imported only when downloading the Digital Worker Card.
+- Responsive layouts across mobile, tablet, laptop, and desktop.
+- Accessible form labels, focus states, semantic buttons, and readable contrast.
+- Local fallback logic avoids hard failures when AI, database, backend, or speech APIs are unavailable.
+- Deployment-ready SPA rewrites for route refreshes on Vercel.
+
+---
 
 ## Future Roadmap
 
-- WhatsApp onboarding and shareable worker identity links.
-- Supabase/PostgreSQL persistence for worker profiles and employer actions.
-- Verified employer job-posting workflow.
-- NGO field-worker onboarding tools.
-- Regional languages beyond Hindi and English.
-- PWA/offline mode for low-connectivity field demos.
-- IVR mode for low-literacy workers.
-- Reference-based trust badges without requiring Aadhaar.
-- Partnerships with skilling centers, worker collectives, and local employers.
+| Phase | Roadmap Item |
+| --- | --- |
+| Language Access | Expand to Marathi, Bengali, Tamil, Telugu, Kannada, and voice prompts. |
+| Employer Trust | Verified employer onboarding, abuse reporting, and hiring history. |
+| Government Integration | DPI-style integrations with skilling programs, DigiLocker-style credentials, and public employment initiatives. |
+| Financial Services | Income history export for microcredit, savings products, and partner verification. |
+| Offline Mode | Field-worker mode for NGOs with sync-on-connect. |
+| AI Career Advisor | Skill upgrade plans, local training recommendations, and career pathways. |
+| Database Persistence | Supabase/PostgreSQL tables for production multi-user records. |
+| Worker Privacy | Fine-grained profile sharing controls and consent-based employer access. |
 
-## Team
+---
 
-Add team member names, roles, and contact links before final submission.
+## Build For Good
 
-```text
-Team Name:
-Members:
-Institution/Organization:
-Contact:
+RozgaarAI aligns with Build for Good by applying AI to a high-impact public-interest problem: employability and economic dignity for India's informal workforce.
+
+| Impact Area | RozgaarAI Contribution |
+| --- | --- |
+| Social impact | Helps workers convert practical skills into trusted digital credentials. |
+| Digital inclusion | Voice-first onboarding lowers barriers for first-time digital users. |
+| Employment | Improves job discovery, readiness, and employer trust. |
+| Financial empowerment | Income Passport turns informal wage history into shareable economic proof. |
+| Worker safety | AI Rights & Safety Assistant helps detect scams before harm occurs. |
+| National scalability | Demo-safe architecture can expand through NGOs, employers, skilling partners, and government programs. |
+
+> [!IMPORTANT]
+> RozgaarAI is not just a job board. It is a digital public-service style employability layer that helps workers prove who they are, what they know, where they have worked, and what they deserve to earn.
+
+---
+
+## Contributing
+
+RozgaarAI welcomes thoughtful contributions from engineers, designers, researchers, NGOs, skilling partners, and public-interest technologists.
+
+### Good First Contributions
+
+- Add regional language translations.
+- Improve accessibility labels and keyboard navigation.
+- Add screenshots to `docs/screenshots/`.
+- Expand mock job data with realistic local wage ranges.
+- Add backend tests for AI fallback engines.
+- Improve README examples and deployment notes.
+
+### Development Workflow
+
+```bash
+git checkout -b feature/your-feature-name
+cd frontend
+npm install
+npm run dev
 ```
+
+Before submitting:
+
+```bash
+cd frontend
+npm run build
+```
+
+### Contribution Guidelines
+
+- Keep demo mode reliable without paid APIs.
+- Do not commit real environment variables.
+- Preserve Hindi/English language support.
+- Keep UI accessible and mobile-first.
+- Prefer reusable components over one-off UI.
+- Explain user impact in pull requests.
+
+---
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
+RozgaarAI is released under the [MIT License](./LICENSE).
+
+---
+
+## Acknowledgements
+
+RozgaarAI is inspired by India's Digital Public Infrastructure, worker-first social-impact platforms, DigiLocker-style digital credentials, modern AI copilots, and the everyday skill and resilience of India's informal workforce.
+
+Built with React, Vite, Tailwind CSS, Firebase Authentication, FastAPI, QR code tooling, and AI-ready service abstractions.
+
+---
+
+<p align="center">
+  <strong>Every worker deserves a trusted digital identity.</strong>
+</p>
+
+<p align="center">
+  RozgaarAI transforms experience into opportunity.
+</p>
