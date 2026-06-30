@@ -1,0 +1,1219 @@
+[
+  {
+    "id": "RZG-PLU-DEL-001",
+    "title": "Residential Plumber for Apartment Maintenance",
+    "city": "Delhi",
+    "skill": "Plumber",
+    "wageRange": {
+      "min": 22000,
+      "max": 30000,
+      "period": "Monthly"
+    },
+    "employerName": "Dwarka Homes Welfare Association",
+    "employerType": "Apartment society",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Leak repair",
+      "CP fittings",
+      "Water motor service"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 92,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Weekly off",
+      "Local service calls",
+      "Tool allowance"
+    ]
+  },
+  {
+    "id": "RZG-PLU-MUM-002",
+    "title": "Emergency Plumbing Technician",
+    "city": "Mumbai",
+    "skill": "Plumber",
+    "wageRange": {
+      "min": 28000,
+      "max": 38000,
+      "period": "Monthly"
+    },
+    "employerName": "QuickFix Urban Services",
+    "employerType": "Service company",
+    "requiredExperience": 3,
+    "requiredSkills": [
+      "Bathroom fittings",
+      "Drain blockage",
+      "Customer handling"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Marathi"
+    ],
+    "safetyScore": 88,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Incentives",
+      "Travel reimbursement"
+    ]
+  },
+  {
+    "id": "RZG-PLU-BLR-003",
+    "title": "Plumber for Gated Community",
+    "city": "Bengaluru",
+    "skill": "Plumber",
+    "wageRange": {
+      "min": 26000,
+      "max": 34000,
+      "period": "Monthly"
+    },
+    "employerName": "Sarjapur Facility Partners",
+    "employerType": "Facility management",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Pipeline repair",
+      "Water purifier installation",
+      "Basic English"
+    ],
+    "languagePreference": [
+      "Kannada",
+      "Hindi",
+      "Basic English"
+    ],
+    "safetyScore": 86,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Uniform",
+      "ESI support"
+    ]
+  },
+  {
+    "id": "RZG-PLU-LKO-004",
+    "title": "Daily Plumbing Helper",
+    "city": "Lucknow",
+    "skill": "Plumber",
+    "wageRange": {
+      "min": 700,
+      "max": 950,
+      "period": "Daily"
+    },
+    "employerName": "Local Contractor Network",
+    "employerType": "Contractor",
+    "requiredExperience": 1,
+    "requiredSkills": [
+      "Pipe cutting",
+      "Site assistance",
+      "Tool handling"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 69,
+    "status": "Unverified",
+    "addressAvailable": false,
+    "contactQuality": "Average",
+    "perks": [
+      "Daily payout"
+    ]
+  },
+  {
+    "id": "RZG-ELE-DEL-005",
+    "title": "Electrician for Retail Store Chain",
+    "city": "Delhi",
+    "skill": "Electrician",
+    "wageRange": {
+      "min": 25000,
+      "max": 34000,
+      "period": "Monthly"
+    },
+    "employerName": "North Retail Facilities",
+    "employerType": "Retail facility team",
+    "requiredExperience": 3,
+    "requiredSkills": [
+      "Wiring",
+      "MCB",
+      "Preventive maintenance"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Basic English"
+    ],
+    "safetyScore": 90,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Safety gear",
+      "Overtime"
+    ]
+  },
+  {
+    "id": "RZG-ELE-BLR-006",
+    "title": "Home Appliance Electrician",
+    "city": "Bengaluru",
+    "skill": "Electrician",
+    "wageRange": {
+      "min": 28000,
+      "max": 42000,
+      "period": "Monthly"
+    },
+    "employerName": "Namma Repairs",
+    "employerType": "Service marketplace",
+    "requiredExperience": 4,
+    "requiredSkills": [
+      "Fan repair",
+      "Switchboard",
+      "Customer visits"
+    ],
+    "languagePreference": [
+      "Kannada",
+      "Hindi",
+      "Basic English"
+    ],
+    "safetyScore": 91,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Incentives",
+      "App training"
+    ]
+  },
+  {
+    "id": "RZG-ELE-PUN-007",
+    "title": "Society Maintenance Electrician",
+    "city": "Pune",
+    "skill": "Electrician",
+    "wageRange": {
+      "min": 24000,
+      "max": 31000,
+      "period": "Monthly"
+    },
+    "employerName": "Baner Residency Association",
+    "employerType": "Apartment society",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Lighting",
+      "DG panel basics",
+      "Complaint register"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Marathi"
+    ],
+    "safetyScore": 84,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Weekly off",
+      "Festival bonus"
+    ]
+  },
+  {
+    "id": "RZG-ELE-JAI-008",
+    "title": "Construction Site Electrician",
+    "city": "Jaipur",
+    "skill": "Electrician",
+    "wageRange": {
+      "min": 850,
+      "max": 1200,
+      "period": "Daily"
+    },
+    "employerName": "PinkCity Build Works",
+    "employerType": "Construction contractor",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Conduit wiring",
+      "Site safety",
+      "Temporary connections"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 72,
+    "status": "Unverified",
+    "addressAvailable": true,
+    "contactQuality": "Average",
+    "perks": [
+      "Weekly payout"
+    ]
+  },
+  {
+    "id": "RZG-DRV-MUM-009",
+    "title": "Commercial Car Driver",
+    "city": "Mumbai",
+    "skill": "Driver",
+    "wageRange": {
+      "min": 26000,
+      "max": 36000,
+      "period": "Monthly"
+    },
+    "employerName": "MetroFleet Logistics",
+    "employerType": "Fleet operator",
+    "requiredExperience": 3,
+    "requiredSkills": [
+      "LMV license",
+      "City routes",
+      "Trip logs"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Marathi"
+    ],
+    "safetyScore": 93,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Fuel card",
+      "Overtime",
+      "Insurance"
+    ]
+  },
+  {
+    "id": "RZG-DRV-DEL-010",
+    "title": "Family Driver",
+    "city": "Delhi",
+    "skill": "Driver",
+    "wageRange": {
+      "min": 23000,
+      "max": 32000,
+      "period": "Monthly"
+    },
+    "employerName": "Verified Family Network",
+    "employerType": "Household employer",
+    "requiredExperience": 4,
+    "requiredSkills": [
+      "Defensive driving",
+      "School pickup",
+      "Reference check"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 89,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Weekly off",
+      "Meals"
+    ]
+  },
+  {
+    "id": "RZG-DRV-HYD-011",
+    "title": "Light Commercial Vehicle Driver",
+    "city": "Hyderabad",
+    "skill": "Driver",
+    "wageRange": {
+      "min": 24000,
+      "max": 34000,
+      "period": "Monthly"
+    },
+    "employerName": "Hitech Supply Chain",
+    "employerType": "Logistics company",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Goods delivery",
+      "Route planning",
+      "Basic phone apps"
+    ],
+    "languagePreference": [
+      "Telugu",
+      "Hindi"
+    ],
+    "safetyScore": 87,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Incentives",
+      "Night allowance"
+    ]
+  },
+  {
+    "id": "RZG-DRV-KOL-012",
+    "title": "Part-time Driver",
+    "city": "Kolkata",
+    "skill": "Driver",
+    "wageRange": {
+      "min": 900,
+      "max": 1300,
+      "period": "Daily"
+    },
+    "employerName": "Event Mobility Desk",
+    "employerType": "Event agency",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Local routes",
+      "Polite communication",
+      "Valid license"
+    ],
+    "languagePreference": [
+      "Bengali",
+      "Hindi"
+    ],
+    "safetyScore": 65,
+    "status": "Unverified",
+    "addressAvailable": false,
+    "contactQuality": "Poor",
+    "perks": [
+      "Same-day payout"
+    ]
+  },
+  {
+    "id": "RZG-CON-HYD-013",
+    "title": "Masonry Helper",
+    "city": "Hyderabad",
+    "skill": "Construction Worker",
+    "wageRange": {
+      "min": 750,
+      "max": 1050,
+      "period": "Daily"
+    },
+    "employerName": "SafeBuild Contractors",
+    "employerType": "Construction contractor",
+    "requiredExperience": 1,
+    "requiredSkills": [
+      "Material mixing",
+      "Brick support",
+      "Site safety"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Telugu"
+    ],
+    "safetyScore": 82,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Safety gear",
+      "Weekly payout"
+    ]
+  },
+  {
+    "id": "RZG-CON-DEL-014",
+    "title": "Construction Site Supervisor Helper",
+    "city": "Delhi",
+    "skill": "Construction Worker",
+    "wageRange": {
+      "min": 18000,
+      "max": 24000,
+      "period": "Monthly"
+    },
+    "employerName": "NCR Infra Crew",
+    "employerType": "Infrastructure contractor",
+    "requiredExperience": 3,
+    "requiredSkills": [
+      "Material tracking",
+      "Labour coordination",
+      "Safety compliance"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 78,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Helmet",
+      "Attendance bonus"
+    ]
+  },
+  {
+    "id": "RZG-CON-MUM-015",
+    "title": "Tile Fitting Worker",
+    "city": "Mumbai",
+    "skill": "Construction Worker",
+    "wageRange": {
+      "min": 950,
+      "max": 1500,
+      "period": "Daily"
+    },
+    "employerName": "Western Renovation Works",
+    "employerType": "Renovation contractor",
+    "requiredExperience": 3,
+    "requiredSkills": [
+      "Tile cutting",
+      "Leveling",
+      "Finishing"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Marathi"
+    ],
+    "safetyScore": 76,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Average",
+    "perks": [
+      "Weekly payout",
+      "Tools shared"
+    ]
+  },
+  {
+    "id": "RZG-CON-JAI-016",
+    "title": "General Site Labour",
+    "city": "Jaipur",
+    "skill": "Construction Worker",
+    "wageRange": {
+      "min": 600,
+      "max": 850,
+      "period": "Daily"
+    },
+    "employerName": "Unknown Site Contact",
+    "employerType": "Individual contractor",
+    "requiredExperience": 0,
+    "requiredSkills": [
+      "Loading",
+      "Cleaning",
+      "Basic site work"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 54,
+    "status": "Unverified",
+    "addressAvailable": false,
+    "contactQuality": "Poor",
+    "perks": [
+      "Daily payout"
+    ]
+  },
+  {
+    "id": "RZG-DOM-DEL-017",
+    "title": "Full-time Domestic Worker",
+    "city": "Delhi",
+    "skill": "Domestic Worker",
+    "wageRange": {
+      "min": 17000,
+      "max": 23000,
+      "period": "Monthly"
+    },
+    "employerName": "Verified Family Network",
+    "employerType": "Household employer",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Cleaning",
+      "Cooking support",
+      "Elderly care"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 94,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Weekly off",
+      "Meals",
+      "Local reference"
+    ]
+  },
+  {
+    "id": "RZG-DOM-MUM-018",
+    "title": "Housekeeping Worker",
+    "city": "Mumbai",
+    "skill": "Domestic Worker",
+    "wageRange": {
+      "min": 19000,
+      "max": 27000,
+      "period": "Monthly"
+    },
+    "employerName": "Bandra Home Services",
+    "employerType": "Household staffing agency",
+    "requiredExperience": 3,
+    "requiredSkills": [
+      "Deep cleaning",
+      "Laundry",
+      "Child-safe work"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Marathi"
+    ],
+    "safetyScore": 86,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Paid leave",
+      "Replacement support"
+    ]
+  },
+  {
+    "id": "RZG-DOM-BLR-019",
+    "title": "Live-out Domestic Helper",
+    "city": "Bengaluru",
+    "skill": "Domestic Worker",
+    "wageRange": {
+      "min": 18000,
+      "max": 26000,
+      "period": "Monthly"
+    },
+    "employerName": "Indiranagar Family Circle",
+    "employerType": "Household employer",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Cleaning",
+      "Basic cooking",
+      "Apartment etiquette"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Kannada",
+      "Basic English"
+    ],
+    "safetyScore": 83,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Weekly off"
+    ]
+  },
+  {
+    "id": "RZG-DOM-LKO-020",
+    "title": "Part-time Home Helper",
+    "city": "Lucknow",
+    "skill": "Domestic Worker",
+    "wageRange": {
+      "min": 9000,
+      "max": 14000,
+      "period": "Monthly"
+    },
+    "employerName": "Local Home Lead",
+    "employerType": "Individual household",
+    "requiredExperience": 1,
+    "requiredSkills": [
+      "Sweeping",
+      "Utensils",
+      "Laundry"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 62,
+    "status": "Unverified",
+    "addressAvailable": false,
+    "contactQuality": "Average",
+    "perks": [
+      "Flexible hours"
+    ]
+  },
+  {
+    "id": "RZG-COO-PUN-021",
+    "title": "North Indian Home Cook",
+    "city": "Pune",
+    "skill": "Cook",
+    "wageRange": {
+      "min": 18000,
+      "max": 26000,
+      "period": "Monthly"
+    },
+    "employerName": "Kalyani Nagar Family",
+    "employerType": "Household employer",
+    "requiredExperience": 3,
+    "requiredSkills": [
+      "North Indian meals",
+      "Kitchen hygiene",
+      "Menu planning"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Marathi"
+    ],
+    "safetyScore": 89,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Weekly off",
+      "Meals"
+    ]
+  },
+  {
+    "id": "RZG-COO-DEL-022",
+    "title": "Tiffin Kitchen Cook",
+    "city": "Delhi",
+    "skill": "Cook",
+    "wageRange": {
+      "min": 22000,
+      "max": 32000,
+      "period": "Monthly"
+    },
+    "employerName": "Healthy Tiffin Co.",
+    "employerType": "Cloud kitchen",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Bulk cooking",
+      "Food hygiene",
+      "Morning shift"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 84,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Breakfast",
+      "Performance bonus"
+    ]
+  },
+  {
+    "id": "RZG-COO-CHE-023",
+    "title": "South Indian Breakfast Cook",
+    "city": "Chennai",
+    "skill": "Cook",
+    "wageRange": {
+      "min": 20000,
+      "max": 30000,
+      "period": "Monthly"
+    },
+    "employerName": "Adyar Breakfast House",
+    "employerType": "Small restaurant",
+    "requiredExperience": 4,
+    "requiredSkills": [
+      "Dosa",
+      "Idli batter",
+      "Sambar preparation"
+    ],
+    "languagePreference": [
+      "Tamil",
+      "Hindi"
+    ],
+    "safetyScore": 81,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Meals",
+      "Shift allowance"
+    ]
+  },
+  {
+    "id": "RZG-COO-KOL-024",
+    "title": "Home Cook",
+    "city": "Kolkata",
+    "skill": "Cook",
+    "wageRange": {
+      "min": 15000,
+      "max": 22000,
+      "period": "Monthly"
+    },
+    "employerName": "Salt Lake Home Lead",
+    "employerType": "Household employer",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Bengali meals",
+      "Vegetarian cooking",
+      "Clean kitchen"
+    ],
+    "languagePreference": [
+      "Bengali",
+      "Hindi"
+    ],
+    "safetyScore": 68,
+    "status": "Unverified",
+    "addressAvailable": true,
+    "contactQuality": "Average",
+    "perks": [
+      "Flexible timing"
+    ]
+  },
+  {
+    "id": "RZG-DEL-BLR-025",
+    "title": "E-commerce Delivery Partner",
+    "city": "Bengaluru",
+    "skill": "Delivery Worker",
+    "wageRange": {
+      "min": 23000,
+      "max": 36000,
+      "period": "Monthly"
+    },
+    "employerName": "QuickKart Logistics",
+    "employerType": "Delivery platform",
+    "requiredExperience": 0,
+    "requiredSkills": [
+      "Two-wheeler",
+      "Smartphone use",
+      "Route navigation"
+    ],
+    "languagePreference": [
+      "Kannada",
+      "Hindi",
+      "Basic English"
+    ],
+    "safetyScore": 88,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Incentives",
+      "Accident cover"
+    ]
+  },
+  {
+    "id": "RZG-DEL-MUM-026",
+    "title": "Grocery Delivery Worker",
+    "city": "Mumbai",
+    "skill": "Delivery Worker",
+    "wageRange": {
+      "min": 24000,
+      "max": 38000,
+      "period": "Monthly"
+    },
+    "employerName": "FreshBasket Hub",
+    "employerType": "Retail delivery hub",
+    "requiredExperience": 0,
+    "requiredSkills": [
+      "Bike riding",
+      "Cash handling",
+      "Customer updates"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Marathi"
+    ],
+    "safetyScore": 86,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Weekly payout",
+      "Rain incentive"
+    ]
+  },
+  {
+    "id": "RZG-DEL-AHD-027",
+    "title": "Pharmacy Delivery Associate",
+    "city": "Ahmedabad",
+    "skill": "Delivery Worker",
+    "wageRange": {
+      "min": 19000,
+      "max": 29000,
+      "period": "Monthly"
+    },
+    "employerName": "MediRun Local",
+    "employerType": "Pharmacy chain",
+    "requiredExperience": 1,
+    "requiredSkills": [
+      "Address verification",
+      "Polite communication",
+      "Digital payment"
+    ],
+    "languagePreference": [
+      "Gujarati",
+      "Hindi"
+    ],
+    "safetyScore": 82,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Fuel support"
+    ]
+  },
+  {
+    "id": "RZG-DEL-LKO-028",
+    "title": "Courier Delivery Boy",
+    "city": "Lucknow",
+    "skill": "Delivery Worker",
+    "wageRange": {
+      "min": 16000,
+      "max": 26000,
+      "period": "Monthly"
+    },
+    "employerName": "Unknown Courier Lead",
+    "employerType": "Small courier franchise",
+    "requiredExperience": 0,
+    "requiredSkills": [
+      "Bike riding",
+      "Parcel sorting",
+      "Phone calls"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 58,
+    "status": "Unverified",
+    "addressAvailable": false,
+    "contactQuality": "Poor",
+    "perks": [
+      "Joining bonus claimed"
+    ]
+  },
+  {
+    "id": "RZG-TAI-DEL-029",
+    "title": "Ladies Boutique Tailor",
+    "city": "Delhi",
+    "skill": "Tailor",
+    "wageRange": {
+      "min": 18000,
+      "max": 28000,
+      "period": "Monthly"
+    },
+    "employerName": "Lajpat Boutique Studio",
+    "employerType": "Boutique",
+    "requiredExperience": 3,
+    "requiredSkills": [
+      "Blouse stitching",
+      "Alterations",
+      "Measurements"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 87,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Piece-rate bonus"
+    ]
+  },
+  {
+    "id": "RZG-TAI-JAI-030",
+    "title": "Garment Unit Tailor",
+    "city": "Jaipur",
+    "skill": "Tailor",
+    "wageRange": {
+      "min": 16000,
+      "max": 24000,
+      "period": "Monthly"
+    },
+    "employerName": "Sanganer Garment Unit",
+    "employerType": "Small manufacturer",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Machine stitching",
+      "Finishing",
+      "Quality check"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 79,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Attendance bonus"
+    ]
+  },
+  {
+    "id": "RZG-TAI-MUM-031",
+    "title": "Alteration Tailor",
+    "city": "Mumbai",
+    "skill": "Tailor",
+    "wageRange": {
+      "min": 21000,
+      "max": 32000,
+      "period": "Monthly"
+    },
+    "employerName": "Andheri Alteration Desk",
+    "employerType": "Retail tailoring shop",
+    "requiredExperience": 4,
+    "requiredSkills": [
+      "Pant alteration",
+      "Dress fitting",
+      "Customer measurements"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Marathi"
+    ],
+    "safetyScore": 83,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Piece incentives"
+    ]
+  },
+  {
+    "id": "RZG-TAI-KOL-032",
+    "title": "Home-based Stitching Work",
+    "city": "Kolkata",
+    "skill": "Tailor",
+    "wageRange": {
+      "min": 12000,
+      "max": 20000,
+      "period": "Monthly"
+    },
+    "employerName": "Local Stitching Aggregator",
+    "employerType": "Work-from-home aggregator",
+    "requiredExperience": 1,
+    "requiredSkills": [
+      "Basic stitching",
+      "Timely delivery",
+      "Own machine"
+    ],
+    "languagePreference": [
+      "Bengali",
+      "Hindi"
+    ],
+    "safetyScore": 57,
+    "status": "Unverified",
+    "addressAvailable": false,
+    "contactQuality": "Poor",
+    "perks": [
+      "Work from home"
+    ]
+  },
+  {
+    "id": "RZG-BEA-DEL-033",
+    "title": "Salon Beautician",
+    "city": "Delhi",
+    "skill": "Beautician",
+    "wageRange": {
+      "min": 20000,
+      "max": 32000,
+      "period": "Monthly"
+    },
+    "employerName": "GlowCare Salon",
+    "employerType": "Salon",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Threading",
+      "Facial",
+      "Customer care"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Basic English"
+    ],
+    "safetyScore": 90,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Tips",
+      "Training"
+    ]
+  },
+  {
+    "id": "RZG-BEA-PUN-034",
+    "title": "Home Service Beautician",
+    "city": "Pune",
+    "skill": "Beautician",
+    "wageRange": {
+      "min": 22000,
+      "max": 38000,
+      "period": "Monthly"
+    },
+    "employerName": "Urban Grooming Collective",
+    "employerType": "Home service platform",
+    "requiredExperience": 3,
+    "requiredSkills": [
+      "Waxing",
+      "Facial kits",
+      "App bookings"
+    ],
+    "languagePreference": [
+      "Hindi",
+      "Marathi",
+      "Basic English"
+    ],
+    "safetyScore": 85,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Travel reimbursement",
+      "Incentives"
+    ]
+  },
+  {
+    "id": "RZG-BEA-CHE-035",
+    "title": "Bridal Makeup Assistant",
+    "city": "Chennai",
+    "skill": "Beautician",
+    "wageRange": {
+      "min": 18000,
+      "max": 30000,
+      "period": "Monthly"
+    },
+    "employerName": "Mylapore Bridal Studio",
+    "employerType": "Beauty studio",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Hair setting",
+      "Makeup prep",
+      "Client coordination"
+    ],
+    "languagePreference": [
+      "Tamil",
+      "Hindi"
+    ],
+    "safetyScore": 78,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Event bonus"
+    ]
+  },
+  {
+    "id": "RZG-BEA-LKO-036",
+    "title": "Parlour Assistant",
+    "city": "Lucknow",
+    "skill": "Beautician",
+    "wageRange": {
+      "min": 11000,
+      "max": 18000,
+      "period": "Monthly"
+    },
+    "employerName": "Unknown Parlour Lead",
+    "employerType": "Small parlour",
+    "requiredExperience": 0,
+    "requiredSkills": [
+      "Threading basics",
+      "Cleaning",
+      "Customer greeting"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 60,
+    "status": "Unverified",
+    "addressAvailable": false,
+    "contactQuality": "Average",
+    "perks": [
+      "Training promised"
+    ]
+  },
+  {
+    "id": "RZG-SEC-DEL-037",
+    "title": "Apartment Security Guard",
+    "city": "Delhi",
+    "skill": "Security Guard",
+    "wageRange": {
+      "min": 17000,
+      "max": 23000,
+      "period": "Monthly"
+    },
+    "employerName": "NCR Secure Services",
+    "employerType": "Security agency",
+    "requiredExperience": 1,
+    "requiredSkills": [
+      "Gate register",
+      "Visitor management",
+      "Night shift"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 88,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Uniform",
+      "PF support"
+    ]
+  },
+  {
+    "id": "RZG-SEC-BLR-038",
+    "title": "Office Security Guard",
+    "city": "Bengaluru",
+    "skill": "Security Guard",
+    "wageRange": {
+      "min": 19000,
+      "max": 26000,
+      "period": "Monthly"
+    },
+    "employerName": "TechPark Secure",
+    "employerType": "Security agency",
+    "requiredExperience": 2,
+    "requiredSkills": [
+      "Access control",
+      "Basic English",
+      "CCTV watch"
+    ],
+    "languagePreference": [
+      "Kannada",
+      "Hindi",
+      "Basic English"
+    ],
+    "safetyScore": 91,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Strong",
+    "perks": [
+      "Uniform",
+      "Night allowance"
+    ]
+  },
+  {
+    "id": "RZG-SEC-AHD-039",
+    "title": "Warehouse Security Guard",
+    "city": "Ahmedabad",
+    "skill": "Security Guard",
+    "wageRange": {
+      "min": 16000,
+      "max": 22000,
+      "period": "Monthly"
+    },
+    "employerName": "Gujarat Warehousing Hub",
+    "employerType": "Warehouse operator",
+    "requiredExperience": 1,
+    "requiredSkills": [
+      "Entry log",
+      "Patrolling",
+      "Basic phone use"
+    ],
+    "languagePreference": [
+      "Gujarati",
+      "Hindi"
+    ],
+    "safetyScore": 80,
+    "status": "Verified",
+    "addressAvailable": true,
+    "contactQuality": "Good",
+    "perks": [
+      "Tea allowance"
+    ]
+  },
+  {
+    "id": "RZG-SEC-JAI-040",
+    "title": "Event Security Guard",
+    "city": "Jaipur",
+    "skill": "Security Guard",
+    "wageRange": {
+      "min": 650,
+      "max": 900,
+      "period": "Daily"
+    },
+    "employerName": "Unknown Event Staffing",
+    "employerType": "Event contractor",
+    "requiredExperience": 0,
+    "requiredSkills": [
+      "Crowd support",
+      "Standing duty",
+      "ID checking"
+    ],
+    "languagePreference": [
+      "Hindi"
+    ],
+    "safetyScore": 55,
+    "status": "Unverified",
+    "addressAvailable": false,
+    "contactQuality": "Poor",
+    "perks": [
+      "Daily payout"
+    ]
+  }
+]
