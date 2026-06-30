@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="frontend/src/assets/brand/rozgaarai-logo-full.png" alt="RozgaarAI Logo" width="220" />
+  <img src="frontend/src/assets/brand/rozgaarai-logo-full.png" alt="RozgaarAI Logo" width="700" />
 </p>
 
 <h1 align="center">RozgaarAI</h1>
