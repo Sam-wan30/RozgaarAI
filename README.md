@@ -28,8 +28,6 @@
 <p align="center">
   <a href="https://rozgaarai.vercel.app"><strong>Live Demo</strong></a>
   ·
-  <a href="./HACKATHON_SUBMISSION.md"><strong>Presentation</strong></a>
-  ·
   <a href="./HACKATHON_SUBMISSION.md"><strong>Demo Video</strong></a>
   ·
   <a href="./DEPLOYMENT.md"><strong>Documentation</strong></a>
