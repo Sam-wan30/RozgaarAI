@@ -60,29 +60,6 @@
 
 ---
 
-## Product Preview
-
-> [!NOTE]
-> Add final product screenshots to `docs/screenshots/` before public submission. The app is already built with deploy-ready routes and polished UI states; these placeholders document the recommended showcase set.
-
-| Landing Page | Digital Career Identity |
-| --- | --- |
-| ![Landing Page](docs/screenshots/landing-page.png) | ![Digital Career Identity](docs/screenshots/digital-career-identity.png) |
-
-| Worker Workspace | Work & Income Passport |
-| --- | --- |
-| ![Worker Workspace](docs/screenshots/worker-workspace.png) | ![Income Passport](docs/screenshots/income-passport.png) |
-
-| Employer Dashboard | Resume Preview |
-| --- | --- |
-| ![Employer Dashboard](docs/screenshots/employer-dashboard.png) | ![Resume Preview](docs/screenshots/resume-preview.png) |
-
-| Interview Coach | Product Walkthrough |
-| --- | --- |
-| ![Interview Coach](docs/screenshots/interview-coach.png) | ![RozgaarAI Walkthrough](docs/screenshots/product-walkthrough.gif) |
-
----
-
 ## About RozgaarAI
 
 India's informal workforce powers homes, construction sites, transport networks, local businesses, housing societies, and urban services. Yet millions of skilled workers remain excluded from formal digital employment systems because their experience is difficult to verify, package, and share.
