@@ -1,4 +1,8 @@
-# <div align="center">RozgaarAI</div>
+<p align="center">
+  <img src="frontend/src/assets/brand/rozgaarai-logo-full.png" alt="RozgaarAI Logo" width="220" />
+</p>
+
+<h1 align="center">RozgaarAI</h1>
 
 <p align="center">
   <strong>Digital Career Identity & Income Passport for India's Informal Workforce</strong>
