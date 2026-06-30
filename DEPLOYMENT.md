@@ -60,7 +60,44 @@ VITE_SUPABASE_ANON_KEY=
 
 For local development, copy `frontend/.env.example` to `frontend/.env` and fill in the same Firebase values.
 
-## 4. Deploy
+## 4. Deploy Backend On Render
+
+1. Open [Render](https://render.com).
+2. Click **New +**.
+3. Choose **Web Service**.
+4. Select the GitHub repository.
+5. Use these settings:
+
+```text
+Name: rozgaarai-backend
+Root Directory: backend
+Runtime: Python 3
+Build Command: pip install -r requirements.txt
+Start Command: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+```
+
+6. Add these environment variables:
+
+```bash
+PYTHON_VERSION=3.11.9
+ALLOWED_ORIGINS=https://your-vercel-domain.vercel.app
+OPENAI_API_KEY=
+GEMINI_API_KEY=
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+DATABASE_URL=
+```
+
+`PYTHON_VERSION=3.11.9` is important. It prevents Render from using Python 3.14, which can force `pydantic-core` to compile from source and fail during deployment.
+
+7. Click **Deploy Web Service**.
+8. After deploy, test:
+
+```text
+https://your-render-backend.onrender.com/docs
+```
+
+## 5. Deploy Frontend On Vercel
 
 1. Click **Deploy** in Vercel.
 2. Wait for the build to complete.
@@ -70,7 +107,15 @@ For local development, copy `frontend/.env.example` to `frontend/.env` and fill 
 https://rozgaarai-demo.vercel.app
 ```
 
-## 5. Add Firebase Authorized Domain
+After the backend is live, set this Vercel environment variable:
+
+```bash
+VITE_API_URL=https://your-render-backend.onrender.com
+```
+
+Then redeploy the frontend.
+
+## 6. Add Firebase Authorized Domain
 
 Google Sign-In will not work until Firebase trusts the deployed domain.
 
@@ -86,7 +131,7 @@ your-vercel-domain.vercel.app
 
 If you use a custom domain, add that domain too.
 
-## 6. Test Routes After Deployment
+## 7. Test Routes After Deployment
 
 Verify these routes load directly and after refresh:
 
@@ -109,7 +154,7 @@ The Vercel rewrite rule sends all routes to the Vite SPA entry point:
 }
 ```
 
-## 7. Final Deployment Checklist
+## 8. Final Deployment Checklist
 
 - Landing page loads.
 - Google Sign-In works.
@@ -146,3 +191,13 @@ Set this in Vercel:
 ```bash
 VITE_PUBLIC_APP_URL=https://your-vercel-domain.vercel.app
 ```
+
+### Render Build Fails On `pydantic-core`
+
+If Render logs show Python `3.14` and an error from `pydantic-core`, add this Render environment variable and redeploy:
+
+```bash
+PYTHON_VERSION=3.11.9
+```
+
+This repo also includes `backend/.python-version` with `3.11.9`.
