@@ -26,9 +26,9 @@
 </p>
 
 <p align="center">
-  <a href="https://rozgaarai.vercel.app"><strong>Live Demo</strong></a>
+  <a href="https://rozgaar-ai-weld.vercel.app/"><strong>Live Demo</strong></a>
   ·
-  <a href="./HACKATHON_SUBMISSION.md"><strong>Demo Video</strong></a>
+  <a href="https://youtu.be/0cf03Kmxwoc?si=QvkaBHMBraieyF-Y"><strong>Demo Video</strong></a>
   ·
   <a href="./DEPLOYMENT.md"><strong>Documentation</strong></a>
 </p>
