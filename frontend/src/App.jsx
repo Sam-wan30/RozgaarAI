@@ -64,6 +64,7 @@ import {
   Zap
 } from "lucide-react";
 import { QRCodeCanvas } from "qrcode.react";
+import QRCode from "qrcode";
 import { useEffect, useMemo, useRef, useState } from "react";
 import heroImage from "./assets/rozgaar-hero.png";
 import informalWorkerOrbit from "./assets/orbit .png";
@@ -126,6 +127,13 @@ import {
   signOutFirebaseAuth,
   subscribeToFirebaseAuth
 } from "./lib/firebaseAuth";
+import {
+  defaultShareSettings,
+  getPublicWorkerById,
+  getPublicWorkerByIdSync,
+  getWorkerIdFromPublicPath,
+  getWorkerPublicProfileUrl
+} from "./lib/publicWorkerProfile";
 import { resolveRouteAccess } from "./lib/routeGuards";
 import { getDefaultRouteForRole, normalizeAccountRole, normalizeRole, resolvePostAuthRoute, ROLES } from "./lib/roles";
 
@@ -930,6 +938,7 @@ export default function App() {
   const [footerEmail, setFooterEmail] = useState("");
   const [cardExportStepIndex, setCardExportStepIndex] = useState(-1);
   const [routePath, setRoutePath] = useState(() => (typeof window === "undefined" ? "/" : window.location.pathname));
+  const [publicWorkerRouteLookup, setPublicWorkerRouteLookup] = useState(null);
   const [activeWorkspaceTab, setActiveWorkspaceTab] = useState("overview");
   const [onboardingStep, setOnboardingStep] = useState("input");
   const [jobFilters, setJobFilters] = useState({ role: "", city: "", verifiedOnly: false, sort: "match" });
@@ -2548,7 +2557,11 @@ export default function App() {
     const generatedResume = localResume({ ...resumeWorker, uiLanguage: "en", preferredLanguage: "en" });
     const sections = generatedResume.sections || [];
     const summary = sections[0]?.body || resumeIdentity.resumeSummary || "";
-    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=128x128&data=${encodeURIComponent(resumeIdentity.profileUrl || publicProfileUrl)}`;
+    const qrUrl = await QRCode.toDataURL(resumeIdentity.profileUrl || publicProfileUrl, {
+      errorCorrectionLevel: "H",
+      margin: 2,
+      width: 256
+    });
     const skills = [roleLabelEnglish(resumeWorker.skill), ...(resumeIdentity.secondarySkills || secondarySkills || [])].slice(0, 6);
     const pdfWorkRecords = (identityPageRecords.length ? identityPageRecords.slice(0, 4) : [{
       id: "SELF-RECORDED",
@@ -2967,12 +2980,11 @@ export default function App() {
   const cityLabelEnglish = (city) => translateOption("cityLabels", city, "en");
   const notAvailableEnglish = translations.en.notAvailable || "Not available";
   const fairWageText = wage ? `₹${wage.low.toLocaleString("en-IN")}-₹${wage.high.toLocaleString("en-IN")}` : t.notAvailable;
-  const publicAppUrl = (import.meta.env.VITE_PUBLIC_APP_URL || (typeof window !== "undefined" ? window.location.origin : "")).replace(/\/$/, "");
-  const publicProfileUrl = `${publicAppUrl}/public/${encodeURIComponent(resolvedWorkerId)}`;
+  const publicProfileUrl = getWorkerPublicProfileUrl(resolvedWorkerId);
   const workRecords = wageEntries.length ? wageEntries : [];
   const incomeSummary = summarizeIncome(workRecords);
   const monthlyIncomeTimeline = Object.entries(incomeSummary.monthly);
-  const passportVerificationUrl = `${publicAppUrl}/public/${encodeURIComponent(resolvedWorkerId)}#employment`;
+  const passportVerificationUrl = `${publicProfileUrl}#employment`;
   const careerIdentity = {
     name: worker.name || t.emptyWorkerName,
     occupation: worker.skill ? roleLabel(worker.skill) : t.notAvailable,
@@ -2996,8 +3008,15 @@ export default function App() {
     resumeSummary: localizedSummary,
     incomeThisMonth: formatCurrency(incomeSummary.totalIncome),
     employmentRecords: workRecords.length,
-    interviewReadiness: hasGeneratedProfile ? `${interviewReadiness}%` : t.notAvailable,
-    statusBadges: activeDemoProfile?.badges?.map(demoBadgeLabel) || [
+    workRecords: workRecords.slice(0, 5),
+    certificates: profile?.certificates || [],
+	    interviewReadiness: hasGeneratedProfile ? `${interviewReadiness}%` : t.notAvailable,
+	    shareSettings: {
+	      ...defaultShareSettings,
+	      ...(profile?.shareSettings || worker.shareSettings || {})
+	    },
+	    publicStatus: profile?.publicStatus || worker.publicStatus || "active",
+	    statusBadges: activeDemoProfile?.badges?.map(demoBadgeLabel) || [
       t.careerIdentity.statusVerified,
       t.careerIdentity.statusAvailable,
       `${t.careerIdentity.statusInterview}${activeDemoProfile?.interviewScore ? ` ${activeDemoProfile.interviewScore}%` : ""}`,
@@ -3054,7 +3073,7 @@ export default function App() {
     matchingJobs: 12,
     nearbyOpportunities: t.careerIdentity.nearbyOpportunitiesValue,
     suggestedSkillUpgrade: "Electrical safety certification",
-    profileUrl: `${publicAppUrl}/worker/RZG-DEL-ELC-7895`,
+    profileUrl: getWorkerPublicProfileUrl("RZG-DEL-ELC-7895"),
     contact: "9876507895",
     resumeSummary: "Verified electrician with four years of experience in residential wiring, switchboard repair, appliance checks, and safe maintenance work.",
     incomeThisMonth: "₹32,000",
@@ -3344,11 +3363,32 @@ export default function App() {
   const scopedUserProfiles = account ? userProfiles.filter((item) => item.userId === accountUserId(account)) : userProfiles;
   const latestUserProfile = [...scopedUserProfiles].sort((a, b) => new Date(b.updatedAt || b.createdAt || 0) - new Date(a.updatedAt || a.createdAt || 0))[0];
   const routeWorkerId = routePath.startsWith("/worker/") || routePath.startsWith("/public/") || routePath.startsWith("/profile/")
-    ? decodeURIComponent(routePath.split("/").filter(Boolean).at(-1) || "")
+    ? getWorkerIdFromPublicPath(routePath)
     : "";
-  const routeUserProfile = account && routeWorkerId ? userProfiles.find((item) => item.workerId === routeWorkerId) : null;
+  useEffect(() => {
+    let active = true;
+    if (!routeWorkerId || !(routePath.startsWith("/public/") || routePath.startsWith("/profile/"))) {
+      setPublicWorkerRouteLookup(null);
+      return () => {
+        active = false;
+      };
+    }
+    getPublicWorkerById(routeWorkerId).then((result) => {
+      if (active) setPublicWorkerRouteLookup(result);
+    });
+    return () => {
+      active = false;
+    };
+  }, [routeWorkerId, routePath]);
+  const publicWorkerLookup = publicWorkerRouteLookup || (routeWorkerId ? getPublicWorkerByIdSync(routeWorkerId) : { status: "not-found", profile: null });
+  const publicWorkerRecord = publicWorkerLookup.profile;
+  const routeUserProfile = routeWorkerId ? (publicWorkerRecord?.source === "local" ? publicWorkerRecord : userProfiles.find((item) => item.workerId === routeWorkerId)) : null;
   const matchingDemoProfile = routeWorkerId ? demoProfiles.find((profileData) => profileData.workerId === routeWorkerId) : null;
   const routeDemoProfile = routeUserProfile ? null : matchingDemoProfile;
+  const routeStoredWorker = routeUserProfile?.worker || null;
+  const routeStoredRecords = routeUserProfile?.wageEntries || [];
+  const routeStoredSummary = summarizeIncome(routeStoredRecords);
+  const routeStoredMatches = routeUserProfile?.matches || [];
   const routeDemoRecords = routeDemoProfile ? incomePassports[routeDemoProfile.name] || [] : [];
   const routeDemoSummary = summarizeIncome(routeDemoRecords);
   const routeDemoMatch = routeDemoProfile ? createDemoJob(routeDemoProfile) : null;
@@ -3356,33 +3396,49 @@ export default function App() {
   const featuredJourneySummary = isLocalizedLanguage
     ? `${featuredJourneyProfile.name} ${cityLabel(featuredJourneyProfile.city)} के सत्यापित ${roleLabel(featuredJourneyProfile.skill)} हैं। उनके पास ${featuredJourneyProfile.experience} साल का अनुभव, दर्ज आय इतिहास और तैयार डिजिटल श्रमिक पहचान है।`
     : featuredJourneyProfile.notes || `${featuredJourneyProfile.name} is a verified ${featuredJourneyProfile.skill.toLowerCase()} from ${featuredJourneyProfile.city} with ${featuredJourneyProfile.experience} years of experience, recorded income history, and a ready digital worker identity.`;
-  const routePublicIdentity = routeDemoProfile ? {
-    name: routeDemoProfile.name,
-    occupation: roleLabel(routeDemoProfile.skill),
-    city: cityLabel(routeDemoProfile.city),
-    workerId: routeDemoProfile.workerId,
-    experience: `${routeDemoProfile.experience} ${t.common.years}`,
-    primarySkill: roleLabel(routeDemoProfile.skill),
-    secondarySkills: t.careerIdentity.secondarySkillSuggestions[routeDemoProfile.skill] || t.careerIdentity.secondarySkillSuggestions.default,
-    languages: routeDemoProfile.languages,
-    availability: routeDemoProfile.availability,
+  const routePublicWorker = routeDemoProfile || routeStoredWorker;
+  const routePublicRecords = routeDemoProfile ? routeDemoRecords : routeStoredRecords;
+  const routePublicSummary = routeDemoProfile ? routeDemoSummary : routeStoredSummary;
+  const routePublicMatches = routeDemoProfile ? localMatches(routeDemoProfile) : routeStoredMatches;
+  const routePublicIdentity = routePublicWorker ? {
+    name: routePublicWorker.name || t.emptyWorkerName,
+    occupation: routePublicWorker.skill ? roleLabel(routePublicWorker.skill) : t.notAvailable,
+    city: routePublicWorker.city ? cityLabel(routePublicWorker.city) : t.notAvailable,
+    workerId: routePublicWorker.workerId || routeWorkerId,
+    experience: routePublicWorker.experience ? `${routePublicWorker.experience} ${t.common.years}` : t.notAvailable,
+    primarySkill: routePublicWorker.skill ? roleLabel(routePublicWorker.skill) : t.notAvailable,
+    secondarySkills: t.careerIdentity.secondarySkillSuggestions[routePublicWorker.skill] || t.careerIdentity.secondarySkillSuggestions.default,
+    languages: routePublicWorker.languages || t.notAvailable,
+    availability: routePublicWorker.availability || t.notAvailable,
     preferredWorkType: t.careerIdentity.preferredWorkTypeValue,
-    expectedWage: `₹${Number(routeDemoProfile.expectedWage).toLocaleString("en-IN")}/${t.common.monthly}`,
-    fairWage: `₹${Math.round(routeDemoProfile.expectedWage * 0.9).toLocaleString("en-IN")}-₹${Math.round(routeDemoProfile.expectedWage * 1.12).toLocaleString("en-IN")}/${t.common.monthly}`,
-    skillConfidence: routeDemoProfile.readiness,
-    bestJobMatch: routeDemoProfile.jobMatch,
-    matchingJobs: localMatches(routeDemoProfile).length,
+    expectedWage: routePublicWorker.expectedWage ? `₹${Number(routePublicWorker.expectedWage).toLocaleString("en-IN")}/${t.common.monthly}` : t.notAvailable,
+    fairWage: routePublicWorker.expectedWage ? `₹${Math.round(routePublicWorker.expectedWage * 0.9).toLocaleString("en-IN")}-₹${Math.round(routePublicWorker.expectedWage * 1.12).toLocaleString("en-IN")}/${t.common.monthly}` : t.notAvailable,
+    skillConfidence: routePublicWorker.readiness || routePublicMatches[0]?.score || 90,
+    bestJobMatch: routePublicWorker.jobMatch || routePublicMatches[0]?.score || 0,
+    matchingJobs: routePublicMatches.length,
     nearbyOpportunities: t.careerIdentity.nearbyOpportunitiesValue,
-    suggestedSkillUpgrade: t.careerIdentity.skillUpgradeSuggestions[routeDemoProfile.skill] || t.careerIdentity.skillUpgradeSuggestions.default,
-    profileUrl: `${publicAppUrl}/public/${encodeURIComponent(routeDemoProfile.workerId)}`,
-    contact: routeDemoProfile.phone,
-    resumeSummary: routeDemoProfile.notes,
-    incomeThisMonth: formatCurrency(routeDemoSummary.totalIncome),
-    employmentRecords: routeDemoRecords.length,
-    interviewReadiness: `${routeDemoProfile.interviewScore}%`,
-    statusBadges: routeDemoProfile.badges.map(demoBadgeLabel),
+    suggestedSkillUpgrade: t.careerIdentity.skillUpgradeSuggestions[routePublicWorker.skill] || t.careerIdentity.skillUpgradeSuggestions.default,
+    profileUrl: getWorkerPublicProfileUrl(routePublicWorker.workerId || routeWorkerId),
+    contact: routePublicWorker.phone || t.notAvailable,
+    resumeSummary: routeUserProfile?.profile?.summary || routePublicWorker.notes || t.emptyProfileSummary,
+    incomeThisMonth: formatCurrency(routePublicSummary.totalIncome),
+    employmentRecords: routePublicRecords.length,
+    workRecords: routePublicRecords.slice(0, 5),
+    certificates: routeUserProfile?.certificates || routePublicWorker.certificates || [],
+    interviewReadiness: routePublicWorker.interviewScore ? `${routePublicWorker.interviewScore}%` : t.notAvailable,
+    shareSettings: {
+      ...defaultShareSettings,
+      ...(routeUserProfile?.shareSettings || routePublicWorker.shareSettings || {})
+    },
+    publicStatus: routeUserProfile?.publicStatus || routePublicWorker.publicStatus || "active",
+    statusBadges: (routePublicWorker.badges || [
+      t.careerIdentity.statusVerified,
+      t.careerIdentity.statusAvailable,
+      t.careerIdentity.statusResume,
+      t.careerIdentity.statusSkillCard
+    ]).map(demoBadgeLabel),
     topMatch: routeDemoMatch?.title
-  } : careerIdentity;
+  } : (!routeWorkerId ? careerIdentity : null);
   useEffect(() => {
     if (!routePath.startsWith("/worker/") || !routeUserProfile) return;
     if (worker.workerId === routeUserProfile.workerId) return;
@@ -3395,7 +3451,8 @@ export default function App() {
   }, [routePath, routeWorkerId, routeUserProfile?.workerId, routeDemoProfile?.workerId, latestUserProfile?.workerId]);
 
   const identityPageWorker = routeUserProfile?.worker || routeDemoProfile || worker;
-  const identityPageIdentity = routePublicIdentity;
+  const publicRouteIdentity = routePublicIdentity;
+  const identityPageIdentity = routePublicIdentity || careerIdentity;
   const identityPageCardIdentity = toEnglishArtifactIdentity(
     identityPageIdentity,
     identityPageWorker,
@@ -3724,12 +3781,16 @@ export default function App() {
     matchingJobs: 40,
     nearbyOpportunities: t.careerIdentity.nearbyOpportunitiesValue,
     suggestedSkillUpgrade: t.careerIdentity.skillUpgradeSuggestions[onboardingDemoProfile.skill] || t.careerIdentity.skillUpgradeSuggestions.default,
-    profileUrl: `${publicAppUrl}/public/${encodeURIComponent(onboardingDemoProfile.workerId)}`,
+	    profileUrl: getWorkerPublicProfileUrl(onboardingDemoProfile.workerId),
     contact: onboardingDemoProfile.phone,
     resumeSummary: onboardingDemoProfile.notes,
     incomeThisMonth: `₹${Number(onboardingDemoProfile.expectedWage || 0).toLocaleString("en-IN")}`,
     employmentRecords: 8,
-    interviewReadiness: `${onboardingDemoProfile.interviewScore}%`,
+    workRecords: (incomePassports[onboardingDemoProfile.name] || []).slice(0, 5),
+    certificates: onboardingDemoProfile.certificates || [],
+	    interviewReadiness: `${onboardingDemoProfile.interviewScore}%`,
+	    shareSettings: { ...defaultShareSettings, ...(onboardingDemoProfile.shareSettings || {}) },
+	    publicStatus: onboardingDemoProfile.publicStatus || "active",
     issuedOn: "09 Jul 2026",
     lastUpdated: "09 Jul 2026",
     statusBadges: onboardingDemoProfile.badges.map(demoBadgeLabel)
@@ -3757,12 +3818,19 @@ export default function App() {
     matchingJobs: latestProfileMatches.length,
     nearbyOpportunities: t.careerIdentity.nearbyOpportunitiesValue,
     suggestedSkillUpgrade: t.careerIdentity.skillUpgradeSuggestions[latestWorker.skill] || t.careerIdentity.skillUpgradeSuggestions.default,
-    profileUrl: `${publicAppUrl}/worker/${encodeURIComponent(latestProfileId)}`,
+	    profileUrl: getWorkerPublicProfileUrl(latestProfileId),
     contact: latestWorker.phone || t.notAvailable,
     resumeSummary: (isDemoExperience ? profile : latestUserProfile.profile)?.summary || latestWorker.notes || t.emptyProfileSummary,
     incomeThisMonth: formatCurrency(latestProfileIncome.totalIncome),
     employmentRecords: latestProfileRecords.length,
-    interviewReadiness: practiceHistory.length ? `${interviewReadiness}%` : t.notAvailable,
+    workRecords: latestProfileRecords.slice(0, 5),
+    certificates: latestUserProfile?.certificates || [],
+	    interviewReadiness: practiceHistory.length ? `${interviewReadiness}%` : t.notAvailable,
+	    shareSettings: {
+	      ...defaultShareSettings,
+	      ...(latestUserProfile?.shareSettings || latestWorker.shareSettings || {})
+	    },
+	    publicStatus: latestUserProfile?.publicStatus || latestWorker.publicStatus || "active",
     statusBadges: [
       t.careerIdentity.statusVerified,
       t.careerIdentity.statusAvailable,
@@ -3958,8 +4026,9 @@ export default function App() {
   if (routePath.startsWith("/public/") || routePath.startsWith("/profile/")) {
     return (
       <PublicWorkerProfile
-        identity={toEnglishArtifactIdentity(routePublicIdentity, identityPageWorker)}
+        identity={publicRouteIdentity ? toEnglishArtifactIdentity(publicRouteIdentity, identityPageWorker) : null}
         labels={artifactLabels}
+        status={publicRouteIdentity?.publicStatus || publicWorkerLookup.status}
         onBack={() => {
           navigateTo("/");
         }}
@@ -6700,9 +6769,11 @@ export default function App() {
                           <span><strong>{latestWorker.languages || "Hindi"}</strong><small>{workerCopy.languages}</small></span>
                         </div>
                         <div className="dashboard-worker-qr">
-                          {dashboardIdentity?.profileUrl ? (
-                            <QRCodeCanvas value={dashboardIdentity.profileUrl} size={74} level="H" marginSize={1} bgColor="#ffffff" fgColor="#0F172A" title={workerCopy.qrTitle} />
-                          ) : (
+	                          {dashboardIdentity?.profileUrl ? (
+	                            <a href={dashboardIdentity.profileUrl} aria-label={artifactLabels.qrAria} className="focus-ring rounded-lg bg-white p-1">
+	                              <QRCodeCanvas value={dashboardIdentity.profileUrl} size={74} level="H" marginSize={1} bgColor="#ffffff" fgColor="#0F172A" title={workerCopy.qrTitle} />
+	                            </a>
+	                          ) : (
                             <IdCard className="h-8 w-8 text-slate-400" />
                           )}
                           <div>
@@ -8621,7 +8692,7 @@ export default function App() {
             <div className="grid gap-4 xl:grid-cols-2">
               {employerWorkers.map((item) => {
                 const itemId = item.workerId || createWorkerId(item);
-                const itemUrl = `${publicAppUrl}/worker/${itemId}`;
+                const itemUrl = getWorkerPublicProfileUrl(itemId);
                 const itemMatch = item.jobMatch || 90;
                 return (
                   <article key={itemId} className="premium-card group grid gap-5 p-5 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lift lg:grid-cols-[1fr_auto]">
@@ -8901,7 +8972,7 @@ export default function App() {
                 <div className="employer-qr-panel">
                   <span className="employer-qr-verified"><ShieldCheck aria-hidden="true" /> {t.employerPreview.verified}</span>
                   <div className="employer-qr-code">
-                    <QRCodeCanvas value={`${publicAppUrl}/worker/RZG-DEL-ELC-7895`} size={126} level="H" includeMargin />
+                    <QRCodeCanvas value={getWorkerPublicProfileUrl("RZG-DEL-ELC-7895")} size={126} level="H" includeMargin />
                   </div>
                   <p>{t.employerPreview.scan}</p>
                   <div className="employer-qr-assurance">
@@ -9014,7 +9085,7 @@ export default function App() {
                       </div>
                       <div className="rounded-2xl border border-white/10 bg-white p-4 text-ink">
                         <div className="grid h-24 w-24 place-items-center rounded-xl border border-slate-200 bg-slate-50">
-                          <QRCodeCanvas value={`${publicAppUrl}/worker/${featuredJourneyProfile.workerId}`} size={76} level="H" includeMargin />
+                          <QRCodeCanvas value={getWorkerPublicProfileUrl(featuredJourneyProfile.workerId)} size={76} level="H" includeMargin />
                         </div>
                         <p className="mt-2 text-center text-[10px] font-black text-slate-500">{isLocalizedLanguage ? "Scan verified profile" : "Scan verified profile"}</p>
                       </div>

@@ -5,10 +5,14 @@ import {
   CalendarClock,
   CheckCircle2,
   ClipboardCheck,
+  Copy,
   Download,
+  ExternalLink,
   Languages,
   MapPin,
+  Printer,
   RotateCcw,
+  Share2,
   ShieldCheck,
   Sparkles,
   TrendingUp,
@@ -142,7 +146,7 @@ export function DigitalCareerIdentityCard({ identity, labels, variant = "full", 
     if (!canvas) return;
     const link = document.createElement("a");
     link.href = canvas.toDataURL("image/png");
-    link.download = `${identity.workerId}-qr.png`;
+    link.download = `rozgaarai-worker-${identity.workerId}-qr.png`;
     link.click();
   }
 
@@ -465,8 +469,44 @@ export function DigitalCareerIdentityCard({ identity, labels, variant = "full", 
   );
 }
 
-export function PublicWorkerProfile({ identity, labels, onBack }) {
+export function PublicWorkerProfile({ identity, labels, onBack, status = "active" }) {
+  const shareSettings = {
+    publicProfile: true,
+    photo: true,
+    phone: false,
+    email: false,
+    location: true,
+    workHistory: true,
+    certificates: true,
+    income: false,
+    contactRequest: true,
+    ...(identity?.shareSettings || {})
+  };
+  const profileStatus = identity?.publicStatus || status;
+  const isActive = identity && profileStatus === "active" && shareSettings.publicProfile !== false;
+  const publicUrl = identity?.profileUrl || "";
+  const actionLabels = labels.actions || {};
+
+  function copyProfileLink() {
+    if (!publicUrl) return;
+    navigator.clipboard?.writeText(publicUrl);
+  }
+
+  async function shareProfile() {
+    if (!publicUrl) return copyProfileLink();
+    if (navigator.share) {
+      await navigator.share({
+        title: `${identity.name} - RozgaarAI Profile`,
+        text: labels.shareText || "View this verified worker profile on RozgaarAI.",
+        url: publicUrl
+      });
+      return;
+    }
+    copyProfileLink();
+  }
+
   function downloadResume() {
+    if (!identity) return;
     const content = [
       `${identity.name} - ${identity.primarySkill}`,
       `${labels.workerId}: ${identity.workerId}`,
@@ -488,10 +528,60 @@ export function PublicWorkerProfile({ identity, labels, onBack }) {
     URL.revokeObjectURL(url);
   }
 
+  if (!identity || profileStatus === "not-found") {
+    return (
+      <div className="grid min-h-screen place-items-center bg-paper px-4 py-10 text-ink dark:bg-slate-950">
+        <section className="w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-soft dark:border-white/10 dark:bg-slate-900">
+          <img src={logoMark} alt={logoAlt} className="mx-auto h-12 w-12 rounded-md object-contain" />
+          <h1 className="mt-5 text-2xl font-black text-ink dark:text-white">{labels.notFoundTitle || "Worker profile not found"}</h1>
+          <p className="mt-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">{labels.notFoundCopy || "This public worker profile link is invalid or no longer available."}</p>
+          <button type="button" className="focus-ring mt-6 rounded-md bg-ink px-4 py-3 text-sm font-black text-white" onClick={onBack}>
+            {labels.backToApp}
+          </button>
+        </section>
+      </div>
+    );
+  }
+
+  if (!isActive) {
+    return (
+      <div className="grid min-h-screen place-items-center bg-paper px-4 py-10 text-ink dark:bg-slate-950">
+        <section className="w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-soft dark:border-white/10 dark:bg-slate-900">
+          <ShieldCheck className="mx-auto h-10 w-10 text-slate-400" />
+          <h1 className="mt-5 text-2xl font-black text-ink dark:text-white">{labels.privateTitle || "This profile is private"}</h1>
+          <p className="mt-3 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">{labels.privateCopy || "This worker has not made their profile publicly available."}</p>
+          <button type="button" className="focus-ring mt-6 rounded-md bg-ink px-4 py-3 text-sm font-black text-white" onClick={onBack}>
+            {labels.backToApp}
+          </button>
+        </section>
+      </div>
+    );
+  }
+
+  const fields = [
+    [labels.workerId, identity.workerId, true],
+    [labels.skill, identity.primarySkill, true],
+    [labels.experience, identity.experience, true],
+    [labels.city, identity.city, shareSettings.location],
+    [labels.languages, identity.languages, true],
+    [labels.availability, identity.availability, true],
+    [labels.fairWage, identity.fairWage, shareSettings.income],
+    [labels.interviewReadiness || "Interview readiness", identity.interviewReadiness, true],
+    [labels.incomeThisMonth || "Income this month", identity.incomeThisMonth, shareSettings.income],
+    [labels.employmentRecords || "Employment records", identity.employmentRecords, shareSettings.workHistory],
+    [labels.bestJobMatch, `${identity.bestJobMatch}%`, true],
+    [labels.verificationStatus, labels.verified, true]
+  ].filter(([, value, visible]) => visible && value !== undefined && value !== "");
+  const displayIdentity = {
+    ...identity,
+    photoUrl: shareSettings.photo ? identity.photoUrl : "",
+    city: shareSettings.location ? identity.city : labels.notAvailable || "Not available"
+  };
+
   return (
     <div className="min-h-screen bg-paper px-4 py-6 text-ink dark:bg-slate-950 sm:px-6 lg:px-8">
       <main className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <DigitalCareerIdentityCard identity={identity} labels={labels} />
+        <DigitalCareerIdentityCard identity={displayIdentity} labels={labels} />
         <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-soft dark:border-white/10 dark:bg-slate-950 sm:p-6">
           <div className="mb-6 flex items-center gap-3 border-b border-slate-200 pb-4">
             <img src={logoMark} alt={logoAlt} className="h-10 w-10 rounded-md object-contain" />
@@ -501,23 +591,13 @@ export function PublicWorkerProfile({ identity, labels, onBack }) {
             </div>
           </div>
           <h1 className="mt-3 text-3xl font-black text-ink dark:text-white">{identity.name}</h1>
-          <p className="mt-2 text-sm font-bold text-slate-600 dark:text-slate-300">{identity.occupation} • {identity.city}</p>
+          <p className="mt-2 text-sm font-bold text-slate-600 dark:text-slate-300">{[identity.occupation, shareSettings.location ? identity.city : ""].filter(Boolean).join(" • ")}</p>
+          <p className="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-black text-emerald-700">
+            {labels.consentNotice || "This profile is shared by the worker with their consent."}
+          </p>
 
           <div className="mt-6 space-y-3">
-            {[
-              [labels.workerId, identity.workerId],
-              [labels.skill, identity.primarySkill],
-              [labels.experience, identity.experience],
-              [labels.city, identity.city],
-              [labels.languages, identity.languages],
-              [labels.availability, identity.availability],
-              [labels.fairWage, identity.fairWage],
-              [labels.interviewReadiness || "Interview readiness", identity.interviewReadiness],
-              [labels.incomeThisMonth || "Income this month", identity.incomeThisMonth],
-              [labels.employmentRecords || "Employment records", identity.employmentRecords],
-              [labels.bestJobMatch, `${identity.bestJobMatch}%`],
-              [labels.verificationStatus, labels.verified]
-            ].filter(([, value]) => value !== undefined).map(([label, value]) => (
+            {fields.map(([label, value]) => (
               <div key={label} className="rounded-lg border border-slate-200 bg-blue-50/50 p-4 dark:border-white/10 dark:bg-white/10">
                 <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-300">{label}</p>
                 <p className="mt-1 break-words text-sm font-bold leading-6 text-ink dark:text-white">{value}</p>
@@ -525,13 +605,69 @@ export function PublicWorkerProfile({ identity, labels, onBack }) {
             ))}
           </div>
 
+          <section className="mt-6 rounded-lg border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/10">
+            <h2 className="text-sm font-black text-ink dark:text-white">{labels.skills}</h2>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {[identity.primarySkill, ...(identity.secondarySkills || [])].filter(Boolean).map((skill) => (
+                <span key={skill} className="rounded-full border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-black text-blue-700">{skill}</span>
+              ))}
+            </div>
+          </section>
+
+          {shareSettings.workHistory && Boolean(identity.workRecords?.length) && (
+            <section id="employment" className="mt-6 rounded-lg border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/10">
+              <h2 className="text-sm font-black text-ink dark:text-white">{labels.employmentRecords || "Employment records"}</h2>
+              <div className="mt-3 divide-y divide-slate-100">
+                {identity.workRecords.slice(0, 5).map((record) => (
+                  <article key={record.id || `${record.employer}-${record.date}`} className="py-3 first:pt-0 last:pb-0">
+                    <p className="text-sm font-black text-ink dark:text-white">{record.employer || record.worksite || record.jobType || identity.primarySkill}</p>
+                    <p className="mt-1 text-xs font-bold leading-5 text-slate-600 dark:text-slate-300">
+                      {[record.jobType, record.location, record.date || record.dates, record.status].filter(Boolean).join(" • ")}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {shareSettings.certificates && Boolean(identity.certificates?.length) && (
+            <section className="mt-6 rounded-lg border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/10">
+              <h2 className="text-sm font-black text-ink dark:text-white">{labels.suggestedCertification || "Verified certificates"}</h2>
+              <div className="mt-3 grid gap-2">
+                {identity.certificates.map((certificate) => (
+                  <div key={certificate.id || certificate.certificateNumber || certificate.certificateTitle} className="rounded-lg bg-green-50 px-3 py-2 text-xs font-black text-green-700">
+                    {certificate.certificateTitle || certificate.skillName || certificate.name}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
           <div className="mt-6 flex flex-wrap gap-3">
+            <a className="focus-ring inline-flex items-center gap-2 rounded-md bg-ink px-4 py-3 text-sm font-black text-white shadow-lg shadow-slate-900/20 transition hover:bg-slate-800" href={publicUrl}>
+              <ExternalLink className="h-4 w-4" />
+              {actionLabels.open || "Open public profile"}
+            </a>
+            <button type="button" className="focus-ring inline-flex items-center gap-2 rounded-md border border-blue-200 bg-white px-4 py-3 text-sm font-black text-ink shadow-sm transition hover:bg-blue-50" onClick={copyProfileLink}>
+              <Copy className="h-4 w-4" />
+              {actionLabels.copy || "Copy profile link"}
+            </button>
+            <button type="button" className="focus-ring inline-flex items-center gap-2 rounded-md border border-blue-200 bg-white px-4 py-3 text-sm font-black text-ink shadow-sm transition hover:bg-blue-50" onClick={shareProfile}>
+              <Share2 className="h-4 w-4" />
+              {actionLabels.share || "Share profile"}
+            </button>
             <button type="button" className="focus-ring rounded-md bg-ink px-4 py-3 text-sm font-black text-white shadow-lg shadow-slate-900/20 transition hover:bg-slate-800" onClick={downloadResume}>
               {labels.downloadResume}
             </button>
+            {shareSettings.phone && (
             <a className="focus-ring rounded-md border border-blue-200 bg-white px-4 py-3 text-sm font-black text-ink shadow-sm transition hover:bg-blue-50" href={`tel:${identity.contact}`}>
               {labels.contactWorker}: {identity.contact}
             </a>
+            )}
+            <button type="button" className="focus-ring inline-flex items-center gap-2 rounded-md border border-blue-200 bg-white px-4 py-3 text-sm font-black text-ink shadow-sm transition hover:bg-blue-50" onClick={() => window.print()}>
+              <Printer className="h-4 w-4" />
+              {actionLabels.print || "Print worker card"}
+            </button>
             <button type="button" className="focus-ring rounded-md border border-blue-200 bg-white px-4 py-3 text-sm font-black text-ink shadow-sm transition hover:bg-blue-50" onClick={onBack}>
               {labels.backToApp}
             </button>

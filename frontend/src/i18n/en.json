@@ -443,6 +443,18 @@
     "qrAria": "Open public worker profile",
     "downloadQr": "Download QR",
     "publicProfile": "Public Worker Profile",
+    "consentNotice": "This profile is shared by the worker with their consent.",
+    "notFoundTitle": "Worker profile not found",
+    "notFoundCopy": "This public worker profile link is invalid or no longer available.",
+    "privateTitle": "This profile is private",
+    "privateCopy": "This worker has not made their profile publicly available.",
+    "shareText": "View this verified worker profile on RozgaarAI.",
+    "actions": {
+      "open": "Open public profile",
+      "copy": "Copy profile link",
+      "share": "Share profile",
+      "print": "Print worker card"
+    },
     "skills": "Skills",
     "resume": "Resume",
     "contact": "Contact information",
