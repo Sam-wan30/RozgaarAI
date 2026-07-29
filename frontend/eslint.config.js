@@ -19,6 +19,8 @@ export default [
         fetch: "readonly",
         Blob: "readonly",
         URL: "readonly",
+        URLSearchParams: "readonly",
+        ResizeObserver: "readonly",
         alert: "readonly",
         console: "readonly"
       },
@@ -37,7 +39,11 @@ export default [
       ...react.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
       "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off"
+      "react/prop-types": "off",
+      "no-unused-vars": "warn",
+      "no-constant-binary-expression": "warn",
+      "no-constant-condition": "warn",
+      "react/no-unescaped-entities": "warn"
     }
   }
 ];
