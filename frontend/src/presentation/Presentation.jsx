@@ -3,451 +3,516 @@ import {
   ArrowLeft,
   ArrowRight,
   BadgeCheck,
-  BookOpen,
   BriefcaseBusiness,
   Building2,
   CheckCircle2,
-  ClipboardList,
+  ChevronRight,
   Download,
-  Eye,
   FileText,
-  Fingerprint,
   Gauge,
-  Grid2X2,
+  Globe2,
   Handshake,
   IdCard,
-  Link2,
-  Maximize2,
+  MapPin,
   Mic,
-  Network,
   Printer,
   QrCode,
   Search,
   ShieldCheck,
   Sparkles,
+  TrendingUp,
   Users,
-  WalletCards,
-  X
+  WalletCards
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import logoFull from "../assets/brand/rozgaarai-logo-full-transparent.png";
+import logoMark from "../assets/brand/rozgaarai-logo-mark.png";
+import ngoPhoto from "../assets/ngo-team-workspace-hero.png";
+import titleSlideImage from "../assets/presentation-title-slide.png";
+import employerPhoto from "../assets/rahul-kumar-electrician.jpg";
+import workerPhoto from "../assets/workers/asha-kumari-domestic-worker.jpg";
 import { slides } from "./presentationSlides";
 import "./presentation.css";
 
-const iconMap = {
-  registration: ClipboardList,
-  uan: Fingerprint,
-  welfare: ShieldCheck,
-  database: Building2,
-  resume: FileText,
-  jobs: BriefcaseBusiness,
-  income: WalletCards,
-  interview: Users,
-  voice: Mic,
-  ai: Sparkles,
-  identity: IdCard,
-  share: QrCode,
-  ecosystem: Network
+const worker = {
+  name: "Asha Kumari",
+  role: "Domestic Worker",
+  city: "Delhi",
+  readiness: 92,
+  match: 98,
+  id: "RZG-DEL-DOM-3210"
 };
 
-function useKeyboardNavigation(onPrevious, onNext, disabled) {
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (disabled) return;
-      if (event.key === "ArrowLeft") onPrevious();
-      if (event.key === "ArrowRight") onNext();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [disabled, onNext, onPrevious]);
+function clampSlide(index) {
+  return Math.max(0, Math.min(slides.length - 1, index));
 }
 
-export function FeatureCard({ icon = "identity", title, tone = "blue" }) {
-  const Icon = iconMap[icon] || CheckCircle2;
+function MiniMetric({ label, value, tone = "blue" }) {
   return (
-    <article className={`feature-card feature-card-${tone}`}>
-      <span className="feature-icon"><Icon aria-hidden="true" /></span>
-      <span>{title}</span>
+    <article className={`mini-metric ${tone}`}>
+      <strong>{value}</strong>
+      <span>{label}</span>
     </article>
   );
 }
 
-export function ComparisonTable({ rows }) {
+function Pill({ icon: Icon = CheckCircle2, children }) {
   return (
-    <div className="comparison-table" role="table" aria-label="e-Shram and RozgaarAI comparison">
-      <div className="comparison-row comparison-head" role="row">
-        <span role="columnheader">Dimension</span>
-        <span role="columnheader">e-Shram</span>
-        <span role="columnheader">RozgaarAI</span>
-      </div>
-      {rows.map(([label, eshram, rozgaar]) => (
-        <div className="comparison-row" role="row" key={label}>
-          <strong role="cell">{label}</strong>
-          <span role="cell">{eshram}</span>
-          <span role="cell">{rozgaar}</span>
+    <span className="pill">
+      <Icon aria-hidden="true" />
+      {children}
+    </span>
+  );
+}
+
+function TitleVisual() {
+  const nodes = [
+    {
+      label: "Worker",
+      Icon: Users,
+      photo: workerPhoto,
+      lines: ["Skills", "Identity", "Opportunities"]
+    },
+    {
+      label: "NGO / Foundation",
+      Icon: Handshake,
+      photo: ngoPhoto,
+      lines: ["Training", "Verification", "Support"]
+    },
+    {
+      label: "Employer",
+      Icon: BriefcaseBusiness,
+      photo: employerPhoto,
+      lines: ["Hiring", "Trust", "Matching"]
+    }
+  ];
+  return (
+    <div className="title-ecosystem" aria-label="Worker, NGO and employer connected through RozgaarAI">
+      <svg className="hero-connections" viewBox="0 0 620 520" aria-hidden="true">
+        <path d="M310 260 C230 110 132 98 86 154" />
+        <path d="M310 260 C446 105 536 136 554 218" />
+        <path d="M310 260 C372 421 250 467 158 410" />
+      </svg>
+      <div className="ecosystem-ring ring-one" />
+      <div className="ecosystem-ring ring-two" />
+      <motion.div className="title-ai-core" animate={{ y: [0, -8, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>
+        <img src={logoMark} alt="RozgaarAI logo mark" />
+        <span>RozgaarAI</span>
+      </motion.div>
+      {nodes.map(({ label, Icon, photo, lines }, index) => (
+        <motion.div
+          className={`ecosystem-card ecosystem-card-${index + 1}`}
+          key={label}
+          initial={{ opacity: 0, y: 24, scale: 0.95 }}
+          animate={{ opacity: 1, y: [0, -4, 0], scale: 1 }}
+          transition={{ opacity: { delay: 0.18 * index }, y: { duration: 5 + index, repeat: Infinity, ease: "easeInOut" } }}
+        >
+          <img src={photo} alt="" />
+          <div className="ecosystem-card-copy">
+            <div className="ecosystem-card-heading">
+              <span><Icon aria-hidden="true" /></span>
+              <strong>{label}</strong>
+            </div>
+            <small>{lines.join(" · ")}</small>
+          </div>
+        </motion.div>
+      ))}
+      <div className="connection-node node-one" />
+      <div className="connection-node node-two" />
+      <div className="connection-node node-three" />
+      <div className="voice-wave"><span /><span /><span /><span /><span /><span /><span /></div>
+    </div>
+  );
+}
+
+function TitleCopy({ slide }) {
+  const features = [
+    [Mic, "Voice-first Onboarding"],
+    [IdCard, "AI Digital Identity"],
+    [Handshake, "Trusted Matching"],
+    [TrendingUp, "Better Employment"]
+  ];
+  return (
+    <div className="title-copy">
+      <motion.div className="title-brand-lockup" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+        <img src={logoFull} alt="RozgaarAI" />
+        <p>{slide.subtitle}</p>
+      </motion.div>
+      <motion.h1 initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.72, delay: 0.1 }}>
+        <span>ROZGAAR.</span>
+        <span className="gradient-text">REIMAGINED.</span>
+      </motion.h1>
+      <motion.div className="title-underline" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.72, delay: 0.42 }} />
+      <motion.p className="title-support" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.22 }}>
+        Helping India&apos;s informal workers build verified digital identities, connect with trusted employers, and unlock better opportunities through AI.
+      </motion.p>
+      <motion.div className="hackathon-card" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.32 }}>
+        <div>
+          <span>Made for</span>
+          <strong>Sama Social</strong>
         </div>
-      ))}
-    </div>
-  );
-}
-
-export function ProcessFlow({ steps }) {
-  return (
-    <ol className="process-flow" aria-label="RozgaarAI worker journey">
-      {steps.map((step, index) => (
-        <li key={step}>
-          <span>{String(index + 1).padStart(2, "0")}</span>
-          <p>{step}</p>
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-function Highlight({ children }) {
-  return (
-    <div className="slide-highlight">
-      <Sparkles aria-hidden="true" />
-      <strong>{children}</strong>
-    </div>
-  );
-}
-
-function SplitIdentityVisual() {
-  return (
-    <div className="split-visual" aria-label="Traditional identity card and dynamic worker profile">
-      <div className="identity-card static-card">
-        <span className="card-chip"><Fingerprint aria-hidden="true" /></span>
-        <p>Registered Worker</p>
-        <strong>Identity Record</strong>
-        <small>Number, category, eligibility</small>
-      </div>
-      <div className="identity-card dynamic-card">
-        <span className="card-chip"><Sparkles aria-hidden="true" /></span>
-        <p>RozgaarAI Profile</p>
-        <strong>Career Passport</strong>
-        <small>Skills, resume, jobs, wages</small>
-        <div className="profile-metrics">
-          <span>Resume ready</span>
-          <span>QR shareable</span>
+        <div>
+          <span>Build for Good</span>
+          <strong>Hackathon</strong>
         </div>
-      </div>
-    </div>
-  );
-}
-
-function ResearchTimeline({ questions }) {
-  return (
-    <div className="timeline">
-      {["Build", "Research", "Discover", "Extend"].map((item, index) => (
-        <div className="timeline-node" key={item}>
-          <span>{index + 1}</span>
-          <strong>{item}</strong>
-          <small>{questions[index - 1] || "RozgaarAI product question"}</small>
+        <div>
+          <span>Hackathon Theme</span>
+          <strong className="gradient-text">Rozgaar</strong>
         </div>
-      ))}
+      </motion.div>
+      <div className="title-features">
+        {features.map(([Icon, label], index) => (
+          <motion.article key={label} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 + index * 0.08 }}>
+            <span><Icon aria-hidden="true" /></span>
+            <strong>{label}</strong>
+          </motion.article>
+        ))}
+      </div>
+      <p className="title-bottom-line">Let&apos;s build a more inclusive future together.</p>
     </div>
   );
 }
 
-function RegistryDiagram() {
+function ProblemVisual({ points }) {
   return (
-    <div className="registry-grid">
-      {[
-        ["registration", "Registration"],
-        ["uan", "Universal Account Number"],
-        ["welfare", "Welfare delivery"],
-        ["database", "National database"]
-      ].map(([icon, title]) => (
-        <FeatureCard key={title} icon={icon} title={title} />
-      ))}
-    </div>
-  );
-}
-
-function ProblemMap({ problems }) {
-  return (
-    <div className="problem-map">
-      <div className="worker-core">
+    <div className="problem-board">
+      <div className="worker-shadow-card">
         <Users aria-hidden="true" />
-        <strong>Worker</strong>
-        <small>Registered, but not yet employer-visible</small>
+        <strong>Skilled but unseen</strong>
+        <span>No proof layer</span>
       </div>
-      {problems.map((problem, index) => (
-        <span key={problem} className={`problem-pill problem-${index + 1}`}>{problem}</span>
-      ))}
-    </div>
-  );
-}
-
-function CapabilityNetwork({ features }) {
-  const icons = ["voice", "resume", "identity", "income", "jobs", "interview", "share", "ai"];
-  return (
-    <div className="capability-network">
-      <div className="network-center">
-        <Sparkles aria-hidden="true" />
-        <strong>Digital Worker Profile</strong>
-        <small>Voice data becomes employment intelligence</small>
-      </div>
-      <div className="network-grid">
-        {features.map((feature, index) => (
-          <FeatureCard key={feature} icon={icons[index]} title={feature} tone={index % 2 ? "green" : "blue"} />
+      <div className="problem-stack">
+        {points.map((point, index) => (
+          <motion.article className="problem-card" key={point} initial={{ x: 42, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: index * 0.08 }}>
+            <span>0{index + 1}</span>
+            <p>{point}</p>
+          </motion.article>
         ))}
       </div>
     </div>
   );
 }
 
-function ConnectedSystems({ slide }) {
+function BrokenFlow() {
   return (
-    <div className="systems-diagram">
-      <SystemPanel title={slide.leftTitle} items={slide.leftItems} icon={Building2} />
-      <div className="equation-badge">
-        <Handshake aria-hidden="true" />
-        <strong>{slide.equation}</strong>
-      </div>
-      <SystemPanel title={slide.rightTitle} items={slide.rightItems} icon={Sparkles} accent />
-    </div>
-  );
-}
-
-function SystemPanel({ title, items, icon: Icon, accent = false }) {
-  return (
-    <article className={`system-panel ${accent ? "system-accent" : ""}`}>
-      <span><Icon aria-hidden="true" /></span>
-      <h3>{title}</h3>
-      <ul>
-        {items.map((item) => <li key={item}>{item}</li>)}
-      </ul>
-    </article>
-  );
-}
-
-function EcosystemDiagram({ integrations }) {
-  return (
-    <div className="ecosystem-diagram">
-      <div className="ecosystem-center">
-        <Network aria-hidden="true" />
-        <strong>RozgaarAI</strong>
-        <small>Worker-owned career identity</small>
-      </div>
-      {integrations.map((item, index) => (
-        <span key={item} className={`ecosystem-node ecosystem-node-${index + 1}`}>{item}</span>
+    <div className="broken-flow">
+      {["Worker profile", "Employer profile", "Still no trust", "No verification", "No readiness", "No support"].map((item, index) => (
+        <div className={`flow-fragment ${index > 1 ? "is-broken" : ""}`} key={item}>
+          <span>{index < 2 ? <IdCard aria-hidden="true" /> : <ShieldCheck aria-hidden="true" />}</span>
+          <strong>{item}</strong>
+          {index < 5 && <ChevronRight aria-hidden="true" />}
+        </div>
       ))}
     </div>
   );
 }
 
-function ClosingVisual({ statements }) {
+function SolutionFlow({ flow }) {
+  const icons = [Mic, Sparkles, IdCard, Gauge, BriefcaseBusiness, WalletCards, ShieldCheck, QrCode];
   return (
-    <div className="closing-visual">
-      {statements.map(([label, answer]) => (
-        <article key={label}>
-          <span>{label}</span>
-          <strong>{answer}</strong>
+    <div className="solution-flow">
+      {flow.map((step, index) => {
+        const Icon = icons[index] || CheckCircle2;
+        return (
+          <motion.article className="solution-step" key={step} initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.06 }}>
+            <span><Icon aria-hidden="true" /></span>
+            <strong>{step}</strong>
+          </motion.article>
+        );
+      })}
+    </div>
+  );
+}
+
+function WorkerDashboard() {
+  return (
+    <div className="dashboard-mock worker-mock">
+      <header>
+        <div>
+          <small>Worker Workspace</small>
+          <h3>{worker.name}</h3>
+          <p>{worker.role} • {worker.city}</p>
+        </div>
+        <span className="verified-badge"><BadgeCheck aria-hidden="true" /> Verified</span>
+      </header>
+      <div className="dashboard-grid">
+        <section className="id-preview">
+          <IdCard aria-hidden="true" />
+          <strong>Digital Worker ID</strong>
+          <span>{worker.id}</span>
+          <div className="qr-tile"><QrCode aria-hidden="true" /><small>QR profile card</small></div>
+        </section>
+        <section className="score-ring">
+          <div style={{ "--score": `${worker.readiness * 3.6}deg` }}>
+            <strong>{worker.readiness}%</strong>
+          </div>
+          <span>Employment readiness</span>
+        </section>
+        <section className="job-card">
+          <small>Best match</small>
+          <strong>{worker.match}% Urban Homes Services</strong>
+          <span>Domestic care • Delhi • Verified employer</span>
+        </section>
+        <section className="wage-card">
+          <WalletCards aria-hidden="true" />
+          <strong>₹20,000</strong>
+          <span>Expected monthly wage tracked</span>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function EmployerDashboard() {
+  const rows = [
+    ["Asha Kumari", "Domestic Worker", "Delhi", "92%", "Shortlist"],
+    ["Ramesh Patel", "Plumber", "Bhopal", "95%", "View profile"],
+    ["Rekha Devi", "Tailor", "Raipur", "90%", "Connect"]
+  ];
+  return (
+    <div className="dashboard-mock employer-mock">
+      <header>
+        <div>
+          <small>Employer Workspace</small>
+          <h3>Verified worker search</h3>
+        </div>
+        <Search aria-hidden="true" />
+      </header>
+      <div className="filter-row">
+        <Pill icon={Search}>Skill</Pill>
+        <Pill icon={MapPin}>Location</Pill>
+        <Pill icon={Gauge}>Readiness</Pill>
+        <Pill icon={ShieldCheck}>Consented profiles</Pill>
+      </div>
+      <div className="worker-table">
+        {rows.map((row) => (
+          <article key={row[0]}>
+            <strong>{row[0]}</strong>
+            <span>{row[1]}</span>
+            <span>{row[2]}</span>
+            <span>{row[3]}</span>
+            <button>{row[4]}</button>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function NgoDashboard({ metrics }) {
+  return (
+    <div className="dashboard-mock ngo-mock">
+      <header>
+        <div>
+          <small>NGO / Foundation Workspace</small>
+          <h3>Placement operating system</h3>
+        </div>
+        <span className="verified-badge"><Building2 aria-hidden="true" /> Verified NGO</span>
+      </header>
+      <div className="ngo-metrics">
+        {metrics.map((metric, index) => {
+          const [value, ...label] = metric.split(" ");
+          return <MiniMetric key={metric} value={value} label={label.join(" ")} tone={index % 2 ? "green" : "blue"} />;
+        })}
+      </div>
+      <div className="pipeline">
+        {["Enrolled", "Training", "Credentials", "Matched", "Placed"].map((step, index) => (
+          <article key={step}>
+            <span>{index + 1}</span>
+            <strong>{step}</strong>
+          </article>
+        ))}
+      </div>
+      <div className="demand-card">
+        <TrendingUp aria-hidden="true" />
+        <p>Employer demand is mapped to worker readiness, credentials and consent.</p>
+      </div>
+    </div>
+  );
+}
+
+function EcosystemDiagram() {
+  const nodes = [
+    ["Worker", Users, "Digital identity"],
+    ["NGO / Skill Foundation", Handshake, "Training + verification"],
+    ["RozgaarAI", Sparkles, "Consent + matching"],
+    ["Employer", BriefcaseBusiness, "Verified hiring"],
+    ["Better Jobs", TrendingUp, "Income growth"]
+  ];
+  return (
+    <div className="ecosystem-line">
+      {nodes.map(([label, Icon, copy], index) => (
+        <article key={label} className="ecosystem-node">
+          <span><Icon aria-hidden="true" /></span>
+          <strong>{label}</strong>
+          <small>{copy}</small>
+          {index < nodes.length - 1 && <div className="connector" />}
         </article>
       ))}
     </div>
   );
 }
 
-function SlideVisual({ slide }) {
-  if (slide.visual === "split-identity") return <SplitIdentityVisual />;
-  if (slide.visual === "research-timeline") return <ResearchTimeline questions={slide.questions} />;
-  if (slide.visual === "registry-diagram") return <RegistryDiagram />;
-  if (slide.visual === "problem-map") return <ProblemMap problems={slide.problems} />;
-  if (slide.visual === "capability-network") return <CapabilityNetwork features={slide.features} />;
-  if (slide.visual === "comparison-table") return <ComparisonTable rows={slide.comparison} />;
-  if (slide.visual === "process-flow") return <ProcessFlow steps={slide.steps} />;
-  if (slide.visual === "connected-systems") return <ConnectedSystems slide={slide} />;
-  if (slide.visual === "ecosystem") return <EcosystemDiagram integrations={slide.integrations} />;
-  if (slide.visual === "closing") return <ClosingVisual statements={slide.statements} />;
-  return null;
-}
-
-export function SlideLayout({ slide, index, total }) {
-  const featureIcons = ["voice", "resume", "identity", "income", "jobs", "interview", "share", "database"];
-  const isComparison = slide.visual === "comparison-table";
-  const isJourney = slide.visual === "process-flow";
-  const isTitle = slide.id === "title";
-
+function FeatureGalaxy({ features }) {
+  const icons = [Mic, FileText, QrCode, IdCard, Search, Building2, WalletCards, ShieldCheck, Globe2];
   return (
-    <section className={`presentation-slide ${isTitle ? "title-slide" : ""}`} aria-label={`Slide ${index + 1}: ${slide.heading}`}>
-      <div className="slide-shell">
-        <header className="slide-header">
-          <span>{slide.eyebrow}</span>
-          <small>{index + 1} / {total}</small>
-        </header>
-        <div className={`slide-content ${isComparison || isJourney ? "slide-content-wide" : ""}`}>
-          <div className="slide-copy">
-            <h1>{slide.heading}</h1>
-            {slide.subheading && <h2>{slide.subheading}</h2>}
-            {slide.body && <p className="slide-body">{slide.body}</p>}
-            {slide.questions && (
-              <ol className="question-list">
-                {slide.questions.map((question) => <li key={question}>{question}</li>)}
-              </ol>
-            )}
-            {slide.features && slide.visual !== "capability-network" && (
-              <div className="feature-list">
-                {slide.features.map((feature, featureIndex) => (
-                  <FeatureCard key={feature} icon={featureIcons[featureIndex]} title={feature} tone={featureIndex % 2 ? "green" : "blue"} />
-                ))}
-              </div>
-            )}
-            {slide.note && <p className="slide-note">{slide.note}</p>}
-            {slide.takeaway && <p className="takeaway">{slide.takeaway}</p>}
-            {slide.closing && <p className="closing-line">{slide.closing}</p>}
-            {slide.highlight && <Highlight>{slide.highlight}</Highlight>}
-            {slide.cta && (
-              <a className="prototype-link" href="/" aria-label="Explore the RozgaarAI prototype">
-                <Eye aria-hidden="true" />
-                {slide.cta}
-              </a>
-            )}
-          </div>
-          <div className="slide-visual">
-            <SlideVisual slide={slide} />
-          </div>
-        </div>
-        {slide.footer && <footer className="slide-footer">{slide.footer}</footer>}
-      </div>
-    </section>
-  );
-}
-
-export function ProgressBar({ current, total }) {
-  return (
-    <div className="deck-progress" aria-hidden="true">
-      <span style={{ width: `${((current + 1) / total) * 100}%` }} />
+    <div className="feature-galaxy">
+      {features.map((feature, index) => {
+        const Icon = icons[index] || CheckCircle2;
+        return (
+          <motion.article key={feature} initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: index * 0.04 }}>
+            <Icon aria-hidden="true" />
+            <span>{feature}</span>
+          </motion.article>
+        );
+      })}
     </div>
   );
 }
 
-export function Navigation({ current, total, onPrevious, onNext, onOverview, onFullscreen, onPrint }) {
+function ImpactVisual({ lines }) {
   return (
-    <nav className="deck-controls" aria-label="Presentation controls">
-      <button type="button" onClick={onPrevious} disabled={current === 0} aria-label="Previous slide">
-        <ArrowLeft aria-hidden="true" />
-      </button>
-      <strong>{current + 1} / {total}</strong>
-      <button type="button" onClick={onNext} disabled={current === total - 1} aria-label="Next slide">
-        <ArrowRight aria-hidden="true" />
-      </button>
-      <button type="button" onClick={onOverview} aria-label="Show slide overview">
-        <Grid2X2 aria-hidden="true" />
-      </button>
-      <button type="button" onClick={onFullscreen} aria-label="Enter full-screen presentation">
-        <Maximize2 aria-hidden="true" />
-      </button>
-      <button type="button" onClick={onPrint} aria-label="Print or export presentation">
-        <Printer aria-hidden="true" />
-      </button>
-    </nav>
-  );
-}
-
-function OverviewModal({ current, onClose, onSelect }) {
-  return (
-    <div className="overview-backdrop" role="dialog" aria-modal="true" aria-label="Slide overview">
-      <div className="overview-panel">
-        <div className="overview-header">
-          <div>
-            <span>Slide overview</span>
-            <h2>Jump to any part of the story</h2>
-          </div>
-          <button type="button" onClick={onClose} aria-label="Close slide overview"><X aria-hidden="true" /></button>
-        </div>
-        <div className="overview-grid">
-          {slides.map((slide, index) => (
-            <button
-              type="button"
-              className={index === current ? "overview-card overview-active" : "overview-card"}
-              key={slide.id}
-              onClick={() => onSelect(index)}
-            >
-              <small>{index + 1}</small>
-              <strong>{slide.heading}</strong>
-              <span>{slide.eyebrow}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function PrintableSlides() {
-  return (
-    <div className="print-deck" aria-hidden="true">
-      {slides.map((slide, index) => (
-        <SlideLayout key={slide.id} slide={slide} index={index} total={slides.length} />
+    <div className="impact-wall">
+      {lines.map((line, index) => (
+        <motion.article key={line} initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08 }}>
+          <span>0{index + 1}</span>
+          <strong>{line}</strong>
+        </motion.article>
       ))}
+    </div>
+  );
+}
+
+function JourneyVisual({ steps }) {
+  const icons = [Mic, Sparkles, BadgeCheck, Search, TrendingUp];
+  return (
+    <div className="journey-track">
+      {steps.map((step, index) => {
+        const Icon = icons[index];
+        return (
+          <article key={step}>
+            <span><Icon aria-hidden="true" /></span>
+            <strong>{step}</strong>
+          </article>
+        );
+      })}
+    </div>
+  );
+}
+
+function SlideVisual({ slide }) {
+  if (slide.type === "title") return <TitleVisual />;
+  if (slide.type === "problem") return <ProblemVisual points={slide.points} />;
+  if (slide.type === "broken-flow") return <BrokenFlow />;
+  if (slide.type === "solution-flow") return <SolutionFlow flow={slide.flow} />;
+  if (slide.type === "worker-dashboard") return <WorkerDashboard />;
+  if (slide.type === "employer-dashboard") return <EmployerDashboard />;
+  if (slide.type === "ngo-dashboard") return <NgoDashboard metrics={slide.metrics} />;
+  if (slide.type === "ecosystem") return <EcosystemDiagram />;
+  if (slide.type === "features") return <FeatureGalaxy features={slide.features} />;
+  if (slide.type === "impact") return <ImpactVisual lines={slide.lines} />;
+  if (slide.type === "journey") return <JourneyVisual steps={slide.steps} />;
+  return <TitleVisual />;
+}
+
+function SlideCopy({ slide }) {
+  if (slide.type === "title") return <TitleCopy slide={slide} />;
+
+  return (
+    <div className="slide-copy">
+      <p className="slide-kicker">{slide.kicker}</p>
+      <h1>{slide.title}</h1>
+      {slide.subtitle && <p className="slide-subtitle">{slide.subtitle}</p>}
+      {slide.type === "problem" && (
+        <div className="compact-points">
+          {slide.points.map((point) => <Pill key={point}>{point}</Pill>)}
+        </div>
+      )}
+      {slide.type === "closing" && (
+        <div className="closing-cta">
+          <Sparkles aria-hidden="true" />
+          <strong>{slide.cta}</strong>
+        </div>
+      )}
     </div>
   );
 }
 
 export default function Presentation() {
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1);
-  const [overviewOpen, setOverviewOpen] = useState(false);
-  const total = slides.length;
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const slide = slides[current];
+  const progress = useMemo(() => ((current + 1) / slides.length) * 100, [current]);
 
-  const goTo = (nextIndex) => {
-    setDirection(nextIndex > current ? 1 : -1);
-    setCurrent(Math.max(0, Math.min(total - 1, nextIndex)));
-  };
-  const goPrevious = () => goTo(current - 1);
-  const goNext = () => goTo(current + 1);
+  const previous = () => setCurrent((value) => clampSlide(value - 1));
+  const next = () => setCurrent((value) => clampSlide(value + 1));
 
-  useKeyboardNavigation(goPrevious, goNext, overviewOpen);
-
-  const transition = useMemo(() => ({
-    initial: (dir) => ({ opacity: 0, x: dir > 0 ? 32 : -32 }),
-    animate: { opacity: 1, x: 0 },
-    exit: (dir) => ({ opacity: 0, x: dir > 0 ? -32 : 32 })
-  }), []);
-
-  const enterFullscreen = () => {
-    const root = document.documentElement;
-    if (!document.fullscreenElement) root.requestFullscreen?.();
-  };
+  useEffect(() => {
+    const onKey = (event) => {
+      if (event.key === "ArrowLeft") previous();
+      if (event.key === "ArrowRight" || event.key === " ") next();
+      if (event.key === "Home") setCurrent(0);
+      if (event.key === "End") setCurrent(slides.length - 1);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
-    <main className="presentation-root">
-      <AnimatePresence mode="wait" custom={direction}>
-        <motion.div
-          key={slides[current].id}
-          custom={direction}
-          variants={transition}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          transition={{ duration: 0.24, ease: "easeOut" }}
-        >
-          <SlideLayout slide={slides[current]} index={current} total={total} />
-        </motion.div>
-      </AnimatePresence>
-      <Navigation
-        current={current}
-        total={total}
-        onPrevious={goPrevious}
-        onNext={goNext}
-        onOverview={() => setOverviewOpen(true)}
-        onFullscreen={enterFullscreen}
-        onPrint={() => window.print()}
-      />
-      <ProgressBar current={current} total={total} />
-      {overviewOpen && (
-        <OverviewModal
-          current={current}
-          onClose={() => setOverviewOpen(false)}
-          onSelect={(index) => {
-            goTo(index);
-            setOverviewOpen(false);
-          }}
-        />
-      )}
-      <PrintableSlides />
+    <main
+      className={`presentation-root slide-active-${slide.type}`}
+      style={{ "--pointer-x": pointer.x, "--pointer-y": pointer.y }}
+      onMouseMove={(event) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        setPointer({
+          x: ((event.clientX - rect.left) / rect.width - 0.5).toFixed(3),
+          y: ((event.clientY - rect.top) / rect.height - 0.5).toFixed(3)
+        });
+      }}
+    >
+      <div className="ambient ambient-one" />
+      <div className="ambient ambient-two" />
+      <div className="presentation-topbar">
+        <div className="deck-position" aria-label={`Slide ${current + 1} of ${slides.length}`}>
+          <strong>{String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</strong>
+          <span><i style={{ width: `${progress}%` }} /></span>
+        </div>
+        <div className="deck-actions">
+          <button type="button" onClick={() => window.print()}><Printer aria-hidden="true" /> Download PDF</button>
+          <button type="button" onClick={() => window.print()}><Download aria-hidden="true" /> Download PPT</button>
+        </div>
+      </div>
+
+      <section className="presentation-stage" aria-live="polite">
+        <AnimatePresence mode="wait">
+          <motion.article
+            key={slide.id}
+            className={`presentation-slide slide-${slide.type}`}
+            initial={{ opacity: 0, y: 34, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -28, scale: 0.985 }}
+            transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="slide-shell">
+              {slide.type === "title" ? (
+                <img className="title-slide-image" src={titleSlideImage} alt="RozgaarAI opening slide" />
+              ) : (
+                <>
+                  <div className="slide-number">{String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</div>
+                  <SlideCopy slide={slide} />
+                  <SlideVisual slide={slide} />
+                </>
+              )}
+            </div>
+          </motion.article>
+        </AnimatePresence>
+      </section>
+
+      <nav className="presentation-controls" aria-label="Presentation navigation">
+        <button type="button" onClick={previous} disabled={current === 0} aria-label="Previous slide"><ArrowLeft aria-hidden="true" /></button>
+        <div className="progress-shell"><span style={{ width: `${progress}%` }} /></div>
+        <button type="button" onClick={next} disabled={current === slides.length - 1} aria-label="Next slide"><ArrowRight aria-hidden="true" /></button>
+      </nav>
     </main>
   );
 }

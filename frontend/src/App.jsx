@@ -80,6 +80,7 @@ import { EmployerCompanyProfilePage } from "./components/employer/company/Employ
 import { EmployerFindWorkersPage } from "./components/employer/find-workers/EmployerFindWorkers";
 import { EmployerJobPostsPage } from "./components/employer/job-posts/EmployerJobPostsPage";
 import { EmployerMessagesPage } from "./components/employer/messages/EmployerMessagesPage";
+import { EmployerOnboarding } from "./components/employer/EmployerOnboarding";
 import { EmployerOverviewDashboard } from "./components/employer/overview/EmployerOverview";
 import { EmployerHiringPipelinePage } from "./components/employer/pipeline/EmployerHiringPipelinePage";
 import { EmployerSettingsPage } from "./components/employer/settings/EmployerSettingsPage";
@@ -156,7 +157,8 @@ const initialAuthForm = {
 
 function hasEmployerDemoUrlIntent() {
   if (typeof window === "undefined") return false;
-  return new URLSearchParams(window.location.search).get("demo") === "employer";
+  const demoIntent = new URLSearchParams(window.location.search).get("demo");
+  return demoIntent === "employer" || (window.location.pathname.startsWith("/employer") && demoIntent === "true");
 }
 
 function hasNgoDemoUrlIntent() {
@@ -1179,7 +1181,10 @@ export default function App() {
       return;
     }
     if (routePath === "/signup") {
-      openAuthModal({ mode: "signup", role: ROLES.WORKER });
+      const signupParams = new URLSearchParams(window.location.search);
+      const requestedRole = normalizeRole(signupParams.get("role") || ROLES.WORKER);
+      const requestedRedirect = signupParams.get("redirect") || "";
+      openAuthModal({ mode: "signup", role: requestedRole, redirectTo: requestedRedirect });
       navigateTo("/");
       return;
     }
@@ -1482,8 +1487,7 @@ export default function App() {
     const normalizedRole = normalizeRole(role);
     closeAuthModal();
     if (normalizedRole === ROLES.EMPLOYER) {
-      window.sessionStorage.setItem(employerDemoIntentStorageKey, "true");
-      navigateTo("/employer");
+      openEmployerDemoMode();
       return;
     }
     if (normalizedRole === ROLES.NGO) {
@@ -1491,6 +1495,11 @@ export default function App() {
       return;
     }
     startOnboardingDemo();
+  }
+
+  function openEmployerDemoMode() {
+    window.sessionStorage.setItem(employerDemoIntentStorageKey, "true");
+    navigateTo("/employer");
   }
 
   function openNgoDemoMode() {
@@ -6005,6 +6014,14 @@ export default function App() {
           />
         )}
 
+        {routePath === "/employer/onboarding" && (
+          <EmployerOnboarding
+            onCreateAccount={() => openAuthModal({ mode: "signup", role: ROLES.EMPLOYER, redirectTo: "/employer" })}
+            onDemo={openEmployerDemoMode}
+            onHelp={() => setStatusMessage("Need help? Create an employer account or open the demo workspace to explore hiring tools.")}
+          />
+        )}
+
         {routePath === "/" && (
         <section id="home" className="premium-mesh relative min-h-screen overflow-hidden">
           <img src={heroImage} alt={t.heroAlt} className="absolute inset-0 h-full w-full object-cover" />
@@ -6031,7 +6048,7 @@ export default function App() {
                   {t.createCareerIdentity}
                   <ChevronRight className="h-4 w-4" />
                 </ActionButton>
-                <ActionButton icon={Building2} variant="secondary" className="transition duration-200 hover:-translate-y-0.5" onClick={() => navigateTo("/employer")}>
+                <ActionButton icon={Building2} variant="secondary" className="transition duration-200 hover:-translate-y-0.5" onClick={() => navigateTo("/employer/onboarding")}>
                   {t.heroEmployerDashboard}
                   <ChevronRight className="h-4 w-4" />
                 </ActionButton>
@@ -8194,7 +8211,7 @@ export default function App() {
         </>
         )}
 
-        {routePath.startsWith("/employer") && (
+        {routePath.startsWith("/employer") && routePath !== "/employer/onboarding" && (
         <div className="h-dvh overflow-hidden bg-slate-50 text-ink">
           <div className="grid h-dvh lg:grid-cols-[auto_1fr]">
             <aside className={`sticky top-0 hidden h-dvh border-r border-slate-200 bg-white lg:flex lg:flex-col ${isEmployerSidebarCollapsed ? "w-20" : "w-64"}`}>
@@ -8886,7 +8903,11 @@ export default function App() {
             </div>
 
             <div className="employer-preview-actions">
-              <button type="button" className="employer-preview-cta focus-ring button-press" onClick={() => navigateTo("/employer")}>
+              <button
+                type="button"
+                className="employer-preview-cta focus-ring button-press"
+                onClick={() => navigateTo("/employer/onboarding")}
+              >
                 <BriefcaseBusiness aria-hidden="true" />
                 {t.employerPreview.openDashboard}
                 <ChevronRight aria-hidden="true" />
@@ -9100,7 +9121,9 @@ export default function App() {
         </>
         )}
 
-        <NgoProductStory copy={t.insideProduct} logoMark={logoMark} onExploreNgo={openNgoDemoMode} />
+        {routePath === "/" && (
+          <NgoProductStory copy={t.insideProduct} logoMark={logoMark} onExploreNgo={openNgoDemoMode} />
+        )}
         </>
         )}
 

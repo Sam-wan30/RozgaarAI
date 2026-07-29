@@ -8,6 +8,9 @@ export function getProtectedRouteInfo(pathname) {
   if (path === "/ngo/onboarding") {
     return { protected: false, role: ROLES.NGO, requiresNgoOnboarding: false };
   }
+  if (path === "/employer/onboarding") {
+    return { protected: false, role: ROLES.EMPLOYER, requiresNgoOnboarding: false };
+  }
   if (path === "/ngo" || path.startsWith("/ngo/")) {
     return { protected: true, role: ROLES.NGO, requiresNgoOnboarding: true };
   }

@@ -1,151 +1,107 @@
 export const slides = [
   {
     id: "title",
-    eyebrow: "Hackathon mentorship deck",
-    heading: "Beyond Digital Identity",
-    subheading: "e-Shram vs RozgaarAI Digital Worker Identity",
-    body: "From government worker registration to AI-powered employability",
-    footer: "RozgaarAI | Worker-first employment infrastructure",
-    visual: "split-identity"
+    kicker: "Hackathon Product Presentation",
+    title: "Rozgaar. Reimagined.",
+    subtitle: "Voice-first AI Employment Platform for India’s Informal Workforce",
+    type: "title"
   },
   {
-    id: "research",
-    eyebrow: "Research context",
-    heading: "Does India Already Have a Digital Worker Identity?",
-    body: "While building RozgaarAI, we researched whether a government worker identity system already exists. We discovered e-Shram, a national database for unorganised workers.",
-    questions: [
-      "What problem does e-Shram solve?",
-      "What employment problems still remain?",
-      "How can RozgaarAI complement the existing ecosystem?"
+    id: "problem",
+    kicker: "The gap",
+    title: "Skilled workers remain invisible to trusted opportunity.",
+    points: [
+      "Informal workers have real skills, but no portable digital identity.",
+      "Employers struggle to find verified, job-ready workers.",
+      "Experience, income, training and trust often remain undocumented.",
+      "Most platforms solve discovery, not verification or readiness."
     ],
-    highlight: "The goal is not replacement. The goal is extension.",
-    visual: "research-timeline"
+    type: "problem"
   },
   {
-    id: "eshram",
-    eyebrow: "National worker registry",
-    heading: "e-Shram: A National Worker Registry",
-    body: "e-Shram is a Government of India initiative for registering workers in the unorganised sector.",
-    features: [
-      "Worker registration",
-      "Universal Account Number",
-      "National worker database",
-      "Support for welfare delivery",
-      "Better beneficiary identification",
-      "Policy planning"
-    ],
-    highlight: "Primary purpose: Social security and worker registration",
-    visual: "registry-diagram"
+    id: "profiles-not-enough",
+    kicker: "Why this needs more than profiles",
+    title: "Worker profile plus employer profile still leaves the trust gap open.",
+    subtitle: "Employment needs verification, readiness, consent, training support and structured follow-through.",
+    type: "broken-flow"
   },
   {
-    id: "unsolved",
-    eyebrow: "Remaining gap",
-    heading: "Registration Does Not Automatically Create Employability",
-    problems: [
-      "No professional resume",
-      "Difficulty proving skills and experience",
-      "No personalised job discovery",
-      "Limited interview preparation",
-      "Unstructured work history",
-      "Wage exploitation",
-      "Low digital literacy",
-      "No shareable career profile"
-    ],
-    highlight: "A worker may be registered, but still remain invisible to employers.",
-    visual: "problem-map"
+    id: "solution",
+    kicker: "The RozgaarAI layer",
+    title: "A complete path from spoken experience to verified opportunity.",
+    flow: ["Voice input", "AI profile", "Digital Worker ID", "Skill readiness", "Job matching", "Wage tracking", "Rights support", "QR profile"],
+    type: "solution-flow"
   },
   {
-    id: "rozgaarai",
-    eyebrow: "RozgaarAI layer",
-    heading: "RozgaarAI: An AI-Powered Digital Worker Identity",
-    body: "RozgaarAI converts worker information into a dynamic digital employment profile.",
-    features: [
-      "Voice-first onboarding",
-      "AI-generated resume",
-      "Digital worker identity",
-      "Work and income passport",
-      "Explainable job matching",
-      "Wage tracking",
-      "Interview preparation",
-      "Shareable QR profile"
-    ],
-    highlight: "From Identity to Employability",
-    visual: "capability-network"
+    id: "worker-dashboard",
+    kicker: "Worker Workspace",
+    title: "A worker-owned dashboard that turns experience into proof.",
+    type: "worker-dashboard"
   },
   {
-    id: "comparison",
-    eyebrow: "Side-by-side comparison",
-    heading: "e-Shram vs RozgaarAI",
-    comparison: [
-      ["Purpose", "Registration and social security", "Employability and career growth"],
-      ["Worker identity", "Universal Account Number", "Dynamic digital career identity"],
-      ["Resume", "Not a core feature", "AI-generated resume"],
-      ["Job matching", "Not a core feature", "Explainable job recommendations"],
-      ["Income records", "Not designed as a work passport", "Work and income passport"],
-      ["Interview support", "Not a core feature", "AI interview coach"],
-      ["Profile sharing", "Government registration identity", "Shareable professional worker profile"],
-      ["Primary outcome", "Worker recognition for welfare", "Worker visibility for employment"]
-    ],
-    visual: "comparison-table"
+    id: "employer-dashboard",
+    kicker: "Employer Workspace",
+    title: "Employers search with confidence, not guesswork.",
+    type: "employer-dashboard"
   },
   {
-    id: "journey",
-    eyebrow: "Worker journey",
-    heading: "How RozgaarAI Supports a Worker",
-    steps: [
-      "Voice or text onboarding",
-      "AI extracts worker information",
-      "Digital Worker Identity is created",
-      "AI resume is generated",
-      "Work and Income Passport is built",
-      "Relevant jobs are recommended",
-      "Worker prepares through interview coaching",
-      "Profile can be shared with employers"
-    ],
-    highlight: "One profile grows with the worker over time.",
-    visual: "process-flow"
-  },
-  {
-    id: "complement",
-    eyebrow: "Complementary infrastructure",
-    heading: "Not Competition. Complementary Infrastructure.",
-    leftTitle: "e-Shram",
-    leftItems: ["Registration", "Social security", "Welfare access", "National worker database"],
-    rightTitle: "RozgaarAI",
-    rightItems: ["Employment readiness", "Skill visibility", "Career profile", "Job discovery", "Income records", "Interview support"],
-    equation: "Registration + Employability = Worker Empowerment",
-    highlight: "e-Shram can establish identity. RozgaarAI can help activate opportunity.",
-    visual: "connected-systems"
+    id: "ngo-workspace",
+    kicker: "Next big move",
+    title: "NGOs and foundations become the trusted bridge.",
+    subtitle: "They already have field relationships, training programs, employer networks and local trust. RozgaarAI gives them the operating layer.",
+    metrics: ["124 enrolled workers", "38 training completed", "21 matched", "12 placed"],
+    type: "ngo-dashboard"
   },
   {
     id: "ecosystem",
-    eyebrow: "Future integration vision",
-    heading: "A Connected Employment Ecosystem",
-    integrations: [
-      "e-Shram verification",
-      "National Career Service",
-      "Skill India",
-      "DigiLocker",
-      "Consent-based identity verification",
-      "Employer verification",
-      "Digital payment and wage records",
-      "Government employment exchanges"
-    ],
-    note: "Future possibilities, not current integrations.",
-    highlight: "The long-term vision is a trusted, portable and worker-owned career identity.",
-    visual: "ecosystem"
+    kicker: "Complete ecosystem flow",
+    title: "Worker → NGO → RozgaarAI → Employer → Better Jobs",
+    subtitle: "Digital identity, verification, training, consent, matching and placement move together.",
+    type: "ecosystem"
   },
   {
-    id: "conclusion",
-    eyebrow: "Final takeaway",
-    heading: "From Being Registered to Being Employable",
-    statements: [
-      ["e-Shram answers", "Who is the worker?"],
-      ["RozgaarAI answers", "How can this worker access better opportunities?"]
+    id: "functionality",
+    kicker: "Core functionality",
+    title: "One product layer for identity, readiness and employment movement.",
+    features: [
+      "Voice-based profile creation",
+      "AI-generated worker profile",
+      "QR digital identity",
+      "Worker dashboard",
+      "Employer discovery",
+      "NGO workspace",
+      "Wage tracking",
+      "Rights and safety support",
+      "Shareable verified profile"
     ],
-    takeaway: "Registration creates identity. AI creates visibility. RozgaarAI turns worker information into a lifelong digital career passport.",
-    closing: "One identifies the worker. The other helps the worker move forward.",
-    cta: "Explore the RozgaarAI Prototype",
-    visual: "closing"
+    type: "features"
+  },
+  {
+    id: "impact",
+    kicker: "Social impact",
+    title: "From invisible labour to verified opportunity.",
+    lines: [
+      "Workers get identity.",
+      "Employers get trust.",
+      "NGOs get visibility and tracking.",
+      "Skill programs get employment outcomes.",
+      "The ecosystem gets a structured flow."
+    ],
+    type: "impact"
+  },
+  {
+    id: "journey",
+    kicker: "Demo journey",
+    title: "A simple journey with a powerful shift.",
+    steps: ["Worker speaks", "AI builds profile", "NGO verifies", "Employer discovers", "Worker gets opportunity"],
+    type: "journey"
+  },
+  {
+    id: "closing",
+    kicker: "From identity to opportunity",
+    title: "RozgaarAI",
+    subtitle: "Building the employment infrastructure for India’s informal workforce.",
+    cta: "From identity to opportunity.",
+    type: "closing"
   }
 ];
