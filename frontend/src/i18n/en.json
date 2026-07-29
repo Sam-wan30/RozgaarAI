@@ -2,12 +2,220 @@
   "languageName": "English",
   "otherLanguage": "हिन्दी",
   "languageLabel": "Choose language",
+  "languageChanged": "Language changed to {language}",
   "nav": [
     "Workers",
     "Employers",
     "Impact",
     "About"
   ],
+  "navMain": {
+    "challenge": "Challenge",
+    "howItWorks": "How It Works",
+    "product": "Product",
+    "employers": "Employers",
+    "ngos": "NGOs",
+    "exploreDemo": "Explore Demo",
+    "signIn": "Sign In",
+    "workerProfile": "Profile (Worker)",
+    "employerDashboard": "Employer Dashboard",
+    "homeAria": "RozgaarAI home",
+    "primaryNavigation": "Primary navigation",
+    "selectLanguage": "Select language",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "mobileNavigation": "Mobile navigation",
+    "mobilePrimaryNavigation": "Mobile primary navigation",
+    "language": "Language"
+  },
+  "demoWorkersPage": {
+    "eyebrow": "Try RozgaarAI Instantly",
+    "titlePrefix": "Explore",
+    "titleAccent": "Demo",
+    "titleSuffix": "Workers",
+    "description": "Experience the complete RozgaarAI journey — from AI onboarding to verified identity and employment.",
+    "bannerTitlePrefix": "Demo",
+    "bannerTitleAccent": "Mode",
+    "bannerTitleSuffix": "Active",
+    "bannerCopy": "Explore complete worker journeys instantly.",
+    "bannerNote": "No login required.",
+    "searchPlaceholder": "Search workers...",
+    "sortLabel": "Sort demo workers",
+    "sortMostRelevant": "Most Relevant",
+    "sortReadiness": "Readiness",
+    "sortExperience": "Experience",
+    "verified": "Verified",
+    "metricExperience": "Experience",
+    "metricReadiness": "Readiness",
+    "metricBestMatch": "Best Match",
+    "years": "years",
+    "badges": {
+      "aiResume": "AI Resume",
+      "incomePassport": "Income Passport",
+      "interviewReady": "Interview Ready",
+      "verifiedIdentity": "Verified Identity"
+    },
+    "exploreJourney": "Explore Worker Journey",
+    "proofSafeTitle": "Safe & Verified",
+    "proofSafeCopy": "All demo workers are 100% verified with complete identity and credentials.",
+    "proofJourneyTitle": "Real Journey Preview",
+    "proofJourneyCopy": "Explore the full RozgaarAI workflow exactly as it works for real users.",
+    "stats": {
+      "demoWorkers": "Demo Workers",
+      "journeysTried": "Journeys Tried",
+      "userSatisfaction": "User Satisfaction"
+    },
+    "categories": {
+      "all": "All Workers",
+      "domestic": "Domestic Work",
+      "skilled": "Skilled Work",
+      "services": "Services",
+      "transport": "Transport",
+      "manufacturing": "Manufacturing"
+    }
+  },
+  "landingV2": {
+    "challengeEyebrow": "The Challenge",
+    "challengeTitlePrefix": "Millions of Skilled Workers",
+    "challengeTitleAccent": "Remain Invisible",
+    "challengeCopyLine1": "Talent exists everywhere.",
+    "challengeCopyLine2": "Trusted proof doesn’t.",
+    "orbitAria": "Worker surrounded by employment barriers",
+    "workerOrbitAlt": "Informal worker representing employment proof challenges",
+    "challengeItems": {
+      "resume": [
+        "No Formal Resume",
+        "Employers cannot verify experience, even when workers have years of practical skills."
+      ],
+      "identity": [
+        "No Trusted Identity",
+        "Skills remain invisible without a verified digital profile."
+      ],
+      "wages": [
+        "Unfair Wages",
+        "Without market insights, workers often accept lower pay than they deserve."
+      ],
+      "unsafe": [
+        "Unsafe Job Offers",
+        "Workers risk scams, fake recruiters, and illegal registration fees."
+      ],
+      "language": [
+        "Language Barriers",
+        "English-first systems prevent millions from accessing digital employment tools."
+      ],
+      "confidence": [
+        "Low Interview Confidence",
+        "Workers know the job but struggle to present themselves effectively."
+      ]
+    },
+    "howEyebrow": "How RozgaarAI Works",
+    "howTitlePrefix": "From Voice to",
+    "howTitleAccent": "Verified Employment",
+    "howCopy": "A simple AI-powered journey that transforms spoken work experience into trusted employment opportunities.",
+    "steps": {
+      "speak": [
+        "Speak",
+        "Workers share their story by voice or text in their language."
+      ],
+      "aiProfile": [
+        "AI Profile",
+        "AI structures experience into a complete employment profile."
+      ],
+      "identity": [
+        "Digital Identity",
+        "Skills, QR, and verification come together in one trusted identity."
+      ],
+      "income": [
+        "Income Passport",
+        "Work and payment history become portable and tamper-proof."
+      ],
+      "job": [
+        "Job Match",
+        "Opportunities match skill, city, language, and safety preferences."
+      ],
+      "coach": [
+        "Interview Coach",
+        "Workers practice answers and build confidence with AI guidance."
+      ],
+      "employment": [
+        "Employment",
+        "Verified identity leads to better interviews and real opportunities."
+      ]
+    }
+  },
+  "employerPreview": {
+    "label": "For Employers",
+    "titleLine1": "Hire verified workers",
+    "titleLine2": "with confidence.",
+    "description": "Every worker on RozgaarAI is verified through digital identity, work history, and income records so you can hire safely and confidently.",
+    "trustPoints": {
+      "identity": [
+        "Verified Identities",
+        "100% authentic worker profiles"
+      ],
+      "proof": [
+        "Work & Income Proof",
+        "Real records. Real people."
+      ],
+      "match": [
+        "AI Matched Talent",
+        "Right skills. Right fit."
+      ],
+      "safe": [
+        "Safer Hiring Decisions",
+        "Reduced risk. Better outcomes."
+      ]
+    },
+    "openDashboard": "Open Employer Dashboard",
+    "exploreHow": "Explore how it works",
+    "note": "Interactive demo",
+    "noteSuffix": "No signup required",
+    "cardLabel": "Rahul Kumar digital career identity",
+    "digitalIdentity": "Digital Career Identity",
+    "verified": "Verified",
+    "electrician": "Electrician",
+    "location": "Gurugram, Haryana",
+    "pills": [
+      "Identity Verified",
+      "Skills Recorded",
+      "Employment Ready"
+    ],
+    "details": {
+      "workerId": "Worker ID",
+      "experience": "Experience",
+      "primarySkill": "Primary Skill",
+      "languages": "Languages Spoken",
+      "availability": "Availability Status"
+    },
+    "values": {
+      "experience": "4 years",
+      "primarySkill": "Electrical Work",
+      "language": "Hindi",
+      "availability": "Available for Work"
+    },
+    "scan": "Scan to verify worker profile",
+    "verifiedBy": "Verified by RozgaarAI",
+    "status": {
+      "issuedOn": "Issued On",
+      "score": "AI Employment Score",
+      "resume": "Resume Ready",
+      "income": "Income Passport",
+      "updated": "Last Updated",
+      "ready": "Ready",
+      "active": "Active"
+    }
+  },
+  "footer": {
+    "tagline": "Digital Career Identity & Income Passport",
+    "copy": "Turning real experience from India's informal workforce into trusted employment identity and economic dignity.",
+    "workers": "Workers",
+    "employers": "Employers",
+    "ngos": "NGOs",
+    "impact": "Impact",
+    "about": "About",
+    "documentation": "Documentation",
+    "contact": "Contact"
+  },
   "brandTagline": "Income Passport",
   "heroBadge": "Voice-first AI employment assistant",
   "heroTitle": "Digital Career Identity & Income Passport for India's Informal Workforce",
@@ -16,6 +224,9 @@
   "startDemo": "Start Voice Demo",
   "checkSafety": "Check Job Safety",
   "createIdentity": "Create Worker Identity",
+  "createCareerIdentity": "Create Career Identity",
+  "heroEmployerDashboard": "Employer Dashboard",
+  "workerDashboardTitle": "Worker Dashboard",
   "exploreDemo": "Explore Demo",
   "demoMode": {
     "eyebrow": "Try RozgaarAI Instantly",
@@ -64,38 +275,101 @@
     "problemEyebrow": "The problem",
     "problemTitle": "Workers often have experience, but not formal resumes, proof of work, verified skills, income history, or interview confidence.",
     "problems": [
-      ["No formal resume", "Many workers cannot show experience in a format employers trust."],
-      ["No verified work identity", "Skills remain invisible outside word-of-mouth networks."],
-      ["Unsafe job opportunities", "Deposits, fake employers, and unclear addresses create real risk."],
-      ["Unfair wages", "Workers often negotiate without local wage benchmarks."],
-      ["Language barriers", "English-first systems exclude first-time and low-literacy workers."],
-      ["Limited interview confidence", "Workers know the job but may struggle to present themselves."]
+      [
+        "No formal resume",
+        "Many workers cannot show experience in a format employers trust."
+      ],
+      [
+        "No verified work identity",
+        "Skills remain invisible outside word-of-mouth networks."
+      ],
+      [
+        "Unsafe job opportunities",
+        "Deposits, fake employers, and unclear addresses create real risk."
+      ],
+      [
+        "Unfair wages",
+        "Workers often negotiate without local wage benchmarks."
+      ],
+      [
+        "Language barriers",
+        "English-first systems exclude first-time and low-literacy workers."
+      ],
+      [
+        "Limited interview confidence",
+        "Workers know the job but may struggle to present themselves."
+      ]
     ],
     "journeyEyebrow": "Solution journey",
     "journeyTitle": "From spoken details to a trusted income and employment passport",
     "featuresEyebrow": "Product capabilities",
     "featuresTitle": "A complete AI employment stack for workers, employers, and NGOs",
     "features": [
-      ["Voice Onboarding", "Workers can speak in Hindi or English and the app structures their details."],
-      ["Digital Career Identity", "A verified, QR-enabled profile that travels with the worker."],
-      ["Resume Generator", "ATS-friendly resumes generated from real work experience."],
-      ["Skill Certificate", "Certificate-style proof for role, experience, and verification ID."],
-      ["Explainable Job Matching", "Every match shows skill, location, wage, language, and safety logic."],
-      ["Fair Wage Estimator", "Local wage guidance based on city, role, and experience."],
-      ["Interview Coach", "Role-specific questions, sample answers, scoring, and feedback."],
-      ["Employer Dashboard", "Search, review, shortlist, and contact verified workers."],
-      ["Impact Dashboard", "Outcome analytics for NGOs, funders, and public-sector pilots."]
+      [
+        "Voice Onboarding",
+        "Workers can speak in Hindi or English and the app structures their details."
+      ],
+      [
+        "Digital Career Identity",
+        "A verified, QR-enabled profile that travels with the worker."
+      ],
+      [
+        "Resume Generator",
+        "ATS-friendly resumes generated from real work experience."
+      ],
+      [
+        "Skill Certificate",
+        "Certificate-style proof for role, experience, and verification ID."
+      ],
+      [
+        "Explainable Job Matching",
+        "Every match shows skill, location, wage, language, and safety logic."
+      ],
+      [
+        "Fair Wage Estimator",
+        "Local wage guidance based on city, role, and experience."
+      ],
+      [
+        "Interview Coach",
+        "Role-specific questions, sample answers, scoring, and feedback."
+      ],
+      [
+        "Employer Dashboard",
+        "Search, review, shortlist, and contact verified workers."
+      ],
+      [
+        "Impact Dashboard",
+        "Outcome analytics for NGOs, funders, and public-sector pilots."
+      ]
     ],
     "storyEyebrow": "Demo story",
     "storyTitle": "Asha Kumari goes from informal experience to a shareable career identity",
     "storySubtitle": "Domestic Worker • Delhi",
     "storySteps": [
-      ["Voice input", "Asha speaks her work history in Hindi."],
-      ["Resume generated", "RozgaarAI turns her experience into a professional resume."],
-      ["Identity created", "She receives a verified QR career card."],
-      ["Employer discovers profile", "Employers can scan, review, and contact safely."],
-      ["Interview practice", "Asha practices clear answers before the call."],
-      ["Hired with confidence", "Her skill, wage expectation, and availability are clear."]
+      [
+        "Voice input",
+        "Asha speaks her work history in Hindi."
+      ],
+      [
+        "Resume generated",
+        "RozgaarAI turns her experience into a professional resume."
+      ],
+      [
+        "Identity created",
+        "She receives a verified QR career card."
+      ],
+      [
+        "Employer discovers profile",
+        "Employers can scan, review, and contact safely."
+      ],
+      [
+        "Interview practice",
+        "Asha practices clear answers before the call."
+      ],
+      [
+        "Hired with confidence",
+        "Her skill, wage expectation, and availability are clear."
+      ]
     ],
     "employerEyebrow": "Employer preview",
     "employerTitle": "Find verified workers with context before the first call",
@@ -104,9 +378,21 @@
     "testimonialsEyebrow": "Demo testimonials",
     "testimonialsTitle": "Designed for trust across the employment ecosystem",
     "testimonials": [
-      ["Asha Kumari", "Domestic Worker", "For the first time, I can share my work experience like a professional profile."],
-      ["Urban Homes Services", "Employer", "The QR profile and wage estimate make the first conversation faster and safer."],
-      ["SewaLink Foundation", "NGO Partner", "RozgaarAI gives field teams a clear way to onboard workers and track outcomes."]
+      [
+        "Asha Kumari",
+        "Domestic Worker",
+        "For the first time, I can share my work experience like a professional profile."
+      ],
+      [
+        "Urban Homes Services",
+        "Employer",
+        "The QR profile and wage estimate make the first conversation faster and safer."
+      ],
+      [
+        "SewaLink Foundation",
+        "NGO Partner",
+        "RozgaarAI gives field teams a clear way to onboard workers and track outcomes."
+      ]
     ],
     "ctaTitle": "Empowering India’s Informal Workforce with AI",
     "ctaCopy": "Create a worker identity, generate a resume, verify job safety, and start interview practice in one polished demo flow.",
@@ -186,17 +472,61 @@
     "preferredWorkTypeValue": "Full-time verified work",
     "nearbyOpportunitiesValue": "Near your city",
     "secondarySkillSuggestions": {
-      "Plumber": ["Leak repair", "Bathroom fittings", "Pipe maintenance"],
-      "Electrician": ["Wiring", "MCB repair", "Fan and light fitting"],
-      "Driver": ["Route planning", "Vehicle checks", "Passenger safety"],
-      "Construction Worker": ["Material handling", "Site safety", "Finishing support"],
-      "Domestic Worker": ["Cleaning", "Elderly care", "Cooking support"],
-      "Cook": ["Home meals", "Kitchen hygiene", "Menu planning"],
-      "Delivery Worker": ["Route planning", "Digital payments", "Customer handling"],
-      "Tailor": ["Alterations", "Measurements", "Finishing"],
-      "Beautician": ["Threading", "Facial cleanup", "Client hygiene"],
-      "Security Guard": ["Visitor register", "Gate duty", "Night patrol"],
-      "default": ["Reliable attendance", "Customer handling", "Safety awareness"]
+      "Plumber": [
+        "Leak repair",
+        "Bathroom fittings",
+        "Pipe maintenance"
+      ],
+      "Electrician": [
+        "Wiring",
+        "MCB repair",
+        "Fan and light fitting"
+      ],
+      "Driver": [
+        "Route planning",
+        "Vehicle checks",
+        "Passenger safety"
+      ],
+      "Construction Worker": [
+        "Material handling",
+        "Site safety",
+        "Finishing support"
+      ],
+      "Domestic Worker": [
+        "Cleaning",
+        "Elderly care",
+        "Cooking support"
+      ],
+      "Cook": [
+        "Home meals",
+        "Kitchen hygiene",
+        "Menu planning"
+      ],
+      "Delivery Worker": [
+        "Route planning",
+        "Digital payments",
+        "Customer handling"
+      ],
+      "Tailor": [
+        "Alterations",
+        "Measurements",
+        "Finishing"
+      ],
+      "Beautician": [
+        "Threading",
+        "Facial cleanup",
+        "Client hygiene"
+      ],
+      "Security Guard": [
+        "Visitor register",
+        "Gate duty",
+        "Night patrol"
+      ],
+      "default": [
+        "Reliable attendance",
+        "Customer handling",
+        "Safety awareness"
+      ]
     },
     "skillUpgradeSuggestions": {
       "Plumber": "Waterproofing and pressure-pump repair",
@@ -219,14 +549,46 @@
     "title": "Eight steps judges can follow in five minutes",
     "copy": "Use this flow to show RozgaarAI’s reliability even when AI keys, voice support, or a database are unavailable.",
     "steps": [
-      ["01", "Voice/text onboarding", "Worker enters or speaks basic details."],
-      ["02", "AI profile generated", "Fallback AI logic structures the worker profile."],
-      ["03", "Resume generated", "A clean resume is created in the selected language."],
-      ["04", "Digital Career Identity with QR", "A public worker profile opens from the QR link."],
-      ["05", "Job matches", "Explainable matches show skill, city, wage, language, and safety."],
-      ["06", "Interview coach", "Role-specific questions and feedback prepare the worker."],
-      ["07", "Employer views worker profile", "Employer dashboard searches and shortlists verified workers."],
-      ["08", "Impact dashboard", "Judges see outcomes for NGOs, workers, and public programs."]
+      [
+        "01",
+        "Voice/text onboarding",
+        "Worker enters or speaks basic details."
+      ],
+      [
+        "02",
+        "AI profile generated",
+        "Fallback AI logic structures the worker profile."
+      ],
+      [
+        "03",
+        "Resume generated",
+        "A clean resume is created in the selected language."
+      ],
+      [
+        "04",
+        "Digital Career Identity with QR",
+        "A public worker profile opens from the QR link."
+      ],
+      [
+        "05",
+        "Job matches",
+        "Explainable matches show skill, city, wage, language, and safety."
+      ],
+      [
+        "06",
+        "Interview coach",
+        "Role-specific questions and feedback prepare the worker."
+      ],
+      [
+        "07",
+        "Employer views worker profile",
+        "Employer dashboard searches and shortlists verified workers."
+      ],
+      [
+        "08",
+        "Impact dashboard",
+        "Judges see outcomes for NGOs, workers, and public programs."
+      ]
     ]
   },
   "demoProfiles": {
@@ -317,11 +679,31 @@
     "eyebrow": "Worker journey",
     "title": "One clear path to better work",
     "steps": [
-      ["01", "Create Profile", "Voice or text becomes a structured worker profile"],
-      ["02", "View Work Matches", "See safer, explainable work recommendations"],
-      ["03", "Track Daily Wage", "Record wages, received payments, and pending amounts"],
-      ["04", "View Rights Help", "Check risky offers and document requests"],
-      ["05", "Download Digital Worker Card", "Share a verified worker profile with employers"]
+      [
+        "01",
+        "Create Profile",
+        "Voice or text becomes a structured worker profile"
+      ],
+      [
+        "02",
+        "View Work Matches",
+        "See safer, explainable work recommendations"
+      ],
+      [
+        "03",
+        "Track Daily Wage",
+        "Record wages, received payments, and pending amounts"
+      ],
+      [
+        "04",
+        "View Rights Help",
+        "Check risky offers and document requests"
+      ],
+      [
+        "05",
+        "Download Digital Worker Card",
+        "Share a verified worker profile with employers"
+      ]
     ]
   },
   "dashboardEyebrow": "Worker Workspace",
@@ -549,6 +931,81 @@
     "shortlisted": "Shortlisted",
     "saved": "Worker saved to employer shortlist."
   },
+  "employerOverview": {
+    "goodMorning": "Good morning, {company} 👋",
+    "searchPlaceholder": "Search workers, jobs, applicants...",
+    "demoMode": "Demo Mode",
+    "employerDemo": "Employer Demo",
+    "exitDemo": "Exit Demo",
+    "needHelp": "Need Help?",
+    "supportCopy": "We're here to help you find the right talent.",
+    "contactSupport": "Contact Support",
+    "briefTitle": "3 new workers match your open positions today.",
+    "emptyBriefTitle": "You are ready to start hiring.",
+    "emptyBriefSummary": "Post your first job and RozgaarAI will recommend verified workers.",
+    "postFirstJob": "Post Your First Job",
+    "reviewAiMatches": "Review AI Matches",
+    "postNewJob": "Post a New Job",
+    "assistantVisualLabel": "AI hiring assistant visual",
+    "workersMatch": "{count} workers match your active jobs",
+    "candidatesAvailable": "{count} candidates became available today",
+    "interviewsTomorrow": "{count} interviews scheduled for tomorrow",
+    "awaitingReview": "{count} applicant awaiting your review",
+    "hiringFunnel": "Your Hiring Funnel",
+    "thisMonth": "This Month",
+    "postedJobs": "Posted Jobs",
+    "applicants": "Applicants",
+    "shortlisted": "Shortlisted",
+    "interviews": "Interviews",
+    "hires": "Hires",
+    "fromLastMonth": "{count} from last month",
+    "recommendedWorkers": "Recommended Workers for You",
+    "viewAllMatches": "View All Matches",
+    "match": "Match",
+    "expectedSalary": "Expected Salary",
+    "view": "View",
+    "message": "Message",
+    "shortlist": "Shortlist",
+    "noRecommendedWorkers": "Create a job post to unlock stronger verified worker recommendations.",
+    "aiHiringInsights": "AI Hiring Insights",
+    "viewDetailedInsights": "View Detailed Insights",
+    "insightDemandTitle": "{role} are in high demand in {city}",
+    "insightDemandBody": "Consider increasing salary by {amount} to attract more qualified candidates.",
+    "insightMatchesTitle": "{count} highly matched workers are available",
+    "insightMatchesBody": "Near your job locations with {score}+ match score.",
+    "insightConversionTitle": "Interview conversion is {rate}",
+    "insightConversionBody": "Try using AI Interview Coach to improve shortlisting quality.",
+    "emptyInsightTitle": "Hiring insights will appear here",
+    "emptyInsightBody": "Post a job or enable Employer Demo to see AI hiring recommendations.",
+    "quickActions": "Quick Actions",
+    "postAJob": "Post a Job",
+    "findWorkers": "Find Workers",
+    "reviewApplicants": "Review Applicants",
+    "scheduleInterview": "Schedule Interview",
+    "viewShortlisted": "View Shortlisted",
+    "hiringTimeline": "Hiring Timeline",
+    "viewAllActivity": "View All Activity",
+    "emptyTimeline": "Your hiring activity will appear here.",
+    "newJobLive": "New job post “{job}” is live",
+    "postedByYou": "Posted by you",
+    "workerApplied": "{worker} applied for {job}",
+    "newApplicationReceived": "New application received",
+    "workerShortlisted": "{worker} shortlisted for {job}",
+    "addedToShortlist": "Added to shortlisted candidates",
+    "interviewScheduled": "Interview scheduled with {worker}",
+    "tomorrowTime": "Tomorrow, 10:00 AM",
+    "companySnapshot": "Company Snapshot",
+    "editProfile": "Edit Profile",
+    "profileCompletion": "Profile Completion",
+    "completeCompanyProfile": "Complete Company Profile",
+    "industryFallback": "Facility Management",
+    "locationFallback": "Nagpur, Maharashtra",
+    "activeJobs": "Active Jobs",
+    "totalApplicants": "Total Applicants",
+    "hiredThisMonth": "Hired This Month",
+    "available": "Available",
+    "immediate": "Immediate"
+  },
   "impactEyebrow": "Impact Dashboard",
   "impactTitle": "National-scale outcomes for workers, NGOs, and employers",
   "impactStats": [
@@ -637,6 +1094,41 @@
   "emptyCoach": "No interview questions yet. Start practice to generate role-specific coaching.",
   "emptyRisk": "Enter an offer message to check risk signals.",
   "resumeSuccess": "Resume Generated Successfully.",
+  "resumeLabels": {
+    "verifiedWorker": "Verified RozgaarAI Worker",
+    "digitalIdentityQr": "Digital Career Identity QR",
+    "resumeQr": "Resume QR",
+    "scanToVerify": "Scan to verify digital worker identity",
+    "workerId": "Worker ID",
+    "phone": "Phone",
+    "demoContact": "Demo contact",
+    "languages": "Languages",
+    "availability": "Availability",
+    "contact": "Contact",
+    "expectedWage": "Expected Wage",
+    "professionalSummary": "Professional Summary",
+    "workExperience": "Work Experience",
+    "verifiedWorkStrengths": "Verified Work Strengths",
+    "workHighlights": "Work Highlights",
+    "skills": "Skills",
+    "digitalIdentity": "Digital Identity",
+    "preferredWork": "Preferred Work",
+    "skillConfidence": "skill confidence",
+    "monthExpectedWage": "month expected wage",
+    "generatedBy": "Generated by RozgaarAI AI Resume Builder",
+    "verifiedDigitalIdentity": "Verified Digital Career Identity",
+    "aiResumeAssistant": "AI Resume Assistant",
+    "resumeQuality": "Resume Quality",
+    "aiSuggestions": "AI Suggestions",
+    "generatingResume": "Generating Resume",
+    "badges": [
+      "ATS Ready",
+      "Employer Ready",
+      "Verified Worker",
+      "PDF Ready",
+      "QR Verified"
+    ]
+  },
   "speechUnsupported": "Speech recognition is not supported in this browser. Please use text input.",
   "answerFallback": "Answer with a short real example and clear wage expectations.",
   "roleLabels": {
@@ -678,5 +1170,921 @@
     "referenceReady": "Reference-ready",
     "mobileReachable": "Mobile reachable",
     "verifiedJobs": "Open to verified jobs"
+  },
+  "workerWorkspace": {
+    "home": "Home",
+    "identity": "My Career Identity",
+    "jobs": "Jobs",
+    "income": "Income Passport",
+    "training": "Training",
+    "resume": "Resume",
+    "coach": "Interview Coach",
+    "safety": "Safety & Rights",
+    "applications": "Applications",
+    "settings": "Settings",
+    "title": "Worker Workspace",
+    "nextStep": "Next Step",
+    "careerJourney": "Your Career Journey",
+    "tools": "Your Career Tools",
+    "updates": "Important Updates",
+    "opportunities": "New Job Opportunities",
+    "identityTitle": "Your Digital Career Identity",
+    "activity": "Recent Activity",
+    "createIdentity": "Create Worker Identity",
+    "how": "See How It Works",
+    "generate": "Generate",
+    "addRecord": "Add Work Record",
+    "browse": "Browse Jobs",
+    "practice": "Practise",
+    "checkOffer": "Check a Job Offer",
+    "downloadCard": "Download Worker Card",
+    "share": "Share Profile",
+    "signOut": "Sign Out",
+    "logOut": "Log out",
+    "demoMode": "Demo Mode",
+    "demo": "Demo",
+    "demoTitle": "You are exploring RozgaarAI in Demo Mode",
+    "demoCopy": "This is sample worker data. Changes will not affect your account.",
+    "createMyProfile": "Create My Profile",
+    "exitDemo": "Exit Demo",
+    "loadProfileError": "We couldn't load your worker profile.",
+    "tryAgain": "Try Again",
+    "welcome": "Welcome to RozgaarAI",
+    "readyTitle": "Your worker identity is ready.",
+    "createTitle": "Create your verified worker identity in just a few minutes.",
+    "readyCopy": "Open your saved worker identity, resume, Income Passport and interview tools from the workspace navigation.",
+    "createCopy": "Tell us about your skills and work experience using voice or text. RozgaarAI will build your digital identity, resume and personalised job profile.",
+    "onboardingSteps": [
+      [
+        "Share your work details",
+        "Speak or type your skills, experience and location."
+      ],
+      [
+        "Let AI build your profile",
+        "Generate your worker identity and professional resume."
+      ],
+      [
+        "Unlock opportunities",
+        "Receive verified job matches, wage guidance and interview support."
+      ]
+    ],
+    "openMyWorkerIdentity": "Open My Worker Identity",
+    "createMyWorkerIdentity": "Create My Worker Identity",
+    "profilePrivate": "Your profile belongs only to your signed-in account",
+    "approxTime": "Takes approximately 3-5 minutes",
+    "exploreDemo": "Explore Demo Workspace",
+    "demoPreview": "Preview all features using safe sample data. Nothing will be saved to your account.",
+    "trust": [
+      "Your profile belongs only to your Google account",
+      "Your information is not shared without permission",
+      "Demo data never changes your real profile"
+    ],
+    "dataPrivate": "Your data remains private and belongs only to your account.",
+    "journey": [
+      "Identity",
+      "Generate Resume",
+      "Build Income Passport",
+      "Find Jobs",
+      "Prepare for Interviews",
+      "Work Safely"
+    ],
+    "incomePassport": {
+      "eyebrow": "Digital Proof of Work and Income",
+      "title": "Work & Income Passport",
+      "copy": "Verified employment records, wage history, and downloadable proof of work.",
+      "downloadHistory": "Download work history",
+      "totalIncome": "Total Income Earned",
+      "incomeGrowth": "Income Growth",
+      "basedOnSaved": "Based on saved records",
+      "noPriorMonth": "No prior month",
+      "verifiedRecords": "Verified Work Records",
+      "paymentReliability": "Payment Reliability",
+      "employmentCredibility": "Employment Credibility",
+      "indicators": [
+        "Employer-shareable",
+        "NGO-verifiable",
+        "Finance-ready record"
+      ],
+      "shareCopy": "Verified income history that can be shared with employers, NGOs, and financial partners.",
+      "daysWorked": "Days worked",
+      "averageDailyIncome": "Average daily income",
+      "hoursWorked": "Hours worked",
+      "paymentPending": "Payment pending",
+      "earned": "{amount} earned",
+      "workDaysPayment": "{days} work days • Payment completion: {percent}%",
+      "ledger": "Official employment ledger",
+      "table": [
+        "Employer",
+        "Job role",
+        "Days",
+        "Income",
+        "Status",
+        "Verification",
+        "Payment",
+        "Actions"
+      ],
+      "employerFallback": "Employer",
+      "verified": "Verified",
+      "complete": "Complete",
+      "emptyTitle": "No verified work records yet",
+      "emptyCopy": "Add your first work record to begin building your Income Passport.",
+      "learnMoreMessage": "Income Passport helps workers prove work history and payment records."
+    },
+    "completed": "Completed",
+    "current": "Current",
+    "upcoming": "Upcoming",
+    "complete": "complete",
+    "start": "Start",
+    "notStarted": "Not started",
+    "pendingPayments": "Pending Payments",
+    "kpis": [
+      [
+        "Employment Readiness",
+        "Strong profile signal",
+        "Create identity to improve"
+      ],
+      [
+        "Job Matches",
+        "Verified openings nearby",
+        ""
+      ],
+      [
+        "Expected Salary",
+        "Based on role and city",
+        ""
+      ],
+      [
+        "Applications",
+        "3 need follow-up",
+        "Apply from job matches"
+      ],
+      [
+        "Resume Score",
+        "Ready to share",
+        "Generate resume next"
+      ],
+      [
+        "Profile Completion",
+        "2 steps from premium-ready",
+        ""
+      ]
+    ],
+    "groups": [
+      "WORK",
+      "CAREER",
+      "DOCUMENTS",
+      "SUPPORT"
+    ],
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "roadmap": "Roadmap",
+    "nextActions": "Next best actions",
+    "quickActions": "Quick Actions",
+    "featuredAction": "Featured action",
+    "noRecordsHint": "No work records yet? Complete your Income Passport to start tracking earnings and payment proof.",
+    "digitalIdentity": "Digital Identity",
+    "viewProfileCard": "View profile card",
+    "createIdentityShort": "Create identity",
+    "browseJobs": "Browse Jobs",
+    "matchesReady": "{count} matches ready",
+    "interviewPractice": "Interview Practice",
+    "continuePractice": "Continue practice",
+    "startCoaching": "Start coaching",
+    "safetyCheck": "Safety Check",
+    "scanRiskyOffers": "Scan risky offers",
+    "downloadResume": "Download resume",
+    "generateResume": "Generate resume",
+    "aiTitle": "AI Career Insights",
+    "intelligence": "RozgaarAI intelligence",
+    "goodMorning": "Good morning {name}.",
+    "completeHeroTitle": "Complete your Income Passport to unlock Verified Jobs, Wage Protection and Digital Identity.",
+    "completeHeroCopy": "RozgaarAI is turning your work history into a trusted employment profile employers can understand in seconds.",
+    "continueIncome": "Continue Income Passport",
+    "viewJobMatches": "View {count} Job Matches",
+    "employmentReady": "Employment Ready",
+    "aiRecommendation": "AI recommends finishing the current step before applying to high-trust jobs.",
+    "recommendedAction": "Recommended action:",
+    "applyBefore": "Apply before 6 PM today.",
+    "openJobs": "Open Jobs",
+    "matched": "Matched opportunities",
+    "viewAll": "View all",
+    "verifiedEmployer": "Verified Employer",
+    "aiMatch": "AI Match",
+    "whyRecommended": "Why AI recommended this:",
+    "whyRecommendedCopy": "the role fits your city, wage range, language preference, and verified work signals.",
+    "nearby": "Nearby",
+    "experience": "Experience",
+    "salaryPreference": "Salary preference",
+    "applyNow": "Apply Now",
+    "save": "Save",
+    "details": "Details",
+    "emptyJobMatch": "Create your identity to receive personalised job matches.",
+    "worker": "Worker",
+    "languages": "Languages",
+    "years": "yrs",
+    "digitalWorkerId": "Digital Worker ID",
+    "readiness": "Readiness",
+    "openIdentity": "Open Identity",
+    "aiReady": "AI Ready",
+    "sidebarHint": "AI keeps your profile ready for safer opportunities.",
+    "routeCopy": {
+      "jobs": "Want personalised job matches? Create your own worker identity.",
+      "resume": "Generate a resume using your own skills and experience.",
+      "income": "Start tracking your real wages and payment history.",
+      "demoDefault": "Explore this sample workflow, then create your own profile when you are ready.",
+      "default": "Use the controls below to continue this workflow."
+    },
+    "status": {},
+    "insights": [
+      "{count} new {role} jobs became available today.",
+      "Completing your Income Passport could increase your hiring chances by 42%.",
+      "Your resume performs better than {percent}% of workers nearby."
+    ],
+    "profileCreated": "Profile created",
+    "workRecordAdded": "Work record added",
+    "createWorkerProfile": "Create My Worker Profile",
+    "saveLater": "Save & Continue Later",
+    "lessThanTwoMinutes": "It takes less than 2 minutes",
+    "onboardingFlow": [
+      "Voice/Text Input",
+      "AI Extraction",
+      "Review Details",
+      "Generate Identity",
+      "Open Workspace"
+    ],
+    "timeline": {
+      "resumeGenerated": "Resume generated",
+      "resumeNeeds": "Resume needs one final pass",
+      "resumeReady": "Ready for verified employers",
+      "resumeImprove": "Generate it to improve employer trust",
+      "employerViewed": "Employer viewed profile",
+      "employerViewedCopy": "Your Digital Worker ID was opened by a verified employer",
+      "incomeUpdated": "Income Passport updated",
+      "incomePending": "Income Passport pending",
+      "recordsAvailable": "{count} work records available",
+      "incomeStart": "Add work records to start tracking earnings",
+      "jobMatched": "New job matched",
+      "jobMatchedCopy": "{score}% AI match based on city, skill, and wage",
+      "cardVerified": "Worker card verified",
+      "cardVerifiedCopy": "Identity signals are ready for safe sharing"
+    },
+    "loading": "Loading...",
+    "fallbackWorkerName": "Worker",
+    "fallbackAccountName": "Sami",
+    "fallbackLanguage": "Hindi",
+    "fallbackJobType": "Full-time",
+    "partnerEmployer": "RozgaarAI Partner",
+    "qrTitle": "Worker profile QR",
+    "aria": {
+      "openWorkerDashboard": "Open worker dashboard",
+      "workerNavigation": "Worker navigation",
+      "home": "RozgaarAI home",
+      "workerWorkspace": "RozgaarAI worker workspace"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "saveWorkRecord": "Save Work Record",
+      "saving": "Saving...",
+      "close": "Close",
+      "backToDashboard": "Back to Dashboard",
+      "needHelp": "Need help?",
+      "uploadId": "Upload ID",
+      "extracting": "Extracting...",
+      "speakNow": "Speak Now",
+      "remove": "Remove",
+      "filter": "Filter",
+      "sort": "Sort",
+      "downloadCsv": "Download CSV",
+      "viewProof": "View proof",
+      "learnMore": "Learn More",
+      "review": "Review",
+      "viewDetails": "View Details",
+      "startInterview": "Start Interview",
+      "copyLink": "Copy Link",
+      "copyProfileLink": "Copy Profile Link",
+      "extractDetails": "Extract details",
+      "generatingProfile": "Generating worker profile..."
+    },
+    "workRecord": {
+      "title": "Add Work Record",
+      "description": "Save this record to your Income Passport.",
+      "accountDescription": "Save this record to your Income Passport for the signed-in worker account.",
+      "employerLabel": "Employer or Client Name*",
+      "employerPlaceholder": "Enter employer or client name",
+      "workTypeLabel": "Job or Work Type*",
+      "workTypePlaceholder": "e.g. Plumbing repair",
+      "workDateLabel": "Work Date*",
+      "amountLabel": "Amount Earned*",
+      "paymentStatusLabel": "Payment Status*",
+      "hoursLabel": "Hours Worked",
+      "hoursPlaceholder": "e.g. 8",
+      "locationLabel": "Location",
+      "locationPlaceholder": "Enter work location",
+      "notesLabel": "Notes",
+      "notesHint": "{count}/500 characters",
+      "notesPlaceholder": "Add payment notes, work details, or reference information.",
+      "paid": "Paid",
+      "pending": "Pending",
+      "partiallyPaid": "Partially Paid",
+      "proofLabel": "Proof of Work or Payment upload",
+      "proofHint": "Optional. PDF, PNG, JPG or WebP up to 5 MB.",
+      "voiceTitle": "Add record using voice",
+      "voiceCopy": "Speak naturally about the employer, work, date, amount and payment status.",
+      "voiceStart": "Start Voice Input",
+      "listening": "Listening...",
+      "processing": "Extracting..."
+    },
+    "onboarding": {
+      "secureAccess": "Secure Access",
+      "accountProfiles": "Account-based Profiles",
+      "title": "Create your AI Employment Workspace",
+      "copy": "All your career records, verified and organized in one secure workspace - powered by AI.",
+      "createFreeAccount": "Create Free Account",
+      "preparing": "Preparing...",
+      "dataSecure": "Your data is secure and private",
+      "syncDevices": "Sync across all your devices",
+      "prepSteps": [
+        "Preparing your workspace...",
+        "Enabling AI assistant...",
+        "Creating secure profile...",
+        "Workspace ready"
+      ],
+      "trustItems": [
+        "Trusted by workers across Bharat",
+        "Govt. Grade Security",
+        "Aadhaar Linked Verification",
+        "Built for India’s Workforce"
+      ],
+      "preview": "Your Workspace Preview",
+      "readinessScore": "Readiness Score",
+      "memberSince": "Member since Aug 2024",
+      "generated": "Digital Career Identity generated",
+      "generatedCopy": "Your identity is verified and ready to share",
+      "synced": "Synced",
+      "twoHoursAgo": "2h ago",
+      "brandTagline": "Voice-first AI Employment Assistant",
+      "securePrivate": "100% Secure & Private",
+      "stepperLabel": "Worker identity creation progress",
+      "steps": [
+        "Personal Info",
+        "Experience",
+        "Skills",
+        "Review",
+        "Complete"
+      ],
+      "aiAssisted": "AI Assisted Onboarding",
+      "tell": "Tell RozgaarAI about the worker",
+      "tellCopy": "You can type or speak naturally. RozgaarAI automatically understands the worker and fills the profile.",
+      "imageAlt": "Indian worker speaking into a smartphone for AI assisted onboarding",
+      "trySaying": "Try saying something like:",
+      "examplePlaceholder": "\"I am Ramesh Patel from Mumbai. I have 5 years of plumbing experience, expect ₹30,000/month, speak Hindi, and can work full-time.\"",
+      "exampleAria": "Example worker story for AI assisted extraction",
+      "speakAria": "Speak worker story",
+      "voiceExample": "Voice Example",
+      "uploadIdMessage": "Upload ID can be added after creating the worker identity.",
+      "formTitle": "Let's build your Worker Identity",
+      "formCopy": "Please fill in the basic details. You can edit these later.",
+      "requiredHelp": "Name, phone, city and primary skill are required to create your identity.",
+      "helpMessage": "Need help? RozgaarAI support is ready to guide you through worker identity setup."
+    },
+    "securePreview": {
+      "features": [
+        [
+          "Digital Career Identity",
+          "A verified career identity that follows you everywhere."
+        ],
+        [
+          "AI Resume",
+          "Professional resume generated from your real experience."
+        ],
+        [
+          "Income Passport",
+          "Verified income proof for credit, insurance & opportunities."
+        ],
+        [
+          "Job Matches",
+          "Opportunities match your skills, location & preferences."
+        ],
+        [
+          "Interview Readiness",
+          "You're interview ready! Keep going to land your next opportunity."
+        ]
+      ],
+      "trust": [
+        [
+          "Secure Account",
+          "Bank-level encryption"
+        ],
+        [
+          "Synced Everywhere",
+          "Phone, tablet, desktop"
+        ],
+        [
+          "Private & Yours",
+          "You control your data"
+        ],
+        [
+          "Bank-level Encryption",
+          "Protected at every step"
+        ]
+      ]
+    },
+    "form": {
+      "fullName": "Full Name",
+      "phone": "Phone Number",
+      "city": "City",
+      "primarySkill": "Primary Skill",
+      "experience": "Experience",
+      "expectedWage": "Expected Monthly Wage",
+      "languages": "Languages Known",
+      "availability": "Availability",
+      "workAbout": "Tell us about your work (Skills, experience, past work)",
+      "fullNamePlaceholder": "Enter your full name",
+      "phonePlaceholder": "Enter 10-digit mobile number",
+      "cityPlaceholder": "Select your city",
+      "skillPlaceholder": "Select your primary skill",
+      "experiencePlaceholder": "e.g. 3 years",
+      "wagePlaceholder": "e.g. ₹15,000",
+      "languagesPlaceholder": "e.g. Hindi, English",
+      "availabilityPlaceholder": "e.g. Full-time, Part-time",
+      "notesPlaceholder": "Write or speak about your work history, skills, previous jobs and experience...",
+      "characters": "{count} characters"
+    },
+    "overview": {
+      "workerOverview": "Worker Overview",
+      "skillNotAdded": "Skill not added",
+      "todayProgress": "Today’s Progress",
+      "keepBuilding": "Keep building your profile",
+      "workspaceReady": "Workspace is ready",
+      "profileStepsComplete": "{completed} of {total} profile steps complete.",
+      "profileCompletion": "Profile completion",
+      "done": "Done",
+      "next": "Next",
+      "aiInsights": "AI Insights",
+      "profileIntelligence": "Profile intelligence",
+      "liveSignals": "Live workspace signals",
+      "recommendedByAi": "Recommended by AI",
+      "benefitTrust": "Benefit: stronger employer trust",
+      "estimatedTime": "Estimated time: 2 minutes",
+      "startNow": "Start now",
+      "recentActivity": "Recent Activity",
+      "latestUpdates": "Latest workspace updates",
+      "workspaceUpdated": "Workspace updated",
+      "noRecentActivity": "No recent activity yet. Profile updates, resume actions, and income records will appear here.",
+      "notifications": "Notifications",
+      "needsAttention": "Needs attention",
+      "shareIdentity": "Share identity",
+      "verifiedCredential": "Verified credential"
+    },
+    "recommendations": {
+      "aiTitle": "AI Job Recommendations",
+      "employerTitle": "Employer Job Posts",
+      "aiSubtitle": "AI Job Recommendations",
+      "employerSubtitle": "Jobs added by employers",
+      "aiCopy": "Recommendations generated using your verified skills, work history, wage expectations, language, and safety preferences.",
+      "employerCopy": "Only jobs published from the Employer Workspace appear here for real worker profiles.",
+      "role": "Role",
+      "city": "City",
+      "verifiedOnly": "Verified Only",
+      "highestMatch": "Highest Match",
+      "profileFit": "Profile Fit",
+      "highestSalary": "Highest Salary",
+      "cityMatch": "City Match",
+      "matchesSkill": "Matches your primary skill",
+      "postedCity": "Posted in your city",
+      "language": "Language",
+      "years": "years",
+      "matchesExperience": "Matches your verified experience",
+      "withinWage": "Within your preferred wage",
+      "needsSafety": "Needs safety review",
+      "strongPayment": "Strong payment history",
+      "reviewPayment": "Review payment terms first",
+      "safeWorkplace": "Safe workplace",
+      "workplacePending": "Workplace verification pending",
+      "unverified": "Unverified",
+      "paymentReliability": "Payment Reliability",
+      "workersHired": "Workers hired",
+      "fraudReports": "Fraud reports",
+      "backgroundVerified": "Background verified",
+      "inCity": "In your city",
+      "employerPost": "Employer post",
+      "immediateHiring": "Immediate hiring",
+      "match": "Match",
+      "postedDetails": "Posted job details",
+      "whyAi": "Why AI Recommended This",
+      "requirements": "Requirements",
+      "benefits": "Benefits",
+      "closes": "Closes",
+      "employerTrust": "Employer Trust",
+      "detailsOpened": "Job details opened.",
+      "saved": "Job saved.",
+      "copied": "Job recommendation copied.",
+      "share": "Share",
+      "noEmployerJobs": "No employer jobs posted yet",
+      "noFilteredJobs": "No jobs match these filters",
+      "employerEmpty": "Jobs published from the Employer Workspace will appear here for real workers.",
+      "filtersEmpty": "Try changing the role or city filter.",
+      "openEmployerJobs": "Open Employer Jobs",
+      "employerPostedJob": "Employer posted job"
+    },
+    "wages": {
+      "eyebrow": "AI Wage Intelligence",
+      "title": "AI Fair Wage Intelligence",
+      "copy": "Understand your market value, negotiate better wages, and build a trusted income record.",
+      "confidence": "Confidence",
+      "recommendedMonthly": "Recommended Monthly Wage",
+      "range": "Range",
+      "why": "Why AI recommends this wage",
+      "verifiedNetwork": "Verified employer network",
+      "strongPayment": "Strong payment history",
+      "benchmark": "Local Wage Benchmark",
+      "marketAverage": "Average Market Wage",
+      "recommendedWage": "Recommended Wage",
+      "tips": "Negotiation Tips",
+      "mentionHistory": "Mention verified work history",
+      "askFor": "Ask for",
+      "weekendPremium": "Weekend work deserves premium rates",
+      "recordIncome": "Record verified income",
+      "workDetails": "Work details",
+      "wageHours": "Wage and hours",
+      "paymentStatus": "Payment status"
+    },
+    "rights": {
+      "eyebrow": "AI safety assistant",
+      "title": "AI Rights & Safety Assistant",
+      "copy": "Detect fraudulent job offers, understand worker rights, and receive AI-powered safety guidance before accepting work.",
+      "engine": "RozgaarAI Safety Engine",
+      "whatsapp": "WhatsApp job message",
+      "analyzeTitle": "Analyze WhatsApp Job Offer",
+      "analyzeCopy": "Paste a job message received on WhatsApp. RozgaarAI will automatically extract employer details, payment requests, documents, wages, location, and detect potential scam signals.",
+      "analyze": "Analyze Job Offer",
+      "report": "AI Safety Report",
+      "riskAnalysis": "Job offer risk analysis",
+      "generatedBy": "Generated by RozgaarAI AI Safety Engine",
+      "riskScore": "Risk Score",
+      "confidence": "AI Confidence",
+      "factors": "Detected Risk Factors",
+      "whyFlagged": "Why was this flagged?",
+      "flaggedReasons": [
+        "RozgaarAI detected a registration fee before employment.",
+        "This matches common employment scam patterns reported by informal workers.",
+        "Original identity documents are requested before verification.",
+        "The employer has not shared a workplace address.",
+        "These signals significantly increase fraud risk."
+      ],
+      "nextSteps": "Recommended Next Steps",
+      "nextStepItems": [
+        "Ask for written offer",
+        "Verify employer identity",
+        "Never pay before joining",
+        "Avoid sharing original documents",
+        "Request office location"
+      ],
+      "knowRights": "Know Your Rights",
+      "rightsCopy": "Employers cannot demand registration fees before joining. Never hand over original identity documents. Always request written wage terms and verify employer identity before accepting work.",
+      "samplePlaceholder": "Hello!\n\nUrgent Airport Helper jobs available in Bhopal.\n\nSalary ₹65,000/month.\n\nLimited seats.\n\nRegistration fee ₹2500.\n\nBring original Aadhaar.\n\nContact only on WhatsApp.\n\nJoin today."
+    },
+    "interviewCoach": {
+      "complete": "Interview Complete",
+      "completeCopy": "You completed all practice questions.",
+      "overallScore": "Overall Score",
+      "recommendation": "Recommendation",
+      "ready": "Ready for verified employers",
+      "practiceMore": "Practice once more",
+      "setup": "Interview Setup",
+      "role": "Role",
+      "employer": "Employer",
+      "language": "Language",
+      "difficulty": "Difficulty",
+      "easy": "Easy",
+      "question": "Question",
+      "of": "of",
+      "employerAsks": "Employer asks:",
+      "yourAnswer": "Your answer",
+      "characters": "{count} characters",
+      "answerPlaceholder": "Describe your previous work clearly using one real example.",
+      "listening": "Listening...",
+      "processing": "Processing...",
+      "captured": "Speech Captured",
+      "tapToSpeak": "Tap to Speak",
+      "voiceHelp": "Use speech recognition to record your answer",
+      "scoreAnswer": "Score Answer",
+      "useSample": "Use Sample",
+      "skipQuestion": "Skip Question",
+      "feedback": "AI Feedback",
+      "confidence": "Confidence",
+      "communication": "Communication",
+      "technical": "Technical Quality",
+      "professionalism": "Professionalism",
+      "suggested": "Suggested improved answer",
+      "emptyFeedback": "Write or speak your answer, then get AI scoring and improvement suggestions.",
+      "tipsTitle": "Tips for Better Answers",
+      "tips": [
+        [
+          "Be specific",
+          "Give clear details about your work experience"
+        ],
+        [
+          "Use examples",
+          "Share real situations from your work"
+        ],
+        [
+          "Stay positive",
+          "Highlight what you learned and achieved"
+        ],
+        [
+          "Keep it simple",
+          "Speak clearly and confidently"
+        ]
+      ],
+      "feedbackMessage": "Your answer explains your experience well. Add one example of a past job to make it stronger.",
+      "startPractice": "Start Interview Practice"
+    },
+    "documents": {
+      "downloadCenter": "Download center",
+      "title": "Worker documents",
+      "copy": "Digital identity, resume, income history and employment proofs from one place.",
+      "workerCard": "Digital Worker Card",
+      "pdfResume": "PDF Resume",
+      "incomeHistory": "Income History",
+      "publicProfile": "Public Profile",
+      "sharePackage": "Share package",
+      "shareCopy": "Copy the verified profile link for employers, NGOs or partners.",
+      "generatingPdf": "Generating PDF...",
+      "downloadPdfResume": "Download PDF Resume",
+      "openPublicProfile": "Open Public Profile"
+    },
+    "validation": {
+      "hoursWorkedNegative": "Hours worked cannot be negative."
+    }
+  },
+  "ngo": {
+    "workspace": "Foundation Workspace",
+    "demoMode": "Demo Mode",
+    "searchPlaceholder": "Search workers, programmes, skills or trainers...",
+    "notifications": "Notifications",
+    "demoAccount": "NGO Demo",
+    "adminFallback": "NGO Admin",
+    "exitDemo": "Exit Demo",
+    "logout": "Logout",
+    "nav": {
+      "overview": "Overview",
+      "workers": "Workers",
+      "addWorker": "Add Worker",
+      "training": "Training & Certifications",
+      "certificates": "Certificates",
+      "placements": "Placement Pipeline",
+      "employers": "Employers",
+      "jobs": "Job Opportunities",
+      "reports": "Reports & Analytics",
+      "team": "Team",
+      "audit": "Audit Log",
+      "profile": "Organization Profile",
+      "settings": "Settings"
+    },
+    "sidebar": {
+      "foundation": "Foundation Workspace",
+      "ngoFoundation": "NGO / Foundation",
+      "demoImpact": "Demo Impact Workspace",
+      "workerOwned": "Worker-owned identity model",
+      "toggle": "Toggle NGO sidebar",
+      "navigation": "NGO navigation",
+      "consentTitle": "Consent First",
+      "consentCopy": "We prioritize worker privacy and consent in every action.",
+      "inviteWorker": "Invite Worker"
+    },
+    "sections": {
+      "overview": [
+        "Overview",
+        "Track worker support, consent, training readiness, and placement outcomes."
+      ],
+      "workers": [
+        "Workers",
+        "Manage linked workers, consent requests, support status, and profile assistance."
+      ],
+      "addWorker": [
+        "Add Worker",
+        "Invite existing workers or assist new workers without taking ownership of their account."
+      ],
+      "profile": [
+        "Organization Profile",
+        "Manage organization identity, verification details, locations, and skill sectors."
+      ],
+      "defaultSubtitle": "This module is structured and ready for the next implementation phase."
+    }
+  },
+  "authModal": {
+    "secure": "Secure role-aware workspace access",
+    "close": "Close authentication dialog",
+    "tabs": {
+      "signin": "Sign In",
+      "signup": "Create Account"
+    },
+    "defaultSignup": "Create your Employment Workspace",
+    "defaultSignin": "Welcome back to RozgaarAI",
+    "defaultDescription": "Choose the workspace that matches how you use RozgaarAI, then continue securely.",
+    "roleDescription": "Select a role to tailor account creation, sign-in, workspace routing and demo mode.",
+    "googleConnecting": "Connecting to Google...",
+    "googleContinue": "Continue with Google",
+    "dividerSignup": "or create with email",
+    "dividerSignin": "or sign in with email",
+    "fields": {
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "workEmail": "Work Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "phoneOptional": "Phone Number (Optional)",
+      "organizationCompany": "Organization or Company Name",
+      "employerType": "Employer Type (Optional)",
+      "ngoName": "NGO or Foundation Name",
+      "organizationType": "Organization Type (Optional)"
+    },
+    "placeholders": {
+      "fullName": "Your full name",
+      "password": "Enter password",
+      "confirmPassword": "Confirm password",
+      "company": "Company name",
+      "employerType": "Company, household...",
+      "organization": "Organization name",
+      "organizationType": "NGO, foundation..."
+    },
+    "password": {
+      "hide": "Hide password",
+      "show": "Show password",
+      "caps": "Caps Lock is on."
+    },
+    "remember": "Remember me",
+    "chooseRole": "Choose Workspace Role",
+    "switchSignup": "Already have an account? ",
+    "switchSignin": "New to RozgaarAI? ",
+    "demoTitle": "Explore Demo Mode",
+    "demo": {
+      "worker": "Open Worker Demo",
+      "employer": "Open Employer Demo",
+      "ngo": "Open NGO Demo"
+    },
+    "footer": "Your account data is protected using the platform's configured authentication and storage controls.",
+    "roles": {
+      "worker": {
+        "label": "Worker",
+        "signupTitle": "Create your Worker Workspace",
+        "signinTitle": "Sign in to your Worker Workspace",
+        "description": "Create your secure profile, record skills and income, discover work opportunities and access employment support.",
+        "selectorCopy": "For workers creating a digital employment profile, recording skills, tracking income and discovering opportunities.",
+        "ctaSignup": "Create Worker Account",
+        "ctaSignin": "Sign In to Worker Workspace"
+      },
+      "employer": {
+        "label": "Employer",
+        "signupTitle": "Create your Employer Workspace",
+        "signinTitle": "Sign in to your Employer Workspace",
+        "description": "Create your secure employer account, discover verified workers, manage hiring and track your recruitment pipeline.",
+        "selectorCopy": "For companies, contractors and households looking to discover, shortlist and hire suitable workers.",
+        "ctaSignup": "Create Employer Account",
+        "ctaSignin": "Sign In to Employer Workspace"
+      },
+      "ngo": {
+        "label": "NGO / Foundation",
+        "signupTitle": "Create your NGO Workspace",
+        "signinTitle": "Sign in to your NGO Workspace",
+        "description": "Create your organization workspace, onboard workers, manage programs, verify skills and track impact.",
+        "selectorCopy": "For NGOs, foundations, skill-development centres and community organizations supporting workers with training and employment.",
+        "ctaSignup": "Create NGO Account",
+        "ctaSignin": "Sign In to NGO Workspace"
+      }
+    }
+  },
+  "insideProduct": {
+    "hero": {
+      "eyebrow": "Inside The Product",
+      "headingPrefix": "Employment needs a",
+      "headingAccent": "trusted bridge.",
+      "description": "Connecting workers and employers is only one part of the solution. Skill-training NGOs and foundations already have trusted relationships with workers and employer networks. RozgaarAI gives them a dedicated workspace to support digital identity creation, monitor skill readiness and connect consented workers with suitable employment opportunities."
+    },
+    "approach": {
+      "eyebrow": "Our Approach",
+      "ngosPrefix": "NGOs at the",
+      "ngosAccent": "center.",
+      "workersPrefix": "Workers",
+      "workersAccent": "empowered.",
+      "employersPrefix": "Employers",
+      "employersAccent": "connected.",
+      "description": "RozgaarAI enables skill-training organisations to onboard workers, verify their skills, and connect them with the right employers, all with the worker's consent and control."
+    },
+    "ecosystem": {
+      "ariaLabel": "Worker, NGO and Employer ecosystem",
+      "workers": {
+        "title": "Workers",
+        "copy": "Own their identity and control what they share"
+      },
+      "ngo": {
+        "title": "NGO / Foundation",
+        "copy": "Supports onboarding, training and placement"
+      },
+      "employers": {
+        "title": "Employers",
+        "copy": "Access consented profiles and verified credentials"
+      }
+    },
+    "ngoWorkspace": {
+      "title": "NGO Workspace",
+      "navigationAria": "NGO workspace preview navigation",
+      "navigation": {
+        "overview": "Overview",
+        "workers": "Workers",
+        "addWorker": "Add Worker",
+        "training": "Training & Certifications",
+        "certificates": "Certificates",
+        "placementPipeline": "Placement Pipeline",
+        "employers": "Employers",
+        "jobOpportunities": "Job Opportunities",
+        "reports": "Reports & Analytics",
+        "settings": "Settings"
+      },
+      "securePrivate": "Secure. Private.",
+      "workerFirst": "Worker First.",
+      "workerConsent": "Workers own their data. You act with their consent.",
+      "verifiedNgo": "Verified NGO",
+      "orgTagline": "Building livelihoods. Bridging opportunities.",
+      "notifications": "Notifications",
+      "admin": "Admin"
+    },
+    "dashboard": {
+      "todayAtGlance": "Today at a glance",
+      "demoData": "Demo data",
+      "metrics": {
+        "workersReady": "Workers ready for introduction",
+        "trainingPending": "Training completions pending verification",
+        "openRequirements": "Open employer requirements",
+        "consentRequests": "Consent requests awaiting action"
+      },
+      "actions": {
+        "viewWorkers": "View workers",
+        "reviewNow": "Review now",
+        "viewJobs": "View jobs",
+        "viewRequests": "View requests"
+      }
+    },
+    "pipeline": {
+      "title": "Worker journey pipeline",
+      "steps": {
+        "onboard": {
+          "title": "Onboard",
+          "copy": "Create digital ID & capture details"
+        },
+        "trainVerify": {
+          "title": "Train & Verify",
+          "copy": "Track training & verify skills"
+        },
+        "ready": {
+          "title": "Ready",
+          "copy": "Workers ready for employer intro"
+        },
+        "introduced": {
+          "title": "Introduced",
+          "copy": "Workers introduced to employers"
+        },
+        "placed": {
+          "title": "Placed",
+          "copy": "Track placement & support"
+        }
+      }
+    },
+    "jobs": {
+      "title": "Active job opportunities",
+      "viewAll": "View all jobs",
+      "matches": "{count} matches",
+      "titles": {
+        "salesAssociate": "Sales Associate",
+        "machineOperator": "Machine Operator",
+        "fieldTechnician": "Field Technician",
+        "deliveryExecutive": "Delivery Executive"
+      }
+    },
+    "activity": {
+      "title": "Recent activity",
+      "trainingCompleted": "45 workers completed 'Basic Electricals' training",
+      "twoHoursAgo": "2h ago"
+    },
+    "features": {
+      "workerOwnedIdentity": {
+        "title": "Worker-Owned Identity",
+        "copy": "Workers retain complete control of their profile and decide what to share, with whom and when."
+      },
+      "trustedAssistance": {
+        "title": "Trusted Assistance",
+        "copy": "NGOs help workers complete, strengthen and verify their profiles with guidance and support."
+      },
+      "consentBasedHiring": {
+        "title": "Consent-Based Hiring",
+        "copy": "Employers only see information that workers choose to share through explicit consent."
+      },
+      "actions": {
+        "exploreWorkspace": "Explore NGO Workspace",
+        "seeEcosystem": "See How the Ecosystem Works"
+      },
+      "workspaceActionHint": "See the workspace in action"
+    }
   }
 }

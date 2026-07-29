@@ -47,6 +47,7 @@
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
 - [Deployment](#deployment)
+- [Phase 7 Production Readiness](#phase-7-production-readiness)
 - [AI Features](#ai-features)
 - [Security](#security)
 - [Performance](#performance)
@@ -193,6 +194,19 @@ sequenceDiagram
 | Deployment | Vercel frontend, Render backend, Firebase Auth |
 | Languages | JavaScript, Python |
 | Tooling | ESLint, PostCSS, Tailwind, Vite build pipeline |
+
+## Phase 7 Production Readiness
+
+Phase 7 deployment, QA, pilot and demo materials are available in:
+
+- [Deployment Runbook](docs/DEPLOYMENT_PHASE_7.md)
+- [QA Checklist](docs/QA_PHASE_7.md)
+- [Pilot Guide](docs/PILOT_GUIDE.md)
+- [Demo Guide](docs/DEMO_GUIDE.md)
+- [Architecture Notes](docs/ARCHITECTURE_PHASE_7.md)
+- [Project Completion Report](docs/PROJECT_COMPLETION_REPORT_PHASE_7.md)
+
+Admin diagnostics are available at `/admin/diagnostics` for admin accounts. The page reports environment readiness without exposing secret values.
 
 ---
 

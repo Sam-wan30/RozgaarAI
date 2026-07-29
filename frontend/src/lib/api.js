@@ -1,6 +1,18 @@
 import { baseWages, cityIndex, mockJobs } from "../data/mockData";
 
 const API_URL = import.meta.env.VITE_API_URL;
+const aiLanguageNames = {
+  en: "English",
+  hi: "हिन्दी (Hindi)",
+  mr: "मराठी (Marathi)",
+  bn: "বাংলা (Bengali)",
+  te: "తెలుగు (Telugu)",
+  ta: "தமிழ் (Tamil)",
+  kn: "ಕನ್ನಡ (Kannada)",
+  gu: "ગુજરાતી (Gujarati)",
+  ml: "മലയാളം (Malayalam)",
+  pa: "ਪੰਜਾਬੀ (Punjabi)"
+};
 
 const normalize = (value) => String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 
@@ -173,7 +185,7 @@ const skillAliases = [
   ["Plumber", /plumber|plumbing|प्लंबर|प्लम्बिंग|नल|पाइप/],
   ["Electrician", /electrician|electrical|इलेक्ट्रीशियन|बिजली|वायरिंग/],
   ["Driver", /driver|driving|ड्राइवर|गाड़ी चल/],
-  ["Construction Worker", /construction|mason|site|निर्माण|मजदूर|मिस्त्री|साइट/],
+  ["Construction Worker", /construction|mason|site|\bworker\b|\blabou?r\b|निर्माण|मजदूर|मिस्त्री|साइट/],
   ["Cook", /cook|cooking|chef|रसोइया|खाना बन/],
   ["Delivery Worker", /delivery|डिलीवरी/],
   ["Tailor", /tailor|stitch|दर्जी|सिलाई/],
@@ -201,14 +213,76 @@ function parseNumber(value) {
   return Number(normalized.replace(/[^\d]/g, ""));
 }
 
+const phoneDigitWords = {
+  zero: "0",
+  oh: "0",
+  one: "1",
+  two: "2",
+  three: "3",
+  four: "4",
+  five: "5",
+  six: "6",
+  seven: "7",
+  eight: "8",
+  nine: "9",
+  शून्य: "0",
+  जीरो: "0",
+  एक: "1",
+  दो: "2",
+  तीन: "3",
+  चार: "4",
+  पांच: "5",
+  पाँच: "5",
+  छह: "6",
+  छः: "6",
+  सात: "7",
+  आठ: "8",
+  नौ: "9"
+};
+
+function normalizePhoneCandidate(value) {
+  const devanagari = "०१२३४५६७८९";
+  const normalized = String(value || "")
+    .toLowerCase()
+    .replace(/[०-९]/g, (digit) => devanagari.indexOf(digit));
+  const numericParts = normalized.match(/\d+/g);
+  if (numericParts?.length) return numericParts.join("");
+
+  const digitWordPattern = /(?:^|[\s-])(zero|oh|one|two|three|four|five|six|seven|eight|nine|शून्य|जीरो|एक|दो|तीन|चार|पांच|पाँच|छह|छः|सात|आठ|नौ)(?=$|[\s-])/g;
+  return [...normalized.matchAll(digitWordPattern)].map((match) => phoneDigitWords[match[1]] || "").join("");
+}
+
+function extractPhoneNumber(raw) {
+  const text = String(raw || "");
+  const phoneKeyword = /phone|mobile|contact|whats\s*app|whatsapp|number|फोन|मोबाइल|नंबर|सम्पर्क|संपर्क/gi;
+  const keywordMatches = [...text.matchAll(phoneKeyword)];
+  for (const match of keywordMatches) {
+    const snippet = text.slice(match.index, match.index + 90).split(/[.,।\n]/)[0];
+    const digits = normalizePhoneCandidate(snippet);
+    if (digits.length >= 6) return digits.slice(0, 15);
+  }
+
+  const devanagari = "०१२३४५६७८९";
+  const normalized = text.replace(/[०-९]/g, (digit) => devanagari.indexOf(digit));
+  const standaloneMobile = normalized.match(/(?:^|\D)([6-9]\d{9})(?:\D|$)/);
+  return standaloneMobile?.[1] || "";
+}
+
 async function post(path, payload, fallback) {
   if (!API_URL) return fallback(payload);
 
   try {
+    const preferredLanguage = payload?.preferredLanguage || payload?.uiLanguage || "en";
+    const preferredLanguageName = aiLanguageNames[preferredLanguage] || aiLanguageNames.en;
     const response = await fetch(`${API_URL}${path}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        ...payload,
+        preferredLanguage,
+        preferredLanguageName,
+        languageInstruction: `Return all user-facing content in natural ${preferredLanguageName}. Keep person names, worker IDs, employer IDs, phone numbers, email addresses, URLs, QR values, database identifiers, currency amounts, and official company names unchanged.`
+      })
     });
 
     if (!response.ok) throw new Error(`API ${response.status}`);
@@ -255,6 +329,9 @@ export function parseWorkerInput(text, currentWorker = {}) {
     raw.match(/(?:my name is|i am|name is)\s+([a-zA-Z ]{2,40})/i) ||
     raw.match(/(?:मेरा नाम|नाम)\s+([^।.,\n]+?)(?:\s+है|\.|।|,|$)/);
   if (nameMatch?.[1]) parsed.name = nameMatch[1].replace(/\s+(hai|है)$/i, "").trim();
+
+  const phone = extractPhoneNumber(raw);
+  if (phone) parsed.phone = phone;
 
   for (const [alias, city] of Object.entries(cityAliases)) {
     if (lower.includes(alias) || raw.includes(alias)) {

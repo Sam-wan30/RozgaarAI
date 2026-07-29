@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, timezone
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -28,7 +29,19 @@ app.add_middleware(
 
 @app.get("/health")
 def health() -> dict:
-    return {"status": "ok", "service": "RozgaarAI"}
+    configured_origins = [origin for origin in origins if origin]
+    return {
+        "status": "ok",
+        "service": "RozgaarAI",
+        "version": app.version,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "checks": {
+            "cors_origins_configured": bool(configured_origins),
+            "openai_configured": bool(os.getenv("OPENAI_API_KEY")),
+            "gemini_configured": bool(os.getenv("GEMINI_API_KEY")),
+            "supabase_configured": bool(os.getenv("SUPABASE_URL") and os.getenv("SUPABASE_ANON_KEY")),
+        },
+    }
 
 
 @app.get("/jobs")

@@ -23,12 +23,15 @@ export function Section({ id, eyebrow, title, children, tone = "white" }) {
   if (path === "/dashboard" && id !== "product-dashboard") return null;
 
   const bg = tone === "warm" ? "bg-paper" : tone === "dark" ? "bg-ink text-white" : "bg-white";
+  const compactRoutes = new Set(["/dashboard", "/create-profile", "/employer"]);
+  const spacing = compactRoutes.has(path) ? "py-8 sm:py-10" : "py-14 sm:py-20";
+  const containerClass = path === "/" ? "section-shell landing-container" : "section-shell";
 
   return (
-    <section id={id} className={`${bg} py-14 sm:py-20`}>
-      <div className="section-shell">
+    <section id={id} className={`${bg} ${spacing}`}>
+      <div className={containerClass}>
         {(eyebrow || title) && (
-          <div className="mb-8 max-w-3xl">
+          <div className={`${compactRoutes.has(path) ? "mb-5" : "mb-8"} max-w-3xl`}>
             {eyebrow && (
               <p className="mb-2 text-sm font-black uppercase tracking-[0.18em] text-saffron">
                 {eyebrow}

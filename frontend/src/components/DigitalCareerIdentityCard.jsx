@@ -24,42 +24,6 @@ import logoMark from "../assets/brand/rozgaarai-logo-mark.png";
 const clampPercent = (value) => Math.max(0, Math.min(100, Number(value) || 0));
 const logoAlt = "RozgaarAI Logo";
 
-function ProgressRing({ value, label, compact = false }) {
-  const percent = clampPercent(value);
-  const radius = compact ? 30 : 38;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (percent / 100) * circumference;
-  const size = compact ? 84 : 104;
-  const center = size / 2;
-
-  return (
-    <div className={`relative grid place-items-center ${compact ? "h-20 w-20" : "h-24 w-24"}`} aria-label={`${label}: ${percent}%`}>
-      <svg className="-rotate-90" width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="presentation">
-        <circle cx={center} cy={center} r={radius} fill="none" stroke="rgba(254, 215, 170, 0.72)" strokeWidth="8" />
-        <circle
-          className="career-ring"
-          cx={center}
-          cy={center}
-          r={radius}
-          fill="none"
-          stroke="url(#careerRingGradient)"
-          strokeLinecap="round"
-          strokeWidth="8"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-        />
-        <defs>
-          <linearGradient id="careerRingGradient" x1="0" x2="1" y1="0" y2="1">
-            <stop offset="0%" stopColor="#2563eb" />
-            <stop offset="100%" stopColor="#16a34a" />
-          </linearGradient>
-        </defs>
-      </svg>
-      <span className={`absolute font-black text-ink dark:text-white ${compact ? "text-lg" : "text-2xl"}`}>{percent}%</span>
-    </div>
-  );
-}
-
 function DetailTile({ icon: Icon, label, value, compact = false, className = "" }) {
   return (
     <div className={`rounded-lg border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-white/10 ${compact ? "p-2" : "p-3"} ${className}`}>
@@ -103,6 +67,7 @@ function CardSection({ title, children, inverted = false }) {
  *    occupation: string,
  *    city: string,
  *    workerId: string,
+ *    photoUrl?: string,
  *    experience: string,
  *    primarySkill: string,
  *    secondarySkills: string[],
@@ -169,7 +134,8 @@ export function DigitalCareerIdentityCard({ identity, labels, variant = "full", 
     [labels.suggestedCertification || labels.suggestedSkillUpgrade, identity.suggestedSkillUpgrade]
   ];
   const credentialMode = identityOnly && !isHero;
-  const issuedDate = new Intl.DateTimeFormat("en-IN", { day: "2-digit", month: "short", year: "numeric" }).format(new Date());
+  const issuedDate = identity.issuedOn || new Intl.DateTimeFormat("en-IN", { day: "2-digit", month: "short", year: "numeric" }).format(new Date());
+  const lastUpdatedDate = identity.lastUpdated || issuedDate;
 
   function downloadQrCode() {
     const canvas = qrRef.current;
@@ -224,23 +190,25 @@ export function DigitalCareerIdentityCard({ identity, labels, variant = "full", 
             </p>
           </div>
 
-          <div className="mt-3 flex items-center gap-4">
-            <div className="relative grid h-20 w-20 shrink-0 place-items-center rounded-full bg-gradient-to-br from-blue-500 to-neem p-1 shadow-[0_0_38px_rgba(37,99,235,0.26)]">
-              <div className="grid h-full w-full place-items-center rounded-full border border-white/10 bg-slate-800 text-white">
-                {initials ? <span className="text-3xl font-black">{initials}</span> : <UserRound className="h-10 w-10" />}
+          <div className="mt-3 flex items-center gap-2">
+            <div className="relative grid h-32 w-32 shrink-0 place-items-center rounded-full bg-gradient-to-br from-blue-500 to-neem p-1 shadow-[0_0_38px_rgba(37,99,235,0.26)]">
+              <div className="grid h-full w-full place-items-center overflow-hidden rounded-full border border-white/10 bg-slate-800 text-white">
+                {identity.photoUrl ? (
+                  <img src={identity.photoUrl} alt={identity.name} className="h-full w-full object-cover" />
+                ) : initials ? <span className="text-3xl font-black">{initials}</span> : <UserRound className="h-10 w-10" />}
               </div>
-              <span className="absolute bottom-0.5 right-0 grid h-7 w-7 place-items-center rounded-full border-4 border-ink bg-emerald-400 text-ink">
+              <span className="absolute bottom-1 right-0 grid h-7 w-7 place-items-center rounded-full border-4 border-ink bg-emerald-400 text-ink">
                 <CheckCircle2 className="h-4 w-4" />
               </span>
             </div>
-            <div className="min-w-0">
+            <div className="ml-1 flex h-32 min-w-0 flex-col justify-center">
               <h2 className="break-words text-4xl font-black leading-tight text-white sm:text-5xl">{identity.name}</h2>
-              <p className="mt-1.5 flex items-center gap-2 text-2xl font-black text-slate-100">
-                <Wrench className="h-5 w-5 text-blue-400" />
+              <p className="mt-1.5 flex items-center gap-2 text-xl font-black text-slate-100">
+                <Wrench className="h-4 w-4 text-blue-400" />
                 {identity.occupation}
               </p>
-              <p className="mt-1.5 flex items-center gap-2 text-lg font-semibold text-slate-300">
-                <MapPin className="h-5 w-5 text-slate-400" />
+              <p className="mt-1.5 flex items-center gap-2 text-base font-semibold text-slate-300">
+                <MapPin className="h-4 w-4 text-slate-400" />
                 {identity.city}
               </p>
             </div>
@@ -328,7 +296,7 @@ export function DigitalCareerIdentityCard({ identity, labels, variant = "full", 
             <img src={logoMark} alt={logoAlt} className="h-8 w-8 rounded-lg object-contain opacity-35 grayscale" />
             <p className="inline-flex items-center justify-end gap-3 text-right">
               <RotateCcw className="h-5 w-5 text-slate-400" />
-              <span>{labels.lastUpdated || "Last Updated"}<br/><span className="text-base font-black text-white">{issuedDate}</span></span>
+              <span>{labels.lastUpdated || "Last Updated"}<br/><span className="text-base font-black text-white">{lastUpdatedDate}</span></span>
             </p>
           </div>
         </div>
@@ -349,8 +317,10 @@ export function DigitalCareerIdentityCard({ identity, labels, variant = "full", 
         <img src={logoMark} alt={logoAlt} className={`pointer-events-none absolute rounded-md object-contain opacity-20 grayscale ${isHero ? "bottom-3 right-3 h-8 w-8" : "bottom-4 right-4 h-9 w-9"}`} />
         <div className={`relative flex flex-col sm:flex-row sm:items-start sm:justify-between ${isHero ? "gap-3" : "gap-5"}`}>
           <div className={`flex min-w-0 items-center ${isHero ? "gap-3.5" : "gap-5"}`}>
-            <div className={`grid shrink-0 place-items-center rounded-xl border shadow-lg ${credentialMode ? "h-20 w-20 border-white/15 bg-white/10 text-white shadow-black/20 sm:h-24 sm:w-24" : isHero ? "h-14 w-14 border-slate-200 bg-ink text-white shadow-slate-900/15 sm:h-16 sm:w-16" : "h-16 w-16 border-slate-200 bg-ink text-white shadow-slate-900/15 sm:h-20 sm:w-20"}`}>
-              {initials ? <span className={`${credentialMode ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"} font-black`}>{initials}</span> : <UserRound className="h-8 w-8" />}
+            <div className={`grid shrink-0 place-items-center overflow-hidden rounded-xl border shadow-lg ${credentialMode ? "h-20 w-20 border-white/15 bg-white/10 text-white shadow-black/20 sm:h-24 sm:w-24" : isHero ? "h-14 w-14 border-slate-200 bg-ink text-white shadow-slate-900/15 sm:h-16 sm:w-16" : "h-16 w-16 border-slate-200 bg-ink text-white shadow-slate-900/15 sm:h-20 sm:w-20"}`}>
+              {identity.photoUrl ? (
+                <img src={identity.photoUrl} alt={identity.name} className="h-full w-full object-cover" />
+              ) : initials ? <span className={`${credentialMode ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"} font-black`}>{initials}</span> : <UserRound className="h-8 w-8" />}
             </div>
             <div className="min-w-0">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-saffron">{labels.title}</p>

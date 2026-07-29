@@ -1,3 +1,9 @@
+import ashaKumariPhoto from "../assets/workers/asha-kumari-domestic-worker.jpg";
+import imranKhanPhoto from "../assets/workers/imran-khan-electrician.jpg";
+import rameshPatelPhoto from "../assets/workers/ramesh-patel-plumber.jpg";
+import rekhaDeviPhoto from "../assets/workers/rekha-devi-tailor.jpg";
+import sanjayVermaPhoto from "../assets/workers/sanjay-verma-driver.jpg";
+
 export const translations = {
   en: {
     nav: ["Onboarding", "Profile", "Jobs", "Wages", "Safety", "Coach", "Impact"],
@@ -46,6 +52,7 @@ export const demoProfiles = [
     jobMatch: 98,
     interviewScore: 91,
     avatar: "AK",
+    photoUrl: ashaKumariPhoto,
     gradient: "from-blue-600 to-emerald-500",
     badges: ["Verified", "Available", "Resume Ready", "Skill Passport Ready", "Income History", "Work History"],
     notes: "Trusted domestic worker experienced in cleaning, cooking support, elderly care routines, punctual attendance, and household supply management."
@@ -56,7 +63,7 @@ export const demoProfiles = [
     city: "Bhopal",
     skill: "Plumber",
     experience: 6,
-    languages: "Hindi",
+    languages: "Hindi, Basic English",
     availability: "Available",
     expectedWage: 28000,
     workerId: "RZG-BPL-PLM-1854",
@@ -64,6 +71,7 @@ export const demoProfiles = [
     jobMatch: 96,
     interviewScore: 93,
     avatar: "RP",
+    photoUrl: rameshPatelPhoto,
     gradient: "from-cyan-600 to-blue-600",
     badges: ["Verified", "Available", "Resume Ready", "Skill Passport Ready", "Income History", "Work History"],
     notes: "Skilled plumber known for leak repair, bathroom fittings, water motor service, pipe replacement, and emergency home visits."
@@ -82,6 +90,7 @@ export const demoProfiles = [
     jobMatch: 94,
     interviewScore: 88,
     avatar: "RD",
+    photoUrl: rekhaDeviPhoto,
     gradient: "from-fuchsia-600 to-blue-600",
     badges: ["Verified", "Available", "Resume Ready", "Skill Passport Ready", "Income History", "Work History"],
     notes: "Experienced tailor specializing in blouse stitching, alterations, salwar suit fitting, machine stitching, finishing, and accurate customer measurements."
@@ -100,6 +109,7 @@ export const demoProfiles = [
     jobMatch: 97,
     interviewScore: 92,
     avatar: "IK",
+    photoUrl: imranKhanPhoto,
     gradient: "from-amber-500 to-blue-600",
     badges: ["Verified", "Available", "Resume Ready", "Skill Passport Ready", "Income History", "Work History"],
     notes: "Reliable electrician skilled in wiring, switchboard repair, MCB replacement, fan and light fitting, fault finding, and safety checks."
@@ -118,6 +128,7 @@ export const demoProfiles = [
     jobMatch: 95,
     interviewScore: 90,
     avatar: "SV",
+    photoUrl: sanjayVermaPhoto,
     gradient: "from-slate-700 to-blue-600",
     badges: ["Verified", "Available", "Resume Ready", "Skill Passport Ready", "Income History", "Work History"],
     notes: "Experienced LMV driver with strong city route knowledge, school pickup experience, vehicle checks, trip logs, and safe driving habits."
