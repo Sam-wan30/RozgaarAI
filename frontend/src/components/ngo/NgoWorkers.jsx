@@ -500,20 +500,20 @@ export function NgoWorkers({ organization, account, navigateTo, setStatusMessage
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
               <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search workers by name, ID, skill, location or contact..." className="h-11 pl-9" />
             </div>
-            <SelectControl value={filters.associationStatus} onChange={(e) => setFilters({ ...filters, associationStatus: e.target.value })} className="w-[150px]" label="Status">
+            <SelectControl value={filters.associationStatus} onChange={(e) => setFilters({ ...filters, associationStatus: e.target.value })} className="w-full sm:w-[150px]" label="Status">
               <option value="">Status</option>{Object.entries(associationLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
             </SelectControl>
-            <SelectControl value={filters.primarySkill} onChange={(e) => setFilters({ ...filters, primarySkill: e.target.value })} className="w-[142px]" label="Skill">
+            <SelectControl value={filters.primarySkill} onChange={(e) => setFilters({ ...filters, primarySkill: e.target.value })} className="w-full sm:w-[142px]" label="Skill">
               <option value="">Skill</option>{skills.map((skill) => <option key={skill} value={skill}>{skill}</option>)}
             </SelectControl>
-            <SelectControl value={filters.location} onChange={(e) => setFilters({ ...filters, location: e.target.value })} className="w-[150px]" label="Location">
+            <SelectControl value={filters.location} onChange={(e) => setFilters({ ...filters, location: e.target.value })} className="w-full sm:w-[150px]" label="Location">
               <option value="">Location</option>{locations.map((city) => <option key={city} value={city}>{city}</option>)}
             </SelectControl>
-            <button type="button" onClick={() => setFiltersOpen(true)} className="inline-flex h-11 items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 text-sm font-black text-slate-700 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700">
+            <button type="button" onClick={() => setFiltersOpen(true)} className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-3 text-sm font-black text-slate-700 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700 sm:w-auto">
               <SlidersHorizontal className="h-4 w-4" /> Filters
               {activeFilters.length > 0 && <span className="grid h-5 min-w-5 place-items-center rounded-full bg-blue-600 px-1 text-[11px] text-white">{activeFilters.length}</span>}
             </button>
-            <SelectControl value={sortBy} onChange={(event) => setSortBy(event.target.value)} className="w-[172px]" label="Sort">
+            <SelectControl value={sortBy} onChange={(event) => setSortBy(event.target.value)} className="w-full sm:w-[172px]" label="Sort">
               <option value="updated">Sort: Last updated</option>
               <option value="name">Name A-Z</option>
               <option value="completion">Profile completion</option>

@@ -813,14 +813,14 @@ export function NgoJobOpportunities({ organization, membership, navigateTo, isDe
             <option value="3-4">3-4 years</option>
             <option value="5+">5+ years</option>
           </select>
-          <div className="flex items-center justify-end gap-2">
-          <select value={salaryRange} onChange={(event) => setSalaryRange(event.target.value)} className="min-h-11 w-[142px] rounded-[14px] border border-slate-200 bg-white px-3 text-sm font-black text-slate-700 outline-none focus:ring-4 focus:ring-blue-100">
+          <div className="flex flex-col items-stretch justify-end gap-2 sm:flex-row sm:items-center">
+          <select value={salaryRange} onChange={(event) => setSalaryRange(event.target.value)} className="min-h-11 w-full rounded-[14px] border border-slate-200 bg-white px-3 text-sm font-black text-slate-700 outline-none focus:ring-4 focus:ring-blue-100 sm:w-[142px]">
             <option value="all">Salary</option>
             <option value="under-20">Under ₹20k</option>
             <option value="20-30">₹20k-₹30k</option>
             <option value="30+">₹30k+</option>
           </select>
-          <button type="button" onClick={clearFilters} className="inline-flex min-h-11 items-center gap-2 rounded-[14px] border border-slate-200 bg-white px-4 text-sm font-black text-slate-700 transition hover:bg-slate-50">
+          <button type="button" onClick={clearFilters} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[14px] border border-slate-200 bg-white px-4 text-sm font-black text-slate-700 transition hover:bg-slate-50">
             <Filter className="h-4 w-4" />
             Clear
           </button>

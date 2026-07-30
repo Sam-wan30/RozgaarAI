@@ -44,7 +44,7 @@ function AssistantVisual({ label }) {
 function EmployerOverviewHero({ copy, companyName, summary, hasJobs, onReviewMatches, onPostJob }) {
   return (
     <OverviewCard className="relative h-full overflow-hidden bg-gradient-to-br from-blue-50 via-white to-green-50 p-3 lg:col-span-5">
-      <div className="relative z-10 max-w-[64%]">
+      <div className="relative z-10 max-w-full md:max-w-[64%]">
         <p className="text-[13px] font-extrabold text-slate-600">{copy.goodMorning.replace("{company}", companyName)}</p>
         <h2 className="mt-1 text-[17px] font-black leading-[1.02] text-slate-950 xl:text-[19px]">
           {hasJobs ? copy.briefTitle : copy.emptyBriefTitle}
@@ -62,13 +62,13 @@ function EmployerOverviewHero({ copy, companyName, summary, hasJobs, onReviewMat
             );
           })}
         </div>
-        <div className="mt-3 flex max-w-full flex-wrap gap-2">
-          <button type="button" onClick={hasJobs ? onReviewMatches : onPostJob} className="focus-ring inline-flex min-h-7 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg bg-blue-600 px-3 text-[11px] font-black text-white shadow-sm hover:bg-blue-700">
+        <div className="mt-3 flex max-w-full flex-col gap-2 sm:flex-row sm:flex-wrap">
+          <button type="button" onClick={hasJobs ? onReviewMatches : onPostJob} className="focus-ring inline-flex min-h-9 items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 text-[11px] font-black text-white shadow-sm hover:bg-blue-700 sm:min-h-7 sm:shrink-0 sm:whitespace-nowrap">
             <Sparkles className="h-4 w-4" />
             {hasJobs ? copy.reviewAiMatches : copy.postFirstJob}
             <ChevronRight className="h-4 w-4" />
           </button>
-          <button type="button" onClick={onPostJob} className="focus-ring inline-flex min-h-7 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border border-slate-200 bg-white px-3 text-[11px] font-black text-slate-700 hover:border-blue-200 hover:bg-blue-50">
+          <button type="button" onClick={onPostJob} className="focus-ring inline-flex min-h-9 items-center justify-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 text-[11px] font-black text-slate-700 hover:border-blue-200 hover:bg-blue-50 sm:min-h-7 sm:shrink-0 sm:whitespace-nowrap">
             <Plus className="h-4 w-4" />
             {copy.postNewJob}
             <ChevronRight className="h-4 w-4" />
@@ -282,7 +282,7 @@ function CompanySnapshot({ copy, company }) {
           <span className="block h-full rounded-full bg-blue-600" style={{ width: `${company.completion}%` }} />
         </div>
       </div>
-      <div className="mt-4 grid grid-cols-4 gap-3">
+      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {company.metrics.map((metric) => (
           <div key={metric.label}>
             <p className="text-xl font-black text-slate-950">{metric.value}</p>

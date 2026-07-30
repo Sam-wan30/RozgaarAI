@@ -1123,6 +1123,11 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    document.body.classList.toggle("mobile-nav-open", isMobileMenuOpen);
+    return () => document.body.classList.remove("mobile-nav-open");
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
     const normalizedLang = normalizeLanguage(lang);
     window.localStorage.setItem("rozgaarai-language", normalizedLang);
     document.documentElement.lang = htmlLanguageCodes[normalizedLang] || normalizedLang;
