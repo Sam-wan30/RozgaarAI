@@ -1,38 +1,62 @@
-<p align="center">
-  <img src="frontend/src/assets/brand/rozgaarai-logo-full.png" alt="RozgaarAI Logo" width="500" />
-</p>
-
-<h1 align="center">RozgaarAI</h1>
-
-<p align="center">
-  <strong>Digital Career Identity & Income Passport for India's Informal Workforce</strong>
-</p>
-
-<p align="center">
-  Turning spoken work experience into trusted employment.
-</p>
+<div align="center">
+  <img src="frontend/src/assets/brand/rozgaarai-logo-full.png" alt="RozgaarAI Logo" width="440" />
+  <h1>RozgaarAI</h1>
+  <h3>Voice-first digital career identity and employment platform for India's informal workforce</h3>
+  <p>
+    <strong>Built for Sama Social | Build for Good Hackathon 2026</strong><br />
+    <strong>Theme:</strong> Rozgaar
+  </p>
+</div>
 
 <p align="center">
-  <a href="https://github.com/Sam-wan30/RozgaarAI">
-    <img alt="Build for Good" src="https://img.shields.io/badge/Build%20for%20Good-National%20Hackathon-2563EB?style=for-the-badge" />
+  <a href="https://rozgaar-ai-weld.vercel.app/">
+    <img alt="Live Application" src="https://img.shields.io/badge/Live%20Application-Open-2563EB?style=for-the-badge" />
   </a>
-  <img alt="React" src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=0F172A" />
-  <img alt="Vite" src="https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
-  <img alt="Firebase" src="https://img.shields.io/badge/Firebase-Auth-FFCA28?style=for-the-badge&logo=firebase&logoColor=0F172A" />
-  <img alt="Gemini AI" src="https://img.shields.io/badge/Gemini%20AI-Ready-4285F4?style=for-the-badge&logo=googlegemini&logoColor=white" />
-  <img alt="MIT License" src="https://img.shields.io/badge/License-MIT-16A34A?style=for-the-badge" />
-  <img alt="Deploy" src="https://img.shields.io/badge/Deploy-Vercel%20%2B%20Render-0F172A?style=for-the-badge&logo=vercel&logoColor=white" />
-  <img alt="GitHub stars" src="https://img.shields.io/github/stars/Sam-wan30/RozgaarAI?style=for-the-badge&logo=github" />
+  <a href="https://rozgaar-ai-weld.vercel.app/presentation">
+    <img alt="Interactive Presentation" src="https://img.shields.io/badge/Interactive%20Presentation-View-0EA5E9?style=for-the-badge" />
+  </a>
+  <a href="https://youtu.be/0cf03Kmxwoc?si=QvkaBHMBraieyF-Y">
+    <img alt="Demo Video" src="https://img.shields.io/badge/Demo%20Video-Watch-14B8A6?style=for-the-badge" />
+  </a>
+  <a href="./DEPLOYMENT.md">
+    <img alt="Deployment Docs" src="https://img.shields.io/badge/Deployment%20Docs-Read-334155?style=for-the-badge" />
+  </a>
 </p>
 
 <p align="center">
-  <a href="https://rozgaar-ai-weld.vercel.app/"><strong>Live Demo</strong></a>
-  ·
-  <a href="https://rozgaar-ai-weld.vercel.app/presentation"><strong>Pitch Deck</strong></a>
-  ·
-  <a href="https://youtu.be/0cf03Kmxwoc?si=QvkaBHMBraieyF-Y"><strong>Demo Video</strong></a>
-  ·
-  <a href="./DEPLOYMENT.md"><strong>Documentation</strong></a>
+  <img alt="Build for Good Hackathon 2026" src="https://img.shields.io/badge/Build%20for%20Good-2026-2563EB?style=flat-square" />
+  <img alt="Theme Rozgaar" src="https://img.shields.io/badge/Theme-ROZGAAR-10B981?style=flat-square" />
+  <img alt="React" src="https://img.shields.io/badge/React-18-0EA5E9?style=flat-square&logo=react&logoColor=white" />
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-6-14B8A6?style=flat-square&logo=vite&logoColor=white" />
+  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind-CSS-2563EB?style=flat-square&logo=tailwindcss&logoColor=white" />
+  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-Backend-10B981?style=flat-square&logo=fastapi&logoColor=white" />
+  <img alt="Firebase" src="https://img.shields.io/badge/Firebase-Auth-334155?style=flat-square&logo=firebase&logoColor=white" />
+  <img alt="Vercel" src="https://img.shields.io/badge/Vercel-Deployed-0F172A?style=flat-square&logo=vercel&logoColor=white" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Voice--First-2563EB?style=flat-square" alt="Voice First" />
+  <img src="https://img.shields.io/badge/Digital_Worker_ID-0EA5E9?style=flat-square" alt="Digital Worker ID" />
+  <img src="https://img.shields.io/badge/NGO_Workspace-14B8A6?style=flat-square" alt="NGO Workspace" />
+  <img src="https://img.shields.io/badge/Employer_Workspace-10B981?style=flat-square" alt="Employer Workspace" />
+  <img src="https://img.shields.io/badge/QR_Profile_Sharing-06B6D4?style=flat-square" alt="QR Profile Sharing" />
+  <img src="https://img.shields.io/badge/Mobile_Responsive-334155?style=flat-square" alt="Mobile Responsive" />
+</p>
+
+<p align="center">
+  <a href="https://rozgaar-ai-weld.vercel.app/"><strong>Live Application</strong></a>
+  &nbsp;|&nbsp;
+  <a href="https://rozgaar-ai-weld.vercel.app/presentation"><strong>Interactive Presentation</strong></a>
+  &nbsp;|&nbsp;
+  <a href="https://rozgaar-ai-weld.vercel.app/demo"><strong>Worker Demo</strong></a>
+  &nbsp;|&nbsp;
+  <a href="https://rozgaar-ai-weld.vercel.app/ngo?demo=ngo"><strong>NGO Demo</strong></a>
+  &nbsp;|&nbsp;
+  <a href="https://rozgaar-ai-weld.vercel.app/employer?demo=true"><strong>Employer Demo</strong></a>
+</p>
+
+<p align="center">
+  RozgaarAI turns spoken work experience into a trusted digital identity, skill passport, income proof, safer job discovery, and partner-ready employment workflows for workers, NGOs, foundations, and employers.
 </p>
 
 ---
@@ -40,6 +64,8 @@
 ## Table Of Contents
 
 - [Product Preview](#product-preview)
+- [Feature Overview](#feature-overview)
+- [Stakeholder Colour System](#stakeholder-colour-system)
 - [About RozgaarAI](#about-rozgaarai)
 - [Key Features](#key-features)
 - [Core Workspaces](#core-workspaces)
@@ -68,21 +94,110 @@
 
 ## Product Preview
 
+<p>
+  <img alt="Preview" src="https://img.shields.io/badge/PREVIEW-Product%20Screens-0EA5E9?style=flat-square" />
+</p>
+
 The repository includes production presentation assets under `frontend/public/presentation/slides/` and downloadable deck files under `frontend/public/downloads/`.
 
-<p align="center">
-  <img src="frontend/public/presentation/slides/slide-09.png" alt="RozgaarAI NGO and Foundation workspace presentation slide" width="920" />
-</p>
-
-<p align="center">
-  <img src="frontend/public/presentation/slides/slide-15.png" alt="RozgaarAI thank you presentation slide" width="920" />
-</p>
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="frontend/public/presentation/slides/slide-09.png" alt="RozgaarAI NGO and Foundation workspace presentation slide" />
+      <br />
+      <b>NGO and Foundation Workspace</b>
+    </td>
+    <td width="50%" align="center">
+      <img src="frontend/public/presentation/slides/slide-11.png" alt="RozgaarAI demo journey presentation slide" />
+      <br />
+      <b>Worker to Opportunity Journey</b>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="frontend/public/presentation/slides/slide-13.png" alt="RozgaarAI eShram to employment vision presentation slide" />
+      <br />
+      <b>Long-Term Employment Vision</b>
+    </td>
+    <td width="50%" align="center">
+      <img src="frontend/public/presentation/slides/slide-15.png" alt="RozgaarAI thank you presentation slide" />
+      <br />
+      <b>Build for Good Closing Slide</b>
+    </td>
+  </tr>
+</table>
 
 Workspace screenshots are intentionally not invented in this README. Add captured product screenshots to `docs/screenshots/` when they are available.
 
 ---
 
+## Feature Overview
+
+<p>
+  <img alt="Solution" src="https://img.shields.io/badge/SOLUTION-What%20RozgaarAI%20Connects-14B8A6?style=flat-square" />
+</p>
+
+<table>
+  <tr>
+    <td width="25%">
+      <b>Worker</b><br />
+      <img alt="Worker" src="https://img.shields.io/badge/Identity-2563EB?style=flat-square" /><br />
+      Voice-first onboarding, Digital Worker ID, QR sharing, resume, income passport, job matches, interview coach, and safety checks.
+    </td>
+    <td width="25%">
+      <b>NGO / Foundation</b><br />
+      <img alt="NGO" src="https://img.shields.io/badge/Verification-14B8A6?style=flat-square" /><br />
+      Worker linking, consent, assisted onboarding, training, certificates, placement pipeline, follow-ups, and impact reporting.
+    </td>
+    <td width="25%">
+      <b>Employer</b><br />
+      <img alt="Employer" src="https://img.shields.io/badge/Hiring-10B981?style=flat-square" /><br />
+      Verified worker discovery, job posting, candidate profiles, shortlist, interviews, hiring pipeline, and demo company workflows.
+    </td>
+    <td width="25%">
+      <b>Platform</b><br />
+      <img alt="Platform" src="https://img.shields.io/badge/Ecosystem-334155?style=flat-square" /><br />
+      React/Vite SPA, Firebase Auth, FastAPI-ready backend, AI fallback layer, in-app pitch deck, PDF/PPT downloads, and Vercel deployment.
+    </td>
+  </tr>
+</table>
+
+> [!IMPORTANT]
+> RozgaarAI's core differentiator is trust orchestration. It connects worker identity, NGO verification, employer discovery, training records, income proof, and job readiness into one employment journey.
+
+---
+
+## Stakeholder Colour System
+
+<p>
+  <img alt="Stakeholders" src="https://img.shields.io/badge/STAKEHOLDERS-Shared%20Ecosystem-334155?style=flat-square" />
+</p>
+
+| Stakeholder | Colour Role | Product Promise |
+| --- | --- | --- |
+| <img alt="Worker" src="https://img.shields.io/badge/Worker-2563EB?style=flat-square" /> | Deep blue | Give every worker a portable digital career identity. |
+| <img alt="NGO Foundation" src="https://img.shields.io/badge/NGO%20%2F%20Foundation-14B8A6?style=flat-square" /> | Teal | Help trusted field partners verify, train, and track outcomes. |
+| <img alt="Employer" src="https://img.shields.io/badge/Employer-10B981?style=flat-square" /> | Green | Help employers discover reliable, job-ready workers. |
+| <img alt="Platform" src="https://img.shields.io/badge/Platform-334155?style=flat-square" /> | Dark neutral | Connect identity, skills, jobs, safety, and impact data. |
+
+```mermaid
+flowchart LR
+  W["Worker"] --> R["RozgaarAI"]
+  N["NGO / Foundation"] --> R
+  E["Employer"] --> R
+  R --> ID["Digital Worker Identity"]
+  R --> SP["Digital Skill Passport"]
+  R --> IP["Work and Income Passport"]
+  R --> JM["Verified Job Matching"]
+```
+
+---
+
 ## About RozgaarAI
+
+<p>
+  <img alt="Problem" src="https://img.shields.io/badge/PROBLEM-Invisible%20Work-2563EB?style=flat-square" />
+</p>
 
 India's informal workforce powers homes, construction sites, transport networks, local businesses, housing societies, and urban services. Yet millions of skilled workers remain excluded from formal digital employment systems because their experience is difficult to verify, package, and share.
 
@@ -118,29 +233,37 @@ RozgaarAI is a voice-first AI employment platform that turns real-world work exp
 
 ## Key Features
 
+<p>
+  <img alt="Features" src="https://img.shields.io/badge/FEATURES-Core%20Capabilities-0EA5E9?style=flat-square" />
+</p>
+
 | Feature | Problem | Solution | User Benefit |
 | --- | --- | --- | --- |
-| Voice AI Onboarding | Forms are difficult for low-literacy or first-time digital users. | Workers speak naturally in Hindi or English; AI/local parsing extracts profile data. | Faster onboarding with less typing. |
-| Digital Career Identity | Informal skills are invisible and hard to verify. | Premium credential card with worker ID, QR, verification badge, skills, and readiness. | Portable trust signal for employers and NGOs. |
-| QR Profile Sharing | Worker information is hard to share safely across organizations. | QR-enabled Digital Worker ID opens the worker's public/shareable profile when profile sharing is enabled. | Employers and NGOs can review trusted worker context faster. |
-| AI Resume Generator | Workers lack employer-ready resumes. | Converts real experience into a structured, professional resume preview and download. | Workers can apply with confidence. |
-| Digital Skill Passport | Training and skill verification are scattered across programmes. | Worker identity and NGO training/certificate records create a portable skill history. | Workers carry readiness proof across opportunities. |
-| Work & Income Passport | Wage history is fragmented and informal. | Tracks work records, income, pending payments, and downloadable proof. | Builds economic credibility. |
-| Explainable Job Matching | Job recommendations often feel opaque. | Shows why jobs match across skill, wage, location, language, safety, and experience. | Workers understand and trust recommendations. |
-| AI Interview Coach | Workers may not know how to present experience. | Role-specific questions, voice/text answers, scoring, feedback, and improved answers. | Better interview readiness. |
-| Rights & Safety Assistant | Fraudulent job messages are common. | Detects registration fees, missing employer identity, document risks, and suspicious contact patterns. | Safer decisions before accepting work. |
-| Employer Dashboard | Employers struggle to discover verified informal workers. | Search, filter, view profiles, shortlist, and contact demo workers. | Faster, safer hiring workflow. |
-| NGO / Foundation Workspace | NGOs need field workflows, consent visibility, training records, and placement tracking. | Organization workspace for worker linking, assisted onboarding, training, certificates, employers, jobs, pipeline, reports, team, audit, and settings. | Better program delivery and measurable outcomes. |
-| Impact Dashboard | NGOs need outcome visibility. | Tracks worker registrations, training, certificates, active employers, open opportunities, placements, and follow-ups. | Better program measurement. |
-| Fair Wage Estimator | Workers negotiate without market benchmarks. | Estimates fair wages using skill, city, and experience. | Stronger wage confidence. |
-| Google Authentication | Production users need secure workspace access. | Firebase Google Auth with persisted sessions and user-scoped local storage fallback. | Personal dashboard and saved worker profiles. |
-| Demo Workspaces | Judges need a complete product tour without setup friction. | Demo Worker, Employer, and NGO modes load sample identities, jobs, training, placement, and impact data. | Reliable walkthrough even without database or paid AI keys. |
-| Presentation Route | Pitch decks often get separated from the product. | `/presentation` renders the latest slide images with keyboard controls, overview, fullscreen, and PDF/PPT downloads. | A polished in-browser deck for demos and deployment. |
-| Responsive Multilingual UI | Workers and partners use different devices and languages. | Responsive layouts, Hindi/English interface copy, accessible controls, and mobile-friendly dashboards. | Easier adoption across field, office, and demo contexts. |
+| <img alt="Worker" src="https://img.shields.io/badge/Voice%20AI-2563EB?style=flat-square" /> | Forms are difficult for low-literacy or first-time digital users. | Workers speak naturally in Hindi or English; AI/local parsing extracts profile data. | Faster onboarding with less typing. |
+| <img alt="Identity" src="https://img.shields.io/badge/Digital%20Identity-2563EB?style=flat-square" /> | Informal skills are invisible and hard to verify. | Premium credential card with worker ID, QR, verification badge, skills, and readiness. | Portable trust signal for employers and NGOs. |
+| <img alt="QR Sharing" src="https://img.shields.io/badge/QR%20Sharing-0EA5E9?style=flat-square" /> | Worker information is hard to share safely across organizations. | QR-enabled Digital Worker ID opens the worker's public/shareable profile when profile sharing is enabled. | Employers and NGOs can review trusted worker context faster. |
+| <img alt="Resume" src="https://img.shields.io/badge/AI%20Resume-0EA5E9?style=flat-square" /> | Workers lack employer-ready resumes. | Converts real experience into a structured, professional resume preview and download. | Workers can apply with confidence. |
+| <img alt="Skill Passport" src="https://img.shields.io/badge/Skill%20Passport-14B8A6?style=flat-square" /> | Training and skill verification are scattered across programmes. | Worker identity and NGO training/certificate records create a portable skill history. | Workers carry readiness proof across opportunities. |
+| <img alt="Income Passport" src="https://img.shields.io/badge/Income%20Passport-14B8A6?style=flat-square" /> | Wage history is fragmented and informal. | Tracks work records, income, pending payments, and downloadable proof. | Builds economic credibility. |
+| <img alt="Job Matching" src="https://img.shields.io/badge/Job%20Matching-10B981?style=flat-square" /> | Job recommendations often feel opaque. | Shows why jobs match across skill, wage, location, language, safety, and experience. | Workers understand and trust recommendations. |
+| <img alt="Interview Coach" src="https://img.shields.io/badge/Interview%20Coach-2563EB?style=flat-square" /> | Workers may not know how to present experience. | Role-specific questions, voice/text answers, scoring, feedback, and improved answers. | Better interview readiness. |
+| <img alt="Safety" src="https://img.shields.io/badge/Safety%20Assistant-334155?style=flat-square" /> | Fraudulent job messages are common. | Detects registration fees, missing employer identity, document risks, and suspicious contact patterns. | Safer decisions before accepting work. |
+| <img alt="Employer Dashboard" src="https://img.shields.io/badge/Employer%20Dashboard-10B981?style=flat-square" /> | Employers struggle to discover verified informal workers. | Search, filter, view profiles, shortlist, and contact demo workers. | Faster, safer hiring workflow. |
+| <img alt="NGO Workspace" src="https://img.shields.io/badge/NGO%20Workspace-14B8A6?style=flat-square" /> | NGOs need field workflows, consent visibility, training records, and placement tracking. | Organization workspace for worker linking, assisted onboarding, training, certificates, employers, jobs, pipeline, reports, team, audit, and settings. | Better program delivery and measurable outcomes. |
+| <img alt="Impact Dashboard" src="https://img.shields.io/badge/Impact%20Dashboard-10B981?style=flat-square" /> | NGOs need outcome visibility. | Tracks worker registrations, training, certificates, active employers, open opportunities, placements, and follow-ups. | Better program measurement. |
+| <img alt="Fair Wage" src="https://img.shields.io/badge/Fair%20Wage-10B981?style=flat-square" /> | Workers negotiate without market benchmarks. | Estimates fair wages using skill, city, and experience. | Stronger wage confidence. |
+| <img alt="Authentication" src="https://img.shields.io/badge/Auth-334155?style=flat-square" /> | Production users need secure workspace access. | Firebase Google Auth with persisted sessions and user-scoped local storage fallback. | Personal dashboard and saved worker profiles. |
+| <img alt="Demo Workspaces" src="https://img.shields.io/badge/Demo%20Workspaces-0EA5E9?style=flat-square" /> | Judges need a complete product tour without setup friction. | Demo Worker, Employer, and NGO modes load sample identities, jobs, training, placement, and impact data. | Reliable walkthrough even without database or paid AI keys. |
+| <img alt="Presentation Route" src="https://img.shields.io/badge/Presentation-2563EB?style=flat-square" /> | Pitch decks often get separated from the product. | `/presentation` renders the latest slide images with keyboard controls, overview, fullscreen, and PDF/PPT downloads. | A polished in-browser deck for demos and deployment. |
+| <img alt="Responsive UI" src="https://img.shields.io/badge/Responsive%20UI-14B8A6?style=flat-square" /> | Workers and partners use different devices and languages. | Responsive layouts, Hindi/English interface copy, accessible controls, and mobile-friendly dashboards. | Easier adoption across field, office, and demo contexts. |
 
 ---
 
 ## Core Workspaces
+
+<p>
+  <img alt="Workspaces" src="https://img.shields.io/badge/WORKSPACES-Worker%20NGO%20Employer-14B8A6?style=flat-square" />
+</p>
 
 ### Worker Workspace
 
@@ -169,7 +292,17 @@ RozgaarAI is a voice-first AI employment platform that turns real-world work exp
 
 ## Demo Experience
 
+<p>
+  <img alt="Demo" src="https://img.shields.io/badge/DEMO-Judge%20Ready-10B981?style=flat-square" />
+</p>
+
 RozgaarAI is built to run a complete demo without Supabase, backend persistence, login, or paid AI keys.
+
+> [!NOTE]
+> Demo routes are intentionally available without production database setup so judges can evaluate the full worker, NGO, and employer journey immediately.
+
+> [!TIP]
+> Start with the live application, open the interactive presentation, then compare the worker, NGO, and employer demo routes to see how one identity moves across the ecosystem.
 
 | Demo Area | Route | What It Shows |
 | --- | --- | --- |
@@ -181,6 +314,10 @@ RozgaarAI is built to run a complete demo without Supabase, backend persistence,
 ---
 
 ## Interactive Presentation
+
+<p>
+  <img alt="Presentation" src="https://img.shields.io/badge/PRESENTATION-15%20Slide%20Deck-2563EB?style=flat-square" />
+</p>
 
 The production pitch deck lives inside the React/Vite app at:
 
@@ -202,6 +339,10 @@ It renders 15 static slide images from `frontend/public/presentation/slides/` an
 
 ## UI & UX Improvements
 
+<p>
+  <img alt="Experience" src="https://img.shields.io/badge/EXPERIENCE-Responsive%20Product%20UI-0EA5E9?style=flat-square" />
+</p>
+
 - Premium blue-green RozgaarAI design system with consistent brand assets and reduced visual clutter.
 - Responsive layouts for mobile, tablet, laptop, and desktop.
 - Improved worker, employer, and NGO dashboards with denser information, clearer navigation, and better task flows.
@@ -213,6 +354,10 @@ It renders 15 static slide images from `frontend/public/presentation/slides/` an
 ---
 
 ## Complete Product Flow
+
+<p>
+  <img alt="Flow" src="https://img.shields.io/badge/FLOW-From%20Voice%20to%20Opportunity-14B8A6?style=flat-square" />
+</p>
 
 ```mermaid
 flowchart LR
@@ -258,6 +403,10 @@ flowchart LR
 ---
 
 ## System Architecture
+
+<p>
+  <img alt="Architecture" src="https://img.shields.io/badge/ARCHITECTURE-SPA%20Backend%20AI%20Ready-334155?style=flat-square" />
+</p>
 
 ```mermaid
 flowchart TB
@@ -307,6 +456,10 @@ sequenceDiagram
 
 ## Tech Stack
 
+<p>
+  <img alt="Technology" src="https://img.shields.io/badge/TECHNOLOGY-Verified%20Project%20Stack-0EA5E9?style=flat-square" />
+</p>
+
 | Category | Technology |
 | --- | --- |
 | Frontend | React 18, Vite 6, Tailwind CSS |
@@ -323,6 +476,10 @@ sequenceDiagram
 
 ## Phase 7 Production Readiness
 
+<p>
+  <img alt="Readiness" src="https://img.shields.io/badge/READINESS-Deployment%20QA%20Pilot-10B981?style=flat-square" />
+</p>
+
 Phase 7 deployment, QA, pilot and demo materials are available in:
 
 - [Deployment Runbook](docs/DEPLOYMENT_PHASE_7.md)
@@ -337,6 +494,13 @@ Admin diagnostics are available at `/admin/diagnostics` for admin accounts. The 
 ---
 
 ## Project Structure
+
+<p>
+  <img alt="Reference" src="https://img.shields.io/badge/REFERENCE-Repository%20Map-334155?style=flat-square" />
+</p>
+
+<details>
+<summary><b>View project structure</b></summary>
 
 ```text
 RozgaarAI
@@ -418,9 +582,18 @@ RozgaarAI
 | `backend/app/main.py` | FastAPI routes for profile, resume, jobs, wages, safety, and interview logic. |
 | `backend/app/services/` | AI service layer and deterministic fallback engine. |
 
+</details>
+
 ---
 
 ## Routes
+
+<p>
+  <img alt="Routes" src="https://img.shields.io/badge/REFERENCE-Route%20Map-334155?style=flat-square" />
+</p>
+
+<details>
+<summary><b>View route reference</b></summary>
 
 | Route | Access | Purpose |
 | --- | --- | --- |
@@ -441,9 +614,18 @@ RozgaarAI
 
 SPA refresh support is configured in both root `vercel.json` and `frontend/vercel.json` with rewrites to `/index.html`.
 
+</details>
+
 ---
 
 ## Installation
+
+<p>
+  <img alt="Setup" src="https://img.shields.io/badge/SETUP-Local%20Development-334155?style=flat-square" />
+</p>
+
+<details>
+<summary><b>View local setup instructions</b></summary>
 
 ### Prerequisites
 
@@ -498,9 +680,18 @@ npm run build
 npm run preview
 ```
 
+</details>
+
 ---
 
 ## Environment Variables
+
+<p>
+  <img alt="Environment" src="https://img.shields.io/badge/CONFIG-Environment%20Variables-334155?style=flat-square" />
+</p>
+
+<details>
+<summary><b>View environment variable reference</b></summary>
 
 Never commit real `.env` files. Use `.env.example` for documentation and configure production secrets in Vercel/Render.
 
@@ -544,9 +735,18 @@ ALLOWED_ORIGINS=http://localhost:5173
 | `VITE_FIREBASE_MESSAGING_SENDER_ID` | Firebase project web app config |
 | `VITE_FIREBASE_APP_ID` | Firebase project web app config |
 
+</details>
+
 ---
 
 ## Deployment
+
+<p>
+  <img alt="Deployment" src="https://img.shields.io/badge/DEPLOYMENT-Vercel%20Render%20Firebase-10B981?style=flat-square" />
+</p>
+
+<details>
+<summary><b>View deployment notes</b></summary>
 
 Detailed deployment instructions live in [DEPLOYMENT.md](./DEPLOYMENT.md).
 
@@ -611,11 +811,20 @@ In Firebase Console:
    - your Vercel domain without `https://`
 3. Do not add the Render backend domain. Google Sign-In happens in the browser on the Vercel frontend.
 
+</details>
+
 ---
 
 ## AI Features
 
+<p>
+  <img alt="AI" src="https://img.shields.io/badge/AI-Demo%20Safe%20Fallbacks-2563EB?style=flat-square" />
+</p>
+
 RozgaarAI is designed to be demo-safe without paid AI keys and production-ready when AI providers are configured.
+
+> [!WARNING]
+> Prototype and demo modes use local storage, mock data, and deterministic AI fallbacks when production services are not configured. Production pilots should configure Firebase, backend origins, AI providers, and a persistent database layer.
 
 ```mermaid
 flowchart LR
@@ -642,6 +851,10 @@ flowchart LR
 
 ## Security
 
+<p>
+  <img alt="Security" src="https://img.shields.io/badge/SECURITY-Auth%20Secrets%20Route%20Model-334155?style=flat-square" />
+</p>
+
 | Area | Implementation |
 | --- | --- |
 | Authentication | Firebase Google Authentication with persisted browser sessions. |
@@ -655,6 +868,10 @@ flowchart LR
 
 ## Performance
 
+<p>
+  <img alt="Performance" src="https://img.shields.io/badge/PERFORMANCE-Optimized%20SPA-10B981?style=flat-square" />
+</p>
+
 - Vite production build with optimized static assets.
 - `html2canvas` is dynamically imported only when downloading the Digital Worker Card.
 - Responsive layouts across mobile, tablet, laptop, and desktop.
@@ -665,6 +882,10 @@ flowchart LR
 ---
 
 ## Future Roadmap
+
+<p>
+  <img alt="Roadmap" src="https://img.shields.io/badge/ROADMAP-Next%20Milestones-0EA5E9?style=flat-square" />
+</p>
 
 | Phase | Roadmap Item |
 | --- | --- |
@@ -680,6 +901,10 @@ flowchart LR
 ---
 
 ## Build For Good
+
+<p>
+  <img alt="Impact" src="https://img.shields.io/badge/IMPACT-Build%20for%20Good-10B981?style=flat-square" />
+</p>
 
 RozgaarAI aligns with Build for Good by applying AI to a high-impact public-interest problem: employability and economic dignity for India's informal workforce.
 
