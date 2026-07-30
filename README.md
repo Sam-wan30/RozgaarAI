@@ -103,14 +103,14 @@ The repository includes production presentation assets under `frontend/public/pr
 <table>
   <tr>
     <td width="50%" align="center">
-      <img src="frontend/public/presentation/slides/slide-09.png" alt="RozgaarAI NGO and Foundation workspace presentation slide" />
+      <img src="docs/screenshots/ngo-workspace-preview.png" alt="RozgaarAI NGO and Foundation workspace preview" />
       <br />
       <b>NGO and Foundation Workspace</b>
     </td>
     <td width="50%" align="center">
-      <img src="frontend/public/presentation/slides/slide-11.png" alt="RozgaarAI demo journey presentation slide" />
+      <img src="docs/screenshots/worker-workspace-preview.png" alt="RozgaarAI worker workspace preview" />
       <br />
-      <b>Worker to Opportunity Journey</b>
+      <b>Worker Workspace Preview</b>
     </td>
   </tr>
   <tr>
@@ -120,14 +120,14 @@ The repository includes production presentation assets under `frontend/public/pr
       <b>Long-Term Employment Vision</b>
     </td>
     <td width="50%" align="center">
-      <img src="frontend/public/presentation/slides/slide-15.png" alt="RozgaarAI thank you presentation slide" />
+      <img src="docs/screenshots/employer-workspace-preview.png" alt="RozgaarAI employer workspace preview" />
       <br />
-      <b>Build for Good Closing Slide</b>
+      <b>Employer Workspace Preview</b>
     </td>
   </tr>
 </table>
 
-Workspace screenshots are intentionally not invented in this README. Add captured product screenshots to `docs/screenshots/` when they are available.
+Workspace previews are stored in `docs/screenshots/`, while the long-term vision slide remains loaded from `frontend/public/presentation/slides/`.
 
 ---
 
