@@ -17,8 +17,8 @@ export function NgoHeader({
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
-      <div className="flex min-h-[62px] items-center justify-between gap-2.5 px-4 py-2 lg:px-5">
-        <div className={`min-w-0 ${isDemoMode ? "hidden" : "hidden lg:block"}`}>
+      <div className="flex min-h-[62px] flex-wrap items-start justify-between gap-2.5 px-4 py-2 lg:flex-nowrap lg:items-center lg:px-5">
+        <div className="min-w-0 w-full lg:w-auto">
           <div className="flex flex-wrap items-center gap-2">
             <p className="text-xs font-black uppercase tracking-[0.14em] text-blue-600">{isDemoMode ? "" : copy.workspace}</p>
             {organization?.verificationStatus && (
@@ -32,9 +32,9 @@ export function NgoHeader({
           {subtitle && <p className="mt-0.5 hidden text-xs font-bold text-slate-500 xl:block">{subtitle}</p>}
         </div>
 
-        <div className="flex min-w-0 flex-1 items-center justify-end gap-3">
+        <div className="flex w-full min-w-0 flex-1 items-center justify-start gap-2 overflow-x-auto pb-1 [scrollbar-width:none] lg:w-auto lg:justify-end lg:gap-3 lg:overflow-visible lg:pb-0">
           {isDemoMode && (
-            <span className="mr-auto inline-flex min-h-8 items-center gap-2 rounded-full border border-green-100 bg-green-50 px-3 text-xs font-black text-green-700">
+            <span className="mr-auto hidden min-h-8 items-center gap-2 rounded-full border border-green-100 bg-green-50 px-3 text-xs font-black text-green-700 sm:inline-flex">
               <span className="h-2 w-2 rounded-full bg-green-500" />
               {copy.demoMode}
             </span>

@@ -164,7 +164,7 @@ export function DigitalCareerIdentityCard({ identity, labels, variant = "full", 
     ];
 
     return (
-      <article className="career-card career-card-enter relative overflow-hidden rounded-xl border border-slate-700/70 bg-ink text-white shadow-[0_24px_70px_rgba(15,23,42,0.24)]">
+      <article className="credential-career-card career-card career-card-enter relative overflow-hidden rounded-xl border border-slate-700/70 bg-ink text-white shadow-[0_24px_70px_rgba(15,23,42,0.24)]">
         <div className="pointer-events-none absolute -left-28 -top-28 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
         <div className="pointer-events-none absolute -right-28 top-10 h-80 w-80 rounded-full bg-emerald-500/16 blur-3xl" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(37,99,235,0.16),transparent_34%),radial-gradient(circle_at_92%_10%,rgba(22,163,74,0.14),transparent_32%)]" />
@@ -232,13 +232,13 @@ export function DigitalCareerIdentityCard({ identity, labels, variant = "full", 
             ))}
           </div>
 
-          <div className="mt-2.5 flex items-center gap-4">
+          <div className="credential-issuer-row mt-2.5 flex items-center gap-4">
             <span className="h-px flex-1 border-t border-dashed border-slate-600/70" />
             <p className="text-center text-[12px] font-black uppercase tracking-[0.28em] text-slate-400">{labels.issuedBy || "Issued by RozgaarAI Digital Career Identity Network"}</p>
             <span className="h-px flex-1 border-t border-dashed border-slate-600/70" />
           </div>
 
-          <div className="mt-2.5 grid grid-cols-[1.05fr_0.95fr] gap-3">
+          <div className="credential-proof-grid mt-2.5 grid grid-cols-[1.05fr_0.95fr] gap-3">
             <section className="min-h-[8rem] rounded-2xl border border-slate-600/80 bg-white/[0.055] p-3 shadow-inner">
               <p className="text-sm font-black uppercase tracking-[0.18em] text-slate-300">{labels.workerId}</p>
               <p className="mt-2 break-words text-3xl font-black leading-tight text-white">{identity.workerId}</p>

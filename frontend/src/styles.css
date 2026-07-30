@@ -7910,6 +7910,73 @@ body:has(.create-identity-page) {
     max-height: calc(100dvh - 1rem) !important;
     border-radius: 1.25rem !important;
   }
+
+  .credential-career-card > .relative {
+    padding: 0.85rem;
+  }
+
+  .credential-career-card h2 {
+    font-size: clamp(1.85rem, 10vw, 2.45rem);
+    line-height: 1.05;
+  }
+
+  .credential-career-card p {
+    overflow-wrap: anywhere;
+  }
+
+  .credential-career-card .mt-3.flex.items-center.gap-2 {
+    align-items: flex-start;
+  }
+
+  .credential-career-card .mt-3.flex.items-center.gap-2 > .relative {
+    width: 5.8rem;
+    height: 5.8rem;
+  }
+
+  .credential-career-card .mt-3.flex.items-center.gap-2 > .ml-1 {
+    height: auto;
+    min-height: 5.8rem;
+  }
+
+  .credential-career-card .mt-3.grid.grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .credential-career-card .mt-3.grid.grid-cols-3 > div {
+    justify-content: flex-start;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .credential-career-card .mt-3.grid.grid-cols-3 > div:last-child {
+    border-bottom: 0;
+  }
+
+  .credential-career-card .credential-issuer-row {
+    gap: 0.6rem;
+  }
+
+  .credential-career-card .credential-issuer-row p {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+  }
+
+  .credential-career-card .credential-proof-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .credential-career-card .credential-proof-grid section {
+    min-height: 0;
+  }
+
+  .credential-career-card .credential-proof-grid section:first-child p:last-of-type {
+    font-size: clamp(1.45rem, 8vw, 2rem);
+  }
+
+  .credential-career-card canvas {
+    width: min(52vw, 9.2rem) !important;
+    height: min(52vw, 9.2rem) !important;
+  }
 }
 
 @media (max-width: 390px) {

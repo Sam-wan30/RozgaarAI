@@ -151,12 +151,12 @@ function RecommendedWorkerRow({ copy, worker, onView, onMessage, onShortlist }) 
 
 function RecommendedWorkers({ copy, workers, onViewAll, onView, onMessage, onShortlist }) {
   return (
-    <OverviewCard className="flex h-full min-h-0 flex-col p-5 lg:col-span-8">
+    <OverviewCard className="flex min-h-0 flex-col p-5 lg:col-span-8 xl:h-full">
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-xl font-black text-slate-950">{copy.recommendedWorkers}</h2>
         <button type="button" onClick={onViewAll} className="focus-ring min-h-10 rounded-lg px-3 text-sm font-black text-blue-700 hover:bg-blue-50">{copy.viewAllMatches}</button>
       </div>
-      <div className="mt-3 min-h-0 flex-1 space-y-2 overflow-y-auto pr-1">
+      <div className="mt-3 min-h-0 flex-1 space-y-2 overflow-visible pr-0 xl:overflow-y-auto xl:pr-1">
         {workers.length ? workers.map((worker) => (
           <RecommendedWorkerRow
             key={worker.id}
@@ -314,7 +314,7 @@ export function EmployerOverviewDashboard({
   onViewActivity
 }) {
   return (
-    <div className="grid h-full min-h-0 grid-cols-1 gap-5 xl:grid-cols-12 xl:grid-rows-[minmax(200px,0.3fr)_minmax(280px,0.44fr)_minmax(160px,0.26fr)]">
+    <div className="grid min-h-0 grid-cols-1 gap-5 xl:h-full xl:grid-cols-12 xl:grid-rows-[minmax(200px,0.3fr)_minmax(280px,0.44fr)_minmax(160px,0.26fr)]">
       <EmployerOverviewHero copy={copy} companyName={companyName} summary={briefSummary} hasJobs={hasJobs} onReviewMatches={onReviewMatches} onPostJob={onPostJob} />
       <HiringFunnel copy={copy} stages={funnelStages} />
       <RecommendedWorkers copy={copy} workers={recommendedWorkers} onViewAll={onReviewMatches} onView={onViewWorker} onMessage={onMessageWorker} onShortlist={onShortlistWorker} />
