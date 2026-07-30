@@ -1193,7 +1193,7 @@ export default function App() {
       navigateTo("/");
       return;
     }
-    if (authResolved && !account && (routePath === "/dashboard" || routePath.startsWith("/dashboard/") || routePath === "/demo/dashboard" || routePath.startsWith("/demo/dashboard/"))) {
+    if (authResolved && !account && (routePath === "/dashboard" || routePath.startsWith("/dashboard/"))) {
       window.sessionStorage.setItem("rozgaarai-intended-route", routePath);
       openAuthModal({ mode: "signin", redirectTo: routePath });
       return;
@@ -4009,10 +4009,14 @@ export default function App() {
   );
 
   useEffect(() => {
-    if (!authResolved || !account || !isDemoDashboardRoute || !isDemoMode || worker.name) return;
+    if (!authResolved || !isDemoDashboardRoute || worker.name) return;
+    if (!isDemoMode) {
+      setIsDemoMode(true);
+      window.sessionStorage.setItem(demoModeStorageKey, "true");
+    }
     const demoProfile = demoProfiles.find((profileData) => profileData.name === onboardingDemoWorkerName) || demoProfiles[0];
     loadDemoWorker(demoProfile, { tab: "overview" });
-  }, [authResolved, account?.id, account?.uid, isDemoDashboardRoute, isDemoMode, worker.name, lang]);
+  }, [authResolved, isDemoDashboardRoute, isDemoMode, worker.name, lang]);
 
   const onboardingSteps = [
     ["input", workerCopy.onboardingFlow[0], Mic],
@@ -6091,7 +6095,7 @@ export default function App() {
               navigateTo={navigateTo}
               setStatusMessage={setStatusMessage}
             />
-          ) : !account && !isCreateProfileRoute ? (
+          ) : !account && !isCreateProfileRoute && !isDemoDashboardRoute ? (
             <div className="secure-access-hero">
               <div className="grid gap-10 xl:grid-cols-[0.84fr_1.16fr] xl:items-center">
                 <div className="secure-copy-column">
