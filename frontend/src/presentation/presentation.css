@@ -174,111 +174,6 @@ body:has(.presentation-root) {
   stroke: none;
 }
 
-.ppt-mascot {
-  top: auto;
-  right: 1.15rem;
-  bottom: 0.75rem;
-  left: auto;
-  width: 5.5rem;
-  height: 5.8rem;
-  filter: drop-shadow(0 9px 12px rgba(15, 23, 42, 0.28));
-}
-
-.ppt-mascot-head {
-  position: absolute;
-  top: 0;
-  left: 0.65rem;
-  width: 4.35rem;
-  height: 3.65rem;
-  border: 4px solid #2d3cba;
-  border-radius: 1.5rem 1.5rem 1.2rem 1.2rem;
-  background: #6b8cff;
-  box-shadow: inset 0 -0.45rem 0 rgba(24, 43, 141, 0.18);
-}
-
-.ppt-mascot-head::before,
-.ppt-mascot-head::after {
-  content: "";
-  position: absolute;
-  top: 1.65rem;
-  width: 0.55rem;
-  height: 0.28rem;
-  border-radius: 999px;
-  background: #8df7ff;
-}
-
-.ppt-mascot-head::before {
-  left: 1.15rem;
-}
-
-.ppt-mascot-head::after {
-  right: 1.15rem;
-}
-
-.ppt-mascot-head i,
-.ppt-mascot-head b {
-  position: absolute;
-  content: "";
-  display: block;
-  border-radius: 999px;
-}
-
-.ppt-mascot-head i {
-  inset: -0.55rem 0.35rem auto;
-  height: 1rem;
-  background: #89a7ff;
-  border: 3px solid #2d3cba;
-}
-
-.ppt-mascot-head b {
-  left: 1.76rem;
-  bottom: 0.75rem;
-  width: 0.9rem;
-  height: 0.28rem;
-  background: #bafcff;
-}
-
-.ppt-mascot-body {
-  position: absolute;
-  bottom: 0;
-  left: 1.34rem;
-  width: 3rem;
-  height: 2.45rem;
-  border: 4px solid #2d3cba;
-  border-radius: 1.1rem;
-  background: #4c6dff;
-}
-
-.ppt-mascot-body::before,
-.ppt-mascot-body::after {
-  content: "";
-  position: absolute;
-  top: 0.55rem;
-  width: 0.72rem;
-  height: 1.55rem;
-  border-radius: 999px;
-  background: #5879ff;
-  border: 3px solid #2d3cba;
-}
-
-.ppt-mascot-body::before {
-  left: -0.95rem;
-}
-
-.ppt-mascot-body::after {
-  right: -0.95rem;
-}
-
-.ppt-mascot-body i {
-  position: absolute;
-  left: 1.03rem;
-  top: 0.75rem;
-  width: 0.78rem;
-  height: 0.26rem;
-  border-radius: 999px;
-  background: #8df7ff;
-}
-
 .presentation-topbar,
 .presentation-bottombar,
 .presentation-arrow,
@@ -942,7 +837,6 @@ body:has(.presentation-root) {
 
   .ppt-network,
   .ppt-growth,
-  .ppt-mascot,
   .ppt-skyline {
     opacity: 0.2;
   }

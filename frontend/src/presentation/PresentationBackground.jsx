@@ -38,10 +38,6 @@ export function PresentationBackground() {
         <rect x="218" y="162" width="38" height="152" rx="5" />
         <rect x="294" y="112" width="40" height="202" rx="5" />
       </svg>
-      <div className="ppt-mascot">
-        <span className="ppt-mascot-head"><i /><b /></span>
-        <span className="ppt-mascot-body"><i /></span>
-      </div>
     </div>
   );
 }
