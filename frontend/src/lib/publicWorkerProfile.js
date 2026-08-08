@@ -64,6 +64,7 @@ function normalizeProfileRecord(record, source = "local") {
 
   return {
     source,
+    userId: record.userId || worker.userId || "",
     status,
     shareSettings,
     worker: { ...worker, workerId },

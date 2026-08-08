@@ -23,8 +23,8 @@ export function Section({ id, eyebrow, title, children, tone = "white" }) {
   if (path === "/dashboard" && id !== "product-dashboard") return null;
 
   const bg = tone === "warm" ? "bg-paper" : tone === "dark" ? "bg-ink text-white" : "bg-white";
-  const compactRoutes = new Set(["/dashboard", "/create-profile", "/employer"]);
-  const spacing = compactRoutes.has(path) ? "py-8 sm:py-10" : "py-14 sm:py-20";
+  const compactRoutes = new Set(["/dashboard", "/create-profile", "/employer", "/demo/dashboard"]);
+  const spacing = path === "/demo/dashboard" ? "py-2 sm:py-3" : compactRoutes.has(path) ? "py-8 sm:py-10" : "py-14 sm:py-20";
   const containerClass = path === "/" ? "section-shell landing-container" : "section-shell";
 
   return (

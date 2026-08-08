@@ -20,6 +20,7 @@ import {
   Gauge,
   GraduationCap,
   Globe2,
+  Handshake,
   HandHeart,
   IdCard,
   Info,
@@ -70,6 +71,8 @@ import heroImage from "./assets/rozgaar-hero.png";
 import informalWorkerOrbit from "./assets/orbit .png";
 import rahulWorkerPhoto from "./assets/rahul-kumar-electrician.jpg";
 import createWorkerIdentityPhoto from "./assets/create-worker-identity-photo.jpg";
+import employerDemoCardImage from "./assets/ngo-team-workspace-hero.png";
+import ngoDemoCardImage from "./assets/ngo-add-worker-hero-reference.png";
 import logoFull from "./assets/brand/rozgaarai-logo-full.png";
 import logoFullTransparent from "./assets/brand/rozgaarai-logo-full-transparent.png";
 import logoMark from "./assets/brand/rozgaarai-logo-mark.png";
@@ -445,6 +448,64 @@ function createDemoJob(profileData) {
       safety: 94
     }
   };
+}
+
+function findDemoSeedProfile(workerData = {}) {
+  return demoProfiles.find((profileData) => profileData.name === workerData.name)
+    || demoProfiles.find((profileData) => profileData.skill === workerData.skill && profileData.city === workerData.city)
+    || demoProfiles.find((profileData) => profileData.skill === workerData.skill)
+    || demoProfiles[1]
+    || demoProfiles[0];
+}
+
+function createDemoWorkspaceIncomeRecords(workerData = {}) {
+  const seedProfile = findDemoSeedProfile(workerData);
+  const sourceRecords = incomePassports[seedProfile?.name] || [];
+  const workerId = workerData.workerId || createWorkerId(workerData);
+  const expectedWage = Number(workerData.expectedWage || seedProfile?.expectedWage || 26000);
+  const dailyWage = Math.max(850, Math.round(expectedWage / 22));
+  const workSites = [
+    `${workerData.city || seedProfile?.city || "Local"} Verified Work Network`,
+    `${workerData.city || seedProfile?.city || "Community"} Home Services`,
+    `${workerData.city || seedProfile?.city || "RozgaarAI"} Maintenance Desk`
+  ];
+
+  if (sourceRecords.length) {
+    return sourceRecords.slice(0, 8).map((record, index) => ({
+      ...record,
+      id: `DEMO-${workerId}-${String(index + 1).padStart(3, "0")}`,
+      employer: record.employer || workSites[index % workSites.length],
+      worker: workerData.name || seedProfile?.name || "Demo Worker",
+      jobType: workerData.skill || seedProfile?.skill || record.jobType,
+      location: workerData.city || seedProfile?.city || record.location,
+      dailyWage: Number(record.dailyWage || dailyWage),
+      paymentReceived: Number(record.paymentReceived || dailyWage),
+      paymentPending: Number(record.paymentPending || 0),
+      monthlyIncome: Number(record.monthlyIncome || record.paymentReceived || dailyWage)
+    }));
+  }
+
+  return Array.from({ length: 8 }, (_, index) => {
+    const paid = dailyWage + (index % 3) * 75;
+    const pending = index === 2 || index === 6 ? Math.round(paid * 0.2) : 0;
+    const day = 3 + index * 3;
+    return {
+      id: `DEMO-${workerId}-${String(index + 1).padStart(3, "0")}`,
+      employer: workSites[index % workSites.length],
+      worker: workerData.name || "Demo Worker",
+      jobType: workerData.skill || "Skilled Worker",
+      location: workerData.city || "Bhopal",
+      date: `2026-07-${String(day).padStart(2, "0")}`,
+      dates: `July ${day}, 2026`,
+      hoursWorked: index % 2 ? 8 : 7,
+      workDays: index % 3 === 0 ? 2 : 1,
+      dailyWage: paid,
+      paymentReceived: paid - pending,
+      paymentPending: pending,
+      monthlyIncome: paid,
+      status: pending ? "Partially paid" : "Verified"
+    };
+  });
 }
 
 function Field({ label, hint, children }) {
@@ -983,7 +1044,7 @@ export default function App() {
     { key: "how", label: t.navMain?.howItWorks || "How It Works", id: "journey", route: "/" },
     { key: "product", label: t.navMain?.product || "Product", id: "ngo-product-story", route: "/" },
     { key: "employers", label: t.navMain?.employers || "Employers", id: "employers", route: "/" },
-    { key: "ngos", label: t.navMain?.ngos || "NGOs", route: "/ngo/onboarding", action: "ngoEntry" }
+    { key: "ngos", label: t.navMain?.ngos || "NGOs", id: "ngo-product-story", route: "/" }
   ], [t.navMain]);
   const jobChips = (job) => contentLang === "hi"
     ? [roleLabel(job.skill), statusLabel(job.status), `${job.requiredExperience}+ ${t.common.years}`]
@@ -1074,7 +1135,7 @@ export default function App() {
         setActiveNavKey("employers");
         return;
       }
-      if (routePath === "/demo") {
+      if (routePath === "/demo" || routePath.startsWith("/demo/")) {
         setActiveNavKey("demo");
         return;
       }
@@ -1180,6 +1241,14 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (routePath === "/demo/employer") {
+      replaceRoute("/employer/onboarding");
+      return;
+    }
+    if (routePath === "/demo/ngo") {
+      replaceRoute("/ngo/onboarding");
+      return;
+    }
     if (routePath === "/login") {
       openAuthModal({ mode: "signin", redirectTo: window.sessionStorage.getItem("rozgaarai-intended-route") || "" });
       navigateTo("/");
@@ -1193,7 +1262,12 @@ export default function App() {
       navigateTo("/");
       return;
     }
-    if (authResolved && !account && (routePath === "/dashboard" || routePath.startsWith("/dashboard/"))) {
+    const openingWorkerDemoFlow = window.sessionStorage.getItem(demoModeStorageKey) === "true" && (
+      routePath === "/demo/dashboard" ||
+      routePath.startsWith("/demo/dashboard/") ||
+      routePath === "/create-profile"
+    );
+    if (authResolved && !account && !openingWorkerDemoFlow && (routePath === "/dashboard" || routePath.startsWith("/dashboard/"))) {
       window.sessionStorage.setItem("rozgaarai-intended-route", routePath);
       openAuthModal({ mode: "signin", redirectTo: routePath });
       return;
@@ -1208,7 +1282,7 @@ export default function App() {
       window.sessionStorage.getItem(ngoDemoIntentStorageKey) === "true" ||
       hasNgoDemoUrlIntent()
     );
-    if (openingEmployerDemo || openingNgoDemo) return;
+    if (openingWorkerDemoFlow || openingEmployerDemo || openingNgoDemo) return;
     if (authResolved) {
       const waitsForNgoOrganization = account?.role === ROLES.NGO && routePath.startsWith("/ngo") && routePath !== "/ngo/onboarding" && !ngoWorkspaceChecked;
       if (!waitsForNgoOrganization) {
@@ -1238,7 +1312,7 @@ export default function App() {
     if (routePath === "/create-profile") {
       window.setTimeout(() => document.getElementById("onboarding")?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
     }
-  }, [routePath, authResolved, account?.id, account?.uid, account?.role, ngoOrganization?.id, ngoOrganization?.onboardingCompleted, ngoWorkspaceChecked, isEmployerDemoMode, isNgoDemoMode]);
+  }, [routePath, authResolved, account?.id, account?.uid, account?.role, ngoOrganization?.id, ngoOrganization?.onboardingCompleted, ngoWorkspaceChecked, isEmployerDemoMode, isNgoDemoMode, isDemoMode]);
 
   useEffect(() => {
     if (!account || !authResolved || account.role !== ROLES.WORKER) return;
@@ -1252,6 +1326,7 @@ export default function App() {
 
   useEffect(() => {
     if (!routePath.startsWith("/employer")) return;
+    if (routePath === "/employer/onboarding") return;
     const shouldOpenEmployerDemo = isEmployerDemoMode || window.sessionStorage.getItem(employerDemoIntentStorageKey) === "true" || hasEmployerDemoUrlIntent();
     if (!shouldOpenEmployerDemo) return;
     window.sessionStorage.removeItem(employerDemoIntentStorageKey);
@@ -1261,6 +1336,7 @@ export default function App() {
 
   useEffect(() => {
     if (!routePath.startsWith("/ngo")) return;
+    if (routePath === "/ngo/onboarding") return;
     const shouldOpenNgoDemo = isNgoDemoMode || window.sessionStorage.getItem(ngoDemoIntentStorageKey) === "true" || hasNgoDemoUrlIntent();
     if (!shouldOpenNgoDemo) return;
     window.sessionStorage.removeItem(ngoDemoIntentStorageKey);
@@ -1422,6 +1498,12 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  function replaceRoute(path) {
+    window.history.replaceState({}, "", path);
+    setRoutePath(path);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   function openAuthModal({ mode = "signin", role = "", redirectTo = "" } = {}) {
     const normalizedRole = role ? normalizeRole(role) : "";
     setAuthMode(mode === "signup" ? "signup" : "signin");
@@ -1492,11 +1574,11 @@ export default function App() {
     const normalizedRole = normalizeRole(role);
     closeAuthModal();
     if (normalizedRole === ROLES.EMPLOYER) {
-      openEmployerDemoMode();
+      navigateTo("/employer/onboarding");
       return;
     }
     if (normalizedRole === ROLES.NGO) {
-      openNgoDemoMode();
+      navigateTo("/ngo/onboarding");
       return;
     }
     startOnboardingDemo();
@@ -1523,7 +1605,7 @@ export default function App() {
   function openInterviewPracticePage() {
     const targetIdentity = activeWorkerIdentity || dashboardIdentity || latestProfileIdentity;
     if (!hasPrimaryIdentity || !targetIdentity?.workerId) {
-      navigateTo("/create-profile");
+      openWorkerOnboarding();
       return;
     }
     setActiveWorkspaceTab("coach");
@@ -1533,7 +1615,7 @@ export default function App() {
   function openCareerIdentityPage() {
     const targetIdentity = activeWorkerIdentity || dashboardIdentity || latestProfileIdentity;
     if (!hasPrimaryIdentity || !targetIdentity?.workerId) {
-      navigateTo("/create-profile");
+      openWorkerOnboarding();
       return;
     }
     setActiveWorkspaceTab("identity");
@@ -1543,7 +1625,7 @@ export default function App() {
   function openWorkerProfileTab(tab, message = "") {
     const targetIdentity = activeWorkerIdentity || dashboardIdentity || latestProfileIdentity || identityPageIdentity;
     if (!targetIdentity?.workerId) {
-      navigateTo("/create-profile");
+      openWorkerOnboarding();
       return;
     }
     setActiveWorkspaceTab(tab);
@@ -1560,10 +1642,17 @@ export default function App() {
     const tabByKey = {
       jobs: "jobs",
       income: "income",
+      training: "training",
       resume: "resume",
       coach: "coach",
+      applications: "jobs",
       safety: "rights"
     };
+    if (routePath.startsWith("/worker/") && key === "home") {
+      setActiveWorkspaceTab("overview");
+      window.setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 80);
+      return;
+    }
     if (key === "identity") {
       openCareerIdentityPage();
       return;
@@ -1788,6 +1877,60 @@ export default function App() {
     return record;
   }
 
+  function saveLocalDemoWorkerProfile({ workerData, profileData, resumeData, matchesData, wageData, wageEntriesData = [] }) {
+    const userId = "demo-created-worker";
+    const stableWorkerId = workerData.workerId || createWorkerId(workerData);
+    const timestamp = new Date().toISOString();
+    const demoWageEntries = wageEntriesData.length ? wageEntriesData : createDemoWorkspaceIncomeRecords({ ...workerData, workerId: stableWorkerId });
+    const demoMatches = matchesData.length
+      ? matchesData
+      : [createDemoJob({ ...findDemoSeedProfile(workerData), ...workerData, workerId: stableWorkerId, jobMatch: workerData.jobMatch || 96 }), ...localMatches(workerData)]
+        .sort((a, b) => Number(b.score || 0) - Number(a.score || 0));
+    const demoWage = wageData || {
+      ...localWageEstimate(workerData),
+      confidence: "High"
+    };
+    const record = {
+      id: `${userId}:${stableWorkerId}`,
+      userId,
+      workerId: stableWorkerId,
+      worker: { ...workerData, workerId: stableWorkerId },
+      profile: profileData,
+      resume: resumeData,
+      matches: demoMatches,
+      wage: demoWage,
+      wageEntries: demoWageEntries,
+      publicStatus: "active",
+      createdAt: timestamp,
+      updatedAt: timestamp
+    };
+    setUserProfiles((current) => [
+      record,
+      ...current.filter((item) => item.workerId !== stableWorkerId)
+    ]);
+    writeUserProfiles({ id: userId, uid: userId }, [
+      record,
+      ...readUserProfiles({ id: userId, uid: userId }).filter((item) => item.workerId !== stableWorkerId)
+    ]);
+    if (typeof window !== "undefined") {
+      const publicProfileKey = `rozgaarai-worker-profiles-v1:${userId}`;
+      try {
+        const existingPublicProfiles = JSON.parse(window.localStorage.getItem(publicProfileKey) || "[]");
+        const nextPublicProfiles = [
+          record,
+          ...(Array.isArray(existingPublicProfiles) ? existingPublicProfiles : []).filter((item) => item.workerId !== stableWorkerId)
+        ];
+        window.localStorage.setItem(publicProfileKey, JSON.stringify(nextPublicProfiles));
+      } catch {
+        window.localStorage.setItem(publicProfileKey, JSON.stringify([record]));
+      }
+    }
+    database.saveWorkerProfile(record, { id: userId, uid: userId }).catch((error) => {
+      console.warn("Unable to persist demo worker profile:", error);
+    });
+    return record;
+  }
+
   async function continueWithGoogle() {
     const mode = authMode || "signin";
     const selectedRole = authForm.role ? normalizeRole(authForm.role) : "";
@@ -1917,6 +2060,7 @@ export default function App() {
   }
 
   function startOnboardingDemo() {
+    closeAuthModal();
     const demoProfile = demoProfiles.find((profileData) => profileData.name === onboardingDemoWorkerName) || demoProfiles[0];
     loadDemoWorker(demoProfile, { tab: "overview" });
     navigateTo("/demo/dashboard");
@@ -1932,22 +2076,36 @@ export default function App() {
   function exitDemoMode() {
     window.sessionStorage.removeItem(demoModeStorageKey);
     setIsDemoMode(false);
-    if (latestUserProfile) {
-      openUserWorkerProfile(latestUserProfile, { shouldNavigate: false });
-      navigateTo("/dashboard");
-      return;
-    }
     resetPrivateWorkspaceState();
-    navigateTo("/dashboard");
+    navigateTo("/demo");
+  }
+
+  function preloadDemoWorkerOnboarding() {
+    const demoProfile = demoProfiles.find((profileData) => profileData.name === onboardingDemoWorkerName) || demoProfiles[1] || demoProfiles[0];
+    const demoDraft = {
+      ...initialWorker,
+      ...demoProfile,
+      workerId: "",
+      readiness: demoProfile.readiness || 95,
+      jobMatch: demoProfile.jobMatch || 96,
+      interviewScore: demoProfile.interviewScore || 93
+    };
+    setWorker(demoDraft);
+    setSmartInput(`${demoDraft.name}, ${demoDraft.skill}, ${demoDraft.city}, ${demoDraft.experience} years experience, expected wage Rs ${demoDraft.expectedWage}, speaks ${demoDraft.languages}, availability ${demoDraft.availability}. ${demoDraft.notes}`);
+    setPracticeLanguage(inferPracticeLanguage(demoDraft, lang));
+    setErrorMessage("");
+    setStatusMessage("Sample demo details are prefilled. You can edit them before creating the profile.");
   }
 
   function createProfileFromDemo() {
-    window.sessionStorage.removeItem(demoModeStorageKey);
-    resetPrivateWorkspaceState();
+    closeAuthModal();
+    window.sessionStorage.setItem(demoModeStorageKey, "true");
+    setIsDemoMode(true);
+    preloadDemoWorkerOnboarding();
     navigateTo("/create-profile");
   }
 
-  function openUserWorkerProfile(profileRecord, { shouldNavigate = true } = {}) {
+  function openUserWorkerProfile(profileRecord, { shouldNavigate = true, preserveDemoMode = false } = {}) {
     if (!profileRecord) return;
     const nextWorker = {
       ...profileRecord.worker,
@@ -1961,7 +2119,7 @@ export default function App() {
     setWageEntries(profileRecord.wageEntries || []);
     setPracticeLanguage(inferPracticeLanguage(nextWorker, lang));
     setHasGeneratedProfile(true);
-    setIsDemoMode(false);
+    if (!preserveDemoMode) setIsDemoMode(false);
     setErrorMessage("");
     setStatusMessage("");
     setActiveWorkspaceTab("overview");
@@ -2007,6 +2165,30 @@ export default function App() {
       setMatches(nextMatches);
       setWage(nextWage);
       setHasGeneratedProfile(true);
+      if (isDemoMode) {
+        const demoWageEntries = createDemoWorkspaceIncomeRecords(generatedWorker);
+        const demoMatches = [
+          createDemoJob({
+            ...findDemoSeedProfile(generatedWorker),
+            ...generatedWorker,
+            jobMatch: generatedWorker.jobMatch || Math.max(92, Number(nextMatches?.[0]?.score || 92))
+          }),
+          ...(nextMatches?.length ? nextMatches : localMatches(generatedWorker))
+        ].sort((a, b) => Number(b.score || 0) - Number(a.score || 0));
+        const savedDemoProfileRecord = saveLocalDemoWorkerProfile({
+          workerData: generatedWorker,
+          profileData: nextProfile,
+          resumeData: nextResume,
+          matchesData: demoMatches,
+          wageData: nextWage,
+          wageEntriesData: demoWageEntries
+        });
+        window.sessionStorage.setItem(demoModeStorageKey, "true");
+        setStatusMessage(t.profileSuccess);
+        setActiveWorkspaceTab("overview");
+        openUserWorkerProfile(savedDemoProfileRecord, { preserveDemoMode: true });
+        return;
+      }
       setIsDemoMode(false);
       const savedProfileRecord = saveAuthenticatedWorkerProfile({
         workerData: generatedWorker,
@@ -3374,6 +3556,20 @@ export default function App() {
   const isCreateProfileRoute = routePath === "/create-profile" || currentPathname === "/create-profile";
   const isDemoDashboardRoute = routePath === "/demo/dashboard" || routePath.startsWith("/demo/dashboard/");
   const isDemoExperience = Boolean(isDemoMode && isDemoDashboardRoute);
+  const isWorkerDemoFlow = Boolean(isDemoMode && (isDemoDashboardRoute || isCreateProfileRoute));
+  const openWorkerOnboarding = () => {
+    if (isWorkerDemoFlow) {
+      createProfileFromDemo();
+      return;
+    }
+    navigateTo("/create-profile");
+  };
+  useEffect(() => {
+    if (!isCreateProfileRoute || !isDemoMode) return;
+    const hasRequiredDraft = ["name", "city", "skill", "experience"].every((key) => String(worker[key] || "").trim());
+    if (hasRequiredDraft && String(smartInput || "").trim()) return;
+    preloadDemoWorkerOnboarding();
+  }, [isCreateProfileRoute, isDemoMode, worker.name, worker.city, worker.skill, worker.experience, smartInput, lang]);
   const scopedUserProfiles = account ? userProfiles.filter((item) => item.userId === accountUserId(account)) : userProfiles;
   const latestUserProfile = [...scopedUserProfiles].sort((a, b) => new Date(b.updatedAt || b.createdAt || 0) - new Date(a.updatedAt || a.createdAt || 0))[0];
   const routeWorkerId = routePath.startsWith("/worker/") || routePath.startsWith("/public/") || routePath.startsWith("/profile/")
@@ -3400,12 +3596,23 @@ export default function App() {
   const matchingDemoProfile = routeWorkerId ? demoProfiles.find((profileData) => profileData.workerId === routeWorkerId) : null;
   const routeDemoProfile = routeUserProfile ? null : matchingDemoProfile;
   const routeStoredWorker = routeUserProfile?.worker || null;
-  const routeStoredRecords = routeUserProfile?.wageEntries || [];
+  const isDemoCreatedRouteProfile = routeUserProfile?.userId === "demo-created-worker";
+  const routeStoredRecords = routeUserProfile?.wageEntries?.length
+    ? routeUserProfile.wageEntries
+    : isDemoCreatedRouteProfile && routeStoredWorker
+      ? createDemoWorkspaceIncomeRecords(routeStoredWorker)
+      : [];
   const routeStoredSummary = summarizeIncome(routeStoredRecords);
-  const routeStoredMatches = routeUserProfile?.matches || [];
+  const routeStoredMatches = routeUserProfile?.matches?.length
+    ? routeUserProfile.matches
+    : isDemoCreatedRouteProfile && routeStoredWorker
+      ? [createDemoJob({ ...findDemoSeedProfile(routeStoredWorker), ...routeStoredWorker, jobMatch: routeStoredWorker.jobMatch || 96 }), ...localMatches(routeStoredWorker)]
+        .sort((a, b) => Number(b.score || 0) - Number(a.score || 0))
+      : [];
   const routeDemoRecords = routeDemoProfile ? incomePassports[routeDemoProfile.name] || [] : [];
   const routeDemoSummary = summarizeIncome(routeDemoRecords);
   const routeDemoMatch = routeDemoProfile ? createDemoJob(routeDemoProfile) : null;
+  const isDemoWorkerWorkspace = Boolean(routeDemoProfile || isDemoCreatedRouteProfile || (isDemoMode && routeUserProfile));
   const featuredJourneyProfile = routeDemoProfile || activeDemoProfile || demoProfiles[0];
   const featuredJourneySummary = isLocalizedLanguage
     ? `${featuredJourneyProfile.name} ${cityLabel(featuredJourneyProfile.city)} के सत्यापित ${roleLabel(featuredJourneyProfile.skill)} हैं। उनके पास ${featuredJourneyProfile.experience} साल का अनुभव, दर्ज आय इतिहास और तैयार डिजिटल श्रमिक पहचान है।`
@@ -3456,8 +3663,14 @@ export default function App() {
   useEffect(() => {
     if (!routePath.startsWith("/worker/") || !routeUserProfile) return;
     if (worker.workerId === routeUserProfile.workerId) return;
-    openUserWorkerProfile(routeUserProfile, { shouldNavigate: false });
-  }, [routePath, routeUserProfile?.workerId]);
+    openUserWorkerProfile(routeUserProfile, { shouldNavigate: false, preserveDemoMode: isDemoMode || isDemoCreatedRouteProfile });
+  }, [routePath, routeUserProfile?.workerId, isDemoMode, isDemoCreatedRouteProfile]);
+
+  useEffect(() => {
+    if (!routePath.startsWith("/worker/") || !isDemoCreatedRouteProfile || isDemoMode) return;
+    setIsDemoMode(true);
+    window.sessionStorage.setItem(demoModeStorageKey, "true");
+  }, [routePath, isDemoCreatedRouteProfile, isDemoMode]);
 
   useEffect(() => {
     if (!routePath.startsWith("/worker/") || !routeWorkerId || routeUserProfile || routeDemoProfile || !latestUserProfile) return;
@@ -3465,6 +3678,7 @@ export default function App() {
   }, [routePath, routeWorkerId, routeUserProfile?.workerId, routeDemoProfile?.workerId, latestUserProfile?.workerId]);
 
   const identityPageWorker = routeUserProfile?.worker || routeDemoProfile || worker;
+  const workerProfileShellActive = Boolean(account || routeUserProfile || routeDemoProfile || isDemoMode);
   const publicRouteIdentity = routePublicIdentity;
   const identityPageIdentity = routePublicIdentity || careerIdentity;
   const identityPageCardIdentity = toEnglishArtifactIdentity(
@@ -3494,13 +3708,15 @@ export default function App() {
     });
   const identityPageMatches = routeDemoProfile
     ? [routeDemoMatch, ...localMatches(routeDemoProfile)].filter(Boolean).sort((a, b) => b.score - a.score)
-    : employerPostedMatches;
+    : isDemoWorkerWorkspace
+      ? (routeStoredMatches.length ? routeStoredMatches : localMatches(identityPageWorker))
+      : employerPostedMatches;
   const jobRoleOptions = [...new Set(identityPageMatches.map((job) => job.skill).filter(Boolean))];
   const jobCityOptions = [...new Set(identityPageMatches.map((job) => job.city).filter(Boolean))];
   const filteredJobMatches = identityPageMatches
     .filter((job) => !jobFilters.role || job.skill === jobFilters.role)
     .filter((job) => !jobFilters.city || job.city === jobFilters.city)
-    .filter((job) => routeDemoProfile && jobFilters.verifiedOnly ? job.status === "Verified" : true)
+    .filter((job) => isDemoWorkerWorkspace && jobFilters.verifiedOnly ? job.status === "Verified" : true)
     .sort((a, b) => {
       if (jobFilters.sort === "salary") return Number(b.wageRange?.max || 0) - Number(a.wageRange?.max || 0);
       if (jobFilters.sort === "nearest") return Number(b.matchBreakdown?.location || 0) - Number(a.matchBreakdown?.location || 0);
@@ -3540,8 +3756,8 @@ export default function App() {
   }[identityPageWorker.skill] || [`Add ${roleLabel(identityPageWorker.skill).toLowerCase()} certification`, "Mention strongest work examples", "Highlight verified experience", "Include nearby verified work history"]);
   const viewedProfileRecord = routeUserProfile || (!account ? null : latestUserProfile);
   const viewedResume = viewedProfileRecord?.resume || null;
-  const viewedRecords = viewedProfileRecord?.wageEntries || [];
-  const viewedMatches = viewedProfileRecord?.matches || [];
+  const viewedRecords = routeUserProfile ? identityPageRecords : viewedProfileRecord?.wageEntries || [];
+  const viewedMatches = routeUserProfile ? identityPageMatches : viewedProfileRecord?.matches || [];
   const viewedIncomeSummary = summarizeIncome(viewedRecords);
   const currentMonthKey = new Intl.DateTimeFormat("en-IN", { month: "short", year: "numeric" }).format(new Date());
   const incomeThisMonth = viewedIncomeSummary.monthly[currentMonthKey] || 0;
@@ -3571,11 +3787,11 @@ export default function App() {
     : firstIncompleteStep === "Resume"
       ? ["Generate your resume", "Create a resume from your saved profile.", () => setActiveWorkspaceTab("resume"), FileText]
       : firstIncompleteStep === "Languages"
-        ? ["Add languages you speak", "Help employers understand communication fit.", () => navigateTo("/create-profile"), Globe2]
+        ? ["Add languages you speak", "Help employers understand communication fit.", openWorkerOnboarding, Globe2]
         : firstIncompleteStep === "Availability"
-          ? ["Set your work availability", "Let employers know when you can work.", () => navigateTo("/create-profile"), CalendarClock]
+          ? ["Set your work availability", "Let employers know when you can work.", openWorkerOnboarding, CalendarClock]
           : firstIncompleteStep
-            ? [`Complete ${firstIncompleteStep.toLowerCase()}`, "Fill the missing profile detail.", () => navigateTo("/create-profile"), Edit3]
+            ? [`Complete ${firstIncompleteStep.toLowerCase()}`, "Fill the missing profile detail.", openWorkerOnboarding, Edit3]
             : ["Explore matching jobs", "Your essential profile steps are complete.", () => setActiveWorkspaceTab("jobs"), BriefcaseBusiness];
   const profileStatus = !viewedProfileRecord
     ? "Identity details incomplete"
@@ -3593,15 +3809,15 @@ export default function App() {
   const overviewRecommendations = [
     !viewedRecords.length && ["Add your first work record", "Track real earnings and payment status in your Income Passport.", openWorkRecordModal, WalletCards],
     !viewedResume?.sections?.length && ["Generate your resume", "Create a resume using your saved skills and experience.", () => setActiveWorkspaceTab("resume"), FileText],
-    !identityPageWorker.languages && ["Add languages you speak", "Make your profile clearer for employers.", () => navigateTo("/create-profile"), Globe2],
-    !identityPageWorker.availability && ["Set your work availability", "Show when you are available for work.", () => navigateTo("/create-profile"), CalendarClock],
+    !identityPageWorker.languages && ["Add languages you speak", "Make your profile clearer for employers.", openWorkerOnboarding, Globe2],
+    !identityPageWorker.availability && ["Set your work availability", "Show when you are available for work.", openWorkerOnboarding, CalendarClock],
     !practiceHistory.length && ["Practice an interview", "Prepare role-based answers before employer conversations.", () => setActiveWorkspaceTab("coach"), MessageSquare],
     overviewChecklist.every(([, complete]) => complete) && ["Explore matching jobs", "Review opportunities connected to your profile.", () => setActiveWorkspaceTab("jobs"), BriefcaseBusiness]
   ].filter(Boolean).slice(0, 3);
   const primaryOverviewRecommendation = overviewRecommendations[0] || nextOverviewAction;
   const overviewAlerts = [
     viewedIncomeSummary.pending > 0 && [workerCopy.incomePassport.paymentPending, `${formatCurrency(viewedIncomeSummary.pending)} is still marked as pending.`, () => setActiveWorkspaceTab("income"), WalletCards],
-    !identityPageWorker.phone && ["Missing phone number", "Add a phone number so employers can contact the worker.", () => navigateTo("/create-profile"), Phone],
+    !identityPageWorker.phone && ["Missing phone number", "Add a phone number so employers can contact the worker.", openWorkerOnboarding, Phone],
     !viewedRecords.length && ["No work record added", "Add a work record to start building income history.", openWorkRecordModal, WalletCards],
     completedOverviewSteps < overviewChecklist.length && ["Profile draft not completed", `${overviewChecklist.length - completedOverviewSteps} profile step${overviewChecklist.length - completedOverviewSteps === 1 ? "" : "s"} remaining.`, nextOverviewAction[2], ClipboardCheck]
   ].filter(Boolean);
@@ -3873,11 +4089,14 @@ export default function App() {
   const activeNgoAccount = isNgoDemoMode
     ? { id: "ngo-demo-account", uid: "ngo-demo-account", name: "NGO Demo", email: "demo.ngo@rozgaarai.org", role: ROLES.NGO }
     : account;
-  const workspaceShellActive = Boolean(authResolved && account && (isCreateProfileRoute || routePath === "/dashboard" || routePath.startsWith("/dashboard/") || isDemoDashboardRoute));
+  const workspaceShellActive = Boolean((authResolved && account && (isCreateProfileRoute || routePath === "/dashboard" || routePath.startsWith("/dashboard/"))) || isDemoDashboardRoute);
   const protectedWorkspaceRoute = Boolean(isAdminRoute || isCreateProfileRoute || routePath === "/dashboard" || routePath.startsWith("/dashboard/") || isDemoDashboardRoute || isNgoRoute);
   const showMarketingFooter = Boolean(!protectedWorkspaceRoute && !routePath.startsWith("/employer"));
   const isFirstRunOnboarding = Boolean(workspaceShellActive && account && !latestUserProfile && !isDemoExperience && workerDashboardRoute === "home" && !profileFetchError);
-  const dashboardBasePath = isDemoExperience ? "/demo/dashboard" : "/dashboard";
+  const workerProfileWorkspacePath = routePath.startsWith("/worker/") && routeWorkerId
+    ? `/worker/${encodeURIComponent(routeWorkerId)}`
+    : "";
+  const dashboardBasePath = isWorkerDemoFlow ? "/demo/dashboard" : workerProfileWorkspacePath || "/dashboard";
   const workerNavItems = [
     [Gauge, workerCopy.home, dashboardBasePath, "home"],
     [IdCard, workerCopy.identity, `${dashboardBasePath}/identity`, "identity"],
@@ -3891,7 +4110,7 @@ export default function App() {
     [Settings, workerCopy.settings, `${dashboardBasePath}/settings`, "settings"]
   ];
   const workerJourneySteps = [
-    ["identity", workerCopy.journey[0], dashboardIdentityReady, () => dashboardIdentityReady ? navigateTo(`/worker/${encodeURIComponent(dashboardIdentity.workerId)}`) : navigateTo("/create-profile")],
+    ["identity", workerCopy.journey[0], dashboardIdentityReady, () => dashboardIdentityReady ? navigateTo(`/worker/${encodeURIComponent(dashboardIdentity.workerId)}`) : openWorkerOnboarding()],
     ["resume", workerCopy.journey[1], hasResumeReady, () => downloadResume({ preview: true })],
     ["income", workerCopy.journey[2], hasIncomeRecords, () => navigateTo(`${dashboardBasePath}/income`)],
     ["jobs", workerCopy.journey[3], activeWorkerMatches.length > 0, () => navigateTo(`${dashboardBasePath}/jobs`)],
@@ -3928,12 +4147,12 @@ export default function App() {
   const dashboardTimeline = [
     [workerCopy.today, [
       [FileText, hasResumeReady ? workerCopy.timeline.resumeGenerated : workerCopy.timeline.resumeNeeds, hasResumeReady ? workerCopy.timeline.resumeReady : workerCopy.timeline.resumeImprove, hasResumeReady ? () => downloadResume({ preview: true }) : () => navigateTo(`${dashboardBasePath}/resume`)],
-      [IdCard, workerCopy.timeline.employerViewed, workerCopy.timeline.employerViewedCopy, () => dashboardIdentityReady ? navigateTo(`/worker/${encodeURIComponent(dashboardIdentity.workerId)}`) : navigateTo("/create-profile")],
+      [IdCard, workerCopy.timeline.employerViewed, workerCopy.timeline.employerViewedCopy, () => dashboardIdentityReady ? navigateTo(`/worker/${encodeURIComponent(dashboardIdentity.workerId)}`) : openWorkerOnboarding()],
       [WalletCards, hasIncomeRecords ? workerCopy.timeline.incomeUpdated : workerCopy.timeline.incomePending, hasIncomeRecords ? withCopyTokens(workerCopy.timeline.recordsAvailable, { count: activeWorkerRecords.length }) : workerCopy.timeline.incomeStart, () => navigateTo(`${dashboardBasePath}/income`)]
     ]],
     [workerCopy.yesterday, [
       [BriefcaseBusiness, workerCopy.timeline.jobMatched, withCopyTokens(workerCopy.timeline.jobMatchedCopy, { score: activeWorkerMatches[0]?.score || 87 }), () => navigateTo(`${dashboardBasePath}/jobs`)],
-      [ShieldCheck, workerCopy.timeline.cardVerified, workerCopy.timeline.cardVerifiedCopy, () => dashboardIdentityReady ? navigateTo(`/worker/${encodeURIComponent(dashboardIdentity.workerId)}`) : navigateTo("/create-profile")]
+      [ShieldCheck, workerCopy.timeline.cardVerified, workerCopy.timeline.cardVerifiedCopy, () => dashboardIdentityReady ? navigateTo(`/worker/${encodeURIComponent(dashboardIdentity.workerId)}`) : openWorkerOnboarding()]
     ]]
   ];
   const workerMetrics = hasPrimaryIdentity ? [
@@ -4134,9 +4353,9 @@ export default function App() {
             </form>
           </div>
         )}
-        <div className={account ? "workspace-shell worker-identity-shell" : ""}>
-          {account && workerSidebar}
-          <div className={account ? "workspace-content" : ""}>
+        <div className={workerProfileShellActive ? "workspace-shell worker-identity-shell" : ""}>
+          {workerProfileShellActive && workerSidebar}
+          <div className={workerProfileShellActive ? "workspace-content" : ""}>
         <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/85 backdrop-blur-xl">
           <div className="section-shell flex min-h-16 items-center justify-between gap-3 py-2">
             <button type="button" className="group flex items-center font-black text-ink" onClick={() => navigateTo("/")} aria-label={workerCopy.aria.home}>
@@ -4153,6 +4372,15 @@ export default function App() {
                   </ActionButton>
                   <ActionButton icon={UserRound} variant="secondary" className="hidden sm:inline-flex" onClick={signOut}>
                   {wi.signOut}
+                  </ActionButton>
+                </>
+              ) : isDemoMode ? (
+                <>
+                  <span className="hidden rounded-full border border-green-200 bg-green-50 px-3 py-2 text-xs font-black text-neem sm:inline-flex">
+                    {workerCopy.demoMode}
+                  </span>
+                  <ActionButton icon={X} variant="secondary" className="hidden sm:inline-flex" onClick={exitDemoMode}>
+                    {workerCopy.exitDemo}
                   </ActionButton>
                 </>
               ) : (
@@ -4190,7 +4418,7 @@ export default function App() {
 	                      {wi.quickCopy}
 	                    </p>
 	                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
-	                      <ActionButton icon={Edit3} variant="secondary" onClick={() => navigateTo("/create-profile")}>{wi.editProfile}</ActionButton>
+	                      <ActionButton icon={Edit3} variant="secondary" onClick={openWorkerOnboarding}>{wi.editProfile}</ActionButton>
 	                      <ActionButton icon={IdCard} variant="secondary" onClick={() => setActiveWorkspaceTab("identity")}>{wi.viewIdentity}</ActionButton>
 	                    <ActionButton icon={MessageSquare} variant="secondary" onClick={copyWorkerProfileLink}>{wi.shareProfile}</ActionButton>
 	                      <ActionButton icon={WalletCards} variant="secondary" onClick={openWorkRecordModal}>{wi.addRecord}</ActionButton>
@@ -4245,7 +4473,7 @@ export default function App() {
                         </div>
                       </div>
                       <div className="grid gap-2 sm:grid-cols-3 lg:min-w-[420px]">
-                        <ActionButton icon={Edit3} variant="secondary" onClick={() => navigateTo("/create-profile")}>Edit Profile</ActionButton>
+                        <ActionButton icon={Edit3} variant="secondary" onClick={openWorkerOnboarding}>Edit Profile</ActionButton>
                         <ActionButton icon={MessageSquare} variant="secondary" onClick={() => navigator.clipboard?.writeText(identityPageIdentity.profileUrl)}>Share Profile</ActionButton>
                         <ActionButton icon={IdCard} onClick={() => setActiveWorkspaceTab("identity")}>Digital Identity</ActionButton>
                       </div>
@@ -4431,159 +4659,219 @@ export default function App() {
               )}
 
               {activeWorkspaceTab === "income" && (
-                <div className="mx-auto w-full max-w-[1240px] space-y-5">
-                  <section className="relative overflow-hidden rounded-[22px] border border-slate-200 bg-gradient-to-br from-white via-blue-50/40 to-emerald-50/35 p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)] before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-gradient-to-r before:from-saffron before:to-neem sm:p-8">
-                    <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-                      <div className="max-w-2xl">
-                        <p className="text-sm font-black uppercase tracking-[0.18em] text-saffron">{workerCopy.incomePassport.eyebrow}</p>
-                        <h3 className="mt-3 text-4xl font-black leading-tight text-ink sm:text-[3rem]">{workerCopy.incomePassport.title}</h3>
-                        <p className="mt-3 text-base font-medium leading-7 text-slate-600">{workerCopy.incomePassport.copy}</p>
-                      </div>
-                      <ActionButton icon={Download} variant="secondary" className="relative z-10 min-h-12 rounded-xl bg-white px-6 shadow-[0_12px_28px_rgba(15,23,42,0.08)]" onClick={downloadWorkHistory}>
-                        {workerCopy.incomePassport.downloadHistory}
-                      </ActionButton>
-                    </div>
-                    <div className="pointer-events-none absolute bottom-0 left-[52%] hidden h-36 w-72 opacity-70 lg:block">
-                      <div className="absolute bottom-0 left-0 h-20 w-20 rounded-t-xl bg-blue-100/50" />
-                      <div className="absolute bottom-0 left-16 h-28 w-20 rounded-t-xl bg-blue-100/40" />
-                      <div className="absolute bottom-0 left-36 h-16 w-20 rounded-t-xl bg-emerald-100/45" />
-                    </div>
-                    <div className="pointer-events-none absolute bottom-7 left-[56%] hidden w-44 rotate-[-2deg] rounded-2xl border border-blue-100 bg-white/80 p-5 shadow-[0_18px_40px_rgba(37,99,235,0.12)] backdrop-blur lg:block">
-                      <ShieldCheck className="h-12 w-12 text-saffron" />
-                      <div className="mt-4 h-2 w-24 rounded-full bg-slate-200" />
-                      <div className="mt-2 h-2 w-16 rounded-full bg-slate-200" />
-                      <span className="absolute -right-5 bottom-6 grid h-12 w-12 place-items-center rounded-full bg-neem text-white shadow-lg"><CheckCircle2 className="h-7 w-7" /></span>
-                    </div>
-                  </section>
+                <div className="mx-auto w-[calc(100%-40px)] max-w-[1420px] space-y-3">
+                  <section className="relative overflow-hidden rounded-[20px] border border-blue-100 bg-gradient-to-br from-blue-50/80 via-white to-emerald-50/80 p-4 shadow-[0_16px_40px_rgba(15,23,42,0.05)] before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-gradient-to-r before:from-blue-600 before:via-cyan-400 before:to-green-500 sm:p-5 lg:p-6">
+                    <div className="pointer-events-none absolute inset-0 opacity-50" style={{ backgroundImage: "radial-gradient(#60a5fa 1px, transparent 1px), radial-gradient(#34d399 1px, transparent 1px)", backgroundPosition: "24px 34px, 92% 28px", backgroundSize: "22px 22px, 18px 18px" }} />
+                    <div className="relative z-10 grid gap-4 2xl:grid-cols-[minmax(0,0.68fr)_minmax(360px,0.32fr)]">
+                      <div>
+                        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                          <div className="max-w-xl">
+                            <p className="text-xs font-black uppercase tracking-[0.24em] text-blue-700">{workerCopy.incomePassport.eyebrow}</p>
+                            <h3 className="mt-2 text-[2.45rem] font-black leading-none text-ink sm:text-5xl">{workerCopy.incomePassport.title}</h3>
+                            <p className="mt-3 max-w-md text-[15px] font-semibold leading-6 text-slate-600">{workerCopy.incomePassport.copy}</p>
+                          </div>
+                          <button type="button" className="focus-ring inline-flex min-h-10 w-fit shrink-0 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-4 text-sm font-black text-ink shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50" onClick={downloadWorkHistory}>
+                            <Download className="h-4 w-4" />
+                            {workerCopy.incomePassport.downloadHistory}
+                          </button>
+                        </div>
 
-                  <div className="grid gap-5 xl:grid-cols-[minmax(0,0.63fr)_minmax(360px,0.37fr)]">
-                    <section className="rounded-[22px] border border-slate-200 bg-white p-6 shadow-[0_18px_48px_rgba(15,23,42,0.06)] sm:p-7">
-                      <div className="grid gap-6 lg:grid-cols-[1fr_180px] lg:items-start">
-                        <div>
-                          <p className="text-sm font-black uppercase tracking-[0.16em] text-saffron">{workerCopy.incomePassport.totalIncome}</p>
-                          <p className="mt-3 text-6xl font-black leading-none text-ink">{formatCurrency(identityPageSummary.totalIncome)}</p>
-                          <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                            {[
-                              [TrendingUp, workerCopy.incomePassport.incomeGrowth, identityPageRecords.length ? workerCopy.incomePassport.basedOnSaved : workerCopy.incomePassport.noPriorMonth, "text-neem"],
-                              [ShieldCheck, workerCopy.incomePassport.verifiedRecords, identityPageRecords.length, "text-neem"],
-                              [CheckCircle2, workerCopy.incomePassport.paymentReliability, `${identityPaymentCompletion}%`, "text-neem"],
-                              [UserRound, workerCopy.incomePassport.employmentCredibility, `${identityPageReadiness}/100`, "text-neem"]
-                            ].map(([Icon, label, value, tone]) => (
-                              <div key={label} className="flex min-h-[64px] items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(15,23,42,0.07)]">
-                                <Icon className={`h-5 w-5 shrink-0 ${tone}`} />
-                                <div className="min-w-0">
-                                  <p className="truncate text-xs font-black uppercase tracking-[0.12em] text-slate-500">{label}</p>
-                                  <p className="mt-1 text-base font-black text-ink">{value}</p>
+                        <div className="mt-5 rounded-[20px] bg-white/95 p-3.5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] ring-1 ring-slate-200/70">
+                          <div className="grid gap-4 lg:grid-cols-[360px_minmax(0,1fr)] lg:items-center">
+                            <div className="relative min-h-[148px] overflow-hidden rounded-[18px] bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 p-5 text-white shadow-[0_18px_38px_rgba(37,99,235,0.22)]">
+                              <p className="text-xs font-black uppercase tracking-[0.14em] text-blue-100">{workerCopy.incomePassport.totalIncome}</p>
+                              <p className="mt-3 text-5xl font-black leading-none tracking-tight">{formatCurrency(identityPageSummary.totalIncome)}</p>
+                              <p className="mt-3 text-sm font-semibold text-blue-50">{identityPrimaryMonth} • {identityPageRecords.length} verified work records</p>
+                              <ExternalLink className="absolute right-5 top-5 h-5 w-5 text-blue-100" />
+                              <svg className="absolute bottom-0 left-0 h-20 w-full opacity-55" viewBox="0 0 360 90" preserveAspectRatio="none" aria-hidden="true">
+                                <path d="M0 72 L22 66 L45 67 L69 64 L91 68 L113 55 L135 63 L158 52 L180 54 L202 44 L224 58 L247 45 L270 37 L292 24 L315 31 L337 13 L360 3" fill="none" stroke="white" strokeWidth="2.2" />
+                                <path d="M0 90 L0 72 L22 66 L45 67 L69 64 L91 68 L113 55 L135 63 L158 52 L180 54 L202 44 L224 58 L247 45 L270 37 L292 24 L315 31 L337 13 L360 3 L360 90 Z" fill="url(#incomeCardLineFill)" />
+                                <defs>
+                                  <linearGradient id="incomeCardLineFill" x1="0" x2="0" y1="0" y2="1">
+                                    <stop offset="0%" stopColor="white" stopOpacity=".36" />
+                                    <stop offset="100%" stopColor="white" stopOpacity="0" />
+                                  </linearGradient>
+                                </defs>
+                              </svg>
+                            </div>
+
+                            <div className="min-w-0">
+                              <div className="grid items-center gap-4 md:grid-cols-[132px_minmax(0,1fr)]">
+                                <div className="flex justify-center md:justify-start">
+                                  <div className="relative grid h-[118px] w-[118px] place-items-center rounded-full bg-white">
+                                    <svg className="h-[118px] w-[118px] -rotate-90 drop-shadow-sm" viewBox="0 0 120 120" aria-hidden="true">
+                                      <circle cx="60" cy="60" r="49" fill="none" stroke="#E2E8F0" strokeWidth="10" />
+                                      <circle cx="60" cy="60" r="49" fill="none" stroke="url(#incomePaymentRingCompact)" strokeLinecap="round" strokeWidth="10" strokeDasharray={`${Math.min(identityPaymentCompletion, 100) * 3.078} 307.8`} />
+                                      <defs>
+                                        <linearGradient id="incomePaymentRingCompact" x1="0" x2="1" y1="0" y2="1">
+                                          <stop offset="0%" stopColor="#2563EB" />
+                                          <stop offset="48%" stopColor="#06B6D4" />
+                                          <stop offset="100%" stopColor="#16A34A" />
+                                        </linearGradient>
+                                      </defs>
+                                    </svg>
+                                    <div className="absolute text-center">
+                                      <p className="text-3xl font-black text-ink">{identityPaymentCompletion}%</p>
+                                      <p className="mt-1 text-[10px] font-black uppercase leading-3 tracking-[0.08em] text-slate-500">Payment<br />Reliability</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="grid gap-2">
+                                  {[
+                                    [TrendingUp, workerCopy.incomePassport.incomeGrowth, identityPageRecords.length ? workerCopy.incomePassport.basedOnSaved : workerCopy.incomePassport.noPriorMonth, "bg-green-50 text-neem"],
+                                    [ShieldCheck, workerCopy.incomePassport.verifiedRecords, identityPageRecords.length, "bg-green-50 text-neem"],
+                                    [UserRound, workerCopy.incomePassport.employmentCredibility, `${identityPageReadiness}/100`, "bg-violet-50 text-violet-600"]
+                                  ].map(([Icon, label, value, tone]) => (
+                                    <div key={label} className="flex min-h-[40px] items-center gap-2 rounded-xl border border-slate-100 bg-white/75 px-3 py-2">
+                                      <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg ${tone}`}><Icon className="h-4 w-4" /></span>
+                                      <span className="min-w-0 flex-1">
+                                        <span className="block truncate text-[10px] font-black uppercase leading-3 tracking-[0.08em] text-slate-500">{label}</span>
+                                        <span className="mt-0.5 block text-sm font-black leading-4 text-ink">{value}</span>
+                                      </span>
+                                    </div>
+                                  ))}
                                 </div>
                               </div>
-                            ))}
-                          </div>
-                          <div className="mt-5 flex flex-wrap gap-2">
-                            {workerCopy.incomePassport.indicators.map((indicator) => (
-                              <span key={indicator} className="inline-flex items-center gap-2 rounded-xl border border-blue-100 bg-blue-50 px-3 py-2 text-xs font-black text-blue-700">
-                                <IdCard className="h-3.5 w-3.5" /> {indicator}
-                              </span>
-                            ))}
-                          </div>
-                          <p className="mt-5 max-w-2xl text-base font-medium leading-7 text-slate-600">{workerCopy.incomePassport.shareCopy}</p>
-                        </div>
-                        <div className="flex justify-start lg:justify-end">
-                          <div className="relative grid h-40 w-40 place-items-center rounded-full bg-white">
-                            <svg className="h-40 w-40 -rotate-90 drop-shadow-sm" viewBox="0 0 120 120" aria-hidden="true">
-                              <circle cx="60" cy="60" r="48" fill="none" stroke="#E2E8F0" strokeWidth="10" />
-                              <circle cx="60" cy="60" r="48" fill="none" stroke="url(#incomePaymentRingLarge)" strokeLinecap="round" strokeWidth="10" strokeDasharray={`${Math.min(identityPaymentCompletion, 100) * 3.016} 301.6`} />
-                              <defs>
-                                <linearGradient id="incomePaymentRingLarge" x1="0" x2="1" y1="0" y2="1">
-                                  <stop offset="0%" stopColor="#2563EB" />
-                                  <stop offset="100%" stopColor="#16A34A" />
-                                </linearGradient>
-                              </defs>
-                            </svg>
-                            <span className="absolute left-1/2 top-4 h-3 w-3 -translate-x-1/2 rounded-full bg-neem shadow-sm" />
-                            <div className="absolute text-center">
-                              <p className="text-3xl font-black text-ink">{identityPaymentCompletion}%</p>
-                              <p className="mt-1 max-w-24 text-[11px] font-black uppercase leading-3 tracking-[0.12em] text-slate-500">{workerCopy.incomePassport.paymentReliability}</p>
+                              <div className="mt-2 flex flex-wrap gap-2">
+                                {workerCopy.incomePassport.indicators.slice(0, 3).map((indicator, index) => {
+                                  const badgeStyles = [
+                                    "border-blue-100 bg-blue-50 text-blue-700",
+                                    "border-green-100 bg-green-50 text-green-700",
+                                    "border-violet-100 bg-violet-50 text-violet-700"
+                                  ];
+                                  const BadgeIcon = index === 0 ? BriefcaseBusiness : index === 1 ? Users : FileText;
+                                  return (
+                                    <span key={indicator} className={`inline-flex h-7 items-center justify-center gap-1 rounded-lg border px-2 text-[10px] font-black leading-none ${badgeStyles[index]}`}>
+                                      <BadgeIcon className="h-3 w-3 shrink-0" /> <span className="whitespace-nowrap">{indicator}</span>
+                                    </span>
+                                  );
+                                })}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </section>
 
-                    <section className="grid gap-4">
-                      {[
-                        [CalendarClock, workerCopy.incomePassport.daysWorked, identityPageSummary.totalDays, "default"],
-                        [Gauge, workerCopy.incomePassport.averageDailyIncome, formatCurrency(identityPageSummary.avgDaily), "default"],
-                        [BriefcaseBusiness, workerCopy.incomePassport.hoursWorked, identityPageSummary.totalHours, "default"],
-                        [WalletCards, workerCopy.incomePassport.paymentPending, formatCurrency(identityPageSummary.pending), "warning"]
-                      ].map(([Icon, label, value, tone]) => (
-                        <button key={label} type="button" className={`focus-ring group flex min-h-[88px] items-center gap-4 rounded-[18px] border p-4 text-left shadow-[0_12px_28px_rgba(15,23,42,0.04)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(15,23,42,0.08)] ${tone === "warning" ? "border-amber-200 bg-amber-50/55" : "border-slate-200 bg-white"}`}>
-                          <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl ${tone === "warning" ? "bg-amber-100 text-amber-600" : "bg-blue-50 text-saffron"}`}><Icon className="h-6 w-6" /></span>
-                          <span className="min-w-0 flex-1">
-                            <span className="block text-sm font-semibold text-slate-600">{label}</span>
-                            <span className="mt-1 block text-2xl font-black text-ink">{value}</span>
-                          </span>
-                          <ChevronRight className={`h-5 w-5 shrink-0 transition group-hover:translate-x-0.5 ${tone === "warning" ? "text-amber-600" : "text-slate-500"}`} />
-                        </button>
-                      ))}
-                    </section>
-                  </div>
-
-                  <section className="rounded-[22px] border border-slate-200 bg-white p-5 shadow-[0_18px_48px_rgba(15,23,42,0.06)] before:block before:h-1 before:rounded-full before:bg-gradient-to-r before:from-saffron before:to-neem sm:p-6">
-                    <div className="mt-1 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-                      <div className="flex items-center gap-4">
-                        <span className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-blue-50 text-saffron"><CalendarClock className="h-7 w-7" /></span>
-                        <div>
-                          <p className="text-sm font-black text-ink">{identityPrimaryMonth}</p>
-                          <p className="mt-1 text-3xl font-black text-ink">{formatCurrency(identityPageSummary.totalIncome)} earned</p>
-                          <p className="mt-1 text-sm font-semibold text-slate-600">{identityPageSummary.totalDays} work days • Payment completion: {identityPaymentCompletion}%</p>
+                      <div className="relative hidden min-h-[210px] 2xl:block">
+                        <div className="absolute bottom-4 left-4 right-4 h-20 rounded-[50%] bg-gradient-to-r from-blue-100/60 to-emerald-100/70 blur-xl" />
+                        <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-end gap-2 opacity-80">
+                          {[48, 78, 112, 92, 58].map((height, index) => (
+                            <span key={height} className="w-10 rounded-t-xl border border-blue-100 bg-gradient-to-b from-blue-200/70 to-white/20" style={{ height }}><span className="mx-auto mt-3 block h-1.5 w-4 rounded-full bg-white/80" /></span>
+                          ))}
                         </div>
-                      </div>
-                      <div className="w-full lg:max-w-[460px]">
-                        <div className="flex items-center gap-3">
-                          <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-slate-200">
-                            <div className="h-full rounded-full bg-gradient-to-r from-saffron to-neem transition-all duration-700" style={{ width: `${identityPaymentCompletion}%` }} />
-                          </div>
-                          <span className="text-sm font-black text-slate-700">{identityPaymentCompletion}%</span>
+                        <div className="absolute left-1/2 top-5 w-48 -translate-x-1/2 -rotate-3 rounded-2xl border border-blue-100 bg-white/90 p-5 shadow-[0_24px_50px_rgba(37,99,235,0.14)] backdrop-blur">
+                          <ShieldCheck className="h-14 w-14 text-blue-600" />
+                          <div className="mt-4 h-2.5 w-28 rounded-full bg-blue-200" />
+                          <div className="mt-2 h-2.5 w-20 rounded-full bg-slate-200" />
+                          <span className="absolute -right-6 bottom-8 grid h-12 w-12 place-items-center rounded-full bg-emerald-500 text-white shadow-lg shadow-emerald-500/25"><CheckCircle2 className="h-7 w-7" /></span>
                         </div>
                       </div>
                     </div>
                   </section>
 
-                  <section className="rounded-[22px] border border-slate-200 bg-white shadow-[0_18px_48px_rgba(15,23,42,0.06)] before:block before:h-1 before:rounded-full before:bg-gradient-to-r before:from-saffron before:to-neem">
-                    <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+                  <section className="grid overflow-hidden rounded-[18px] border border-slate-200 bg-white shadow-[0_12px_30px_rgba(15,23,42,0.04)] md:grid-cols-2 xl:grid-cols-4">
+                    {[
+                      [CalendarClock, workerCopy.incomePassport.daysWorked, identityPageSummary.totalDays, "bg-blue-50 text-blue-700", ""],
+                      [TrendingUp, workerCopy.incomePassport.averageDailyIncome, formatCurrency(identityPageSummary.avgDaily), "bg-blue-50 text-blue-700", ""],
+                      [Clock3, workerCopy.incomePassport.hoursWorked, identityPageSummary.totalHours, "bg-green-50 text-green-700", ""],
+                      [WalletCards, workerCopy.incomePassport.paymentPending, formatCurrency(identityPageSummary.pending), "bg-orange-50 text-orange-600", "bg-amber-50/65 border-amber-200"]
+                    ].map(([Icon, label, value, tone, highlight]) => (
+                      <button key={label} type="button" className={`focus-ring flex min-h-[76px] items-center gap-4 border-slate-200 px-5 py-3 text-left transition hover:bg-slate-50 md:[&:nth-child(odd)]:border-r xl:border-r xl:last:border-r-0 ${highlight}`}>
+                        <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-full ${tone}`}><Icon className="h-6 w-6" /></span>
+                        <span>
+                          <span className="block text-2xl font-black leading-none text-ink">{value}</span>
+                          <span className="mt-1 block text-sm font-semibold leading-4 text-slate-600">{label}</span>
+                        </span>
+                      </button>
+                    ))}
+                  </section>
+
+                  <section className="flex flex-col gap-4 rounded-[18px] border border-slate-200 bg-white px-5 py-3 shadow-[0_12px_30px_rgba(15,23,42,0.04)] sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center gap-4">
+                      <span className="relative grid h-16 w-16 shrink-0 place-items-end rounded-2xl bg-blue-50 text-blue-700">
+                        <CalendarDays className="absolute left-3 top-3 h-8 w-8" />
+                        <span className="mb-2 mr-2 flex items-end gap-0.5">
+                          <span className="h-5 w-5 rounded-full bg-amber-300 shadow-sm" />
+                          <span className="h-7 w-5 rounded-full bg-amber-400 shadow-sm" />
+                        </span>
+                      </span>
                       <div>
-                        <p className="text-sm font-black uppercase tracking-[0.16em] text-saffron">{workerCopy.incomePassport.verifiedRecords}</p>
-                        <h3 className="mt-2 text-2xl font-black text-ink">{workerCopy.incomePassport.ledger}</h3>
+                        <p className="text-sm font-black text-ink">{identityPrimaryMonth}</p>
+                        <p className="mt-1 text-3xl font-black leading-none text-ink">{formatCurrency(identityPageSummary.totalIncome)} earned</p>
+                        <p className="mt-1 text-sm font-semibold text-slate-600">{identityPageSummary.totalDays} work days • Payment completion: {identityPaymentCompletion}%</p>
+                      </div>
+                    </div>
+                    <div className="flex w-full items-center gap-4 sm:max-w-[560px]">
+                      <div className="h-3 flex-1 overflow-hidden rounded-full bg-slate-200">
+                        <div className="h-full rounded-full bg-gradient-to-r from-blue-600 via-cyan-500 to-green-500 transition-all duration-700" style={{ width: `${identityPaymentCompletion}%` }} />
+                      </div>
+                      <span className="text-xl font-black text-ink">{identityPaymentCompletion}%</span>
+                    </div>
+                  </section>
+
+                  <section className="overflow-hidden rounded-[18px] border border-slate-200 bg-white shadow-[0_14px_34px_rgba(15,23,42,0.05)]">
+                    <div className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <p className="text-xs font-black uppercase tracking-[0.22em] text-blue-700">{workerCopy.incomePassport.verifiedRecords}</p>
+                        <h3 className="mt-1 text-xl font-black text-ink">{workerCopy.incomePassport.ledger}</h3>
                       </div>
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="rounded-xl bg-slate-50 px-3 py-2 text-sm font-black text-slate-600">{identityPageRecords.length} records</span>
-                        <button type="button" className="focus-ring rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-black text-ink hover:bg-slate-50">{workerCopy.actions.filter}</button>
-                        <button type="button" className="focus-ring rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-black text-ink hover:bg-slate-50">{workerCopy.actions.sort}</button>
-                        <ActionButton icon={Download} variant="secondary" className="min-h-10 px-3 py-2 text-sm" onClick={downloadWorkHistory}>{workerCopy.actions.downloadCsv}</ActionButton>
+                        <span className="rounded-lg bg-slate-50 px-3 py-2 text-sm font-black text-slate-600">{identityPageRecords.length} records</span>
+                        <button type="button" className="focus-ring inline-flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-sm font-black text-ink hover:bg-slate-50"><SlidersHorizontal className="h-4 w-4" /> {workerCopy.actions.filter}</button>
+                        <button type="button" className="focus-ring inline-flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-sm font-black text-ink hover:bg-slate-50"><Columns3 className="h-4 w-4" /> {workerCopy.actions.sort}</button>
+                        <button type="button" className="focus-ring inline-flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-sm font-black text-ink hover:border-blue-200 hover:bg-blue-50" onClick={downloadWorkHistory}><Download className="h-4 w-4" /> {workerCopy.actions.downloadCsv}</button>
                       </div>
                     </div>
 
                     {identityPageRecords.length ? (
                       <div className="overflow-x-auto border-t border-slate-100">
                         <table className="min-w-full text-left text-sm">
-                          <thead className="bg-slate-50 text-xs font-black uppercase tracking-[0.1em] text-slate-500">
+                          <thead className="bg-slate-50 text-[11px] font-black uppercase tracking-[0.08em] text-slate-500">
                             <tr>
-                              {workerCopy.incomePassport.table.map((heading) => <th key={heading} className="px-5 py-3">{heading}</th>)}
+                              {workerCopy.incomePassport.table.map((heading) => <th key={heading} className="px-4 py-2">{heading}</th>)}
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-slate-100">
-                            {identityPageRecords.slice(0, 9).map((record) => {
+                            {identityPageRecords.slice(0, 8).map((record, index) => {
                               const isPending = Number(record.paymentPending || 0) > 0;
+                              const iconTones = [
+                                "bg-blue-100 text-blue-700",
+                                "bg-green-100 text-green-700",
+                                "bg-orange-100 text-orange-700",
+                                "bg-violet-100 text-violet-700",
+                                "bg-pink-100 text-pink-700",
+                                "bg-cyan-100 text-cyan-700",
+                                "bg-amber-100 text-amber-700",
+                                "bg-orange-100 text-orange-700"
+                              ];
+                              const EmployerIcon = /home|colony|family/i.test(record.employer || "") ? Landmark : Building2;
                               return (
-                                <tr key={record.id} className="transition hover:bg-blue-50/30">
-                                  <td className="px-5 py-4 font-black text-ink">{record.employer || record.worksite || workerCopy.incomePassport.employerFallback}<p className="mt-1 text-xs font-bold text-slate-500">{record.date}</p></td>
-                                  <td className="px-5 py-4 font-bold text-slate-700">{record.jobType || roleLabel(identityPageWorker.skill)}</td>
-                                  <td className="px-5 py-4 font-bold text-slate-700">{record.days || 1}</td>
-                                  <td className="px-5 py-4 font-black text-ink">{formatCurrency(record.paymentReceived || record.dailyWage || 0)}</td>
-                                  <td className="px-5 py-4"><span className={`rounded-full px-2.5 py-1 text-xs font-black ${isPending ? "bg-amber-50 text-amber-700" : "bg-green-50 text-neem"}`}>{isPending ? workerCopy.workRecord.partiallyPaid : workerCopy.workRecord.paid}</span></td>
-                                  <td className="px-5 py-4 font-bold text-slate-700">{workerCopy.incomePassport.verified}</td>
-                                  <td className="px-5 py-4 font-bold text-slate-700">{isPending ? formatCurrency(record.paymentPending) : workerCopy.incomePassport.complete}</td>
-                                  <td className="px-5 py-4"><button type="button" className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-black text-ink hover:border-blue-200 hover:bg-blue-50" onClick={() => downloadEmploymentProof(record)}>Proof PDF</button></td>
+                                <tr key={record.id} className="h-[48px] transition hover:bg-blue-50/25">
+                                  <td className="px-4 py-1.5">
+                                    <div className="flex items-center gap-2.5">
+                                      <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full ${iconTones[index % iconTones.length]}`}><EmployerIcon className="h-4 w-4" /></span>
+                                      <span>
+                                        <span className="block whitespace-nowrap text-sm font-black leading-4 text-ink">{record.employer || record.worksite || workerCopy.incomePassport.employerFallback}</span>
+                                        <span className="block text-[11px] font-bold leading-3 text-slate-500">{record.date}</span>
+                                      </span>
+                                    </div>
+                                  </td>
+                                  <td className="px-4 py-1.5 font-bold text-slate-700"><BriefcaseBusiness className="mr-2 inline h-3.5 w-3.5 text-slate-500" />{record.jobType || roleLabel(identityPageWorker.skill)}</td>
+                                  <td className="px-4 py-1.5 font-bold text-slate-700">{record.days || 1}</td>
+                                  <td className="px-4 py-1.5 text-base font-black text-ink">{formatCurrency(record.paymentReceived || record.dailyWage || 0)}</td>
+                                  <td className="px-4 py-1.5">
+                                    <span className={`inline-flex h-6 items-center gap-1.5 rounded-full px-3 text-xs font-black ${isPending ? "bg-orange-100 text-orange-700" : "bg-green-100 text-green-700"}`}>
+                                      <span className={`h-1.5 w-1.5 rounded-full ${isPending ? "bg-orange-500" : "bg-green-600"}`} />
+                                      {isPending ? workerCopy.workRecord.partiallyPaid : workerCopy.workRecord.paid}
+                                    </span>
+                                  </td>
+                                  <td className="px-4 py-1.5 font-bold text-slate-700"><CheckCircle2 className="mr-2 inline h-4 w-4 text-green-600" />{workerCopy.incomePassport.verified}</td>
+                                  <td className={`px-4 py-1.5 font-black ${isPending ? "text-orange-600" : "text-slate-700"}`}>{isPending ? `${formatCurrency(record.paymentPending)} pending` : workerCopy.incomePassport.complete}</td>
+                                  <td className="px-4 py-1.5">
+                                    <button type="button" className="focus-ring inline-flex h-7 items-center gap-1 rounded-lg border border-blue-100 bg-white px-3 text-xs font-black text-blue-700 transition hover:border-blue-300 hover:bg-blue-50" onClick={() => downloadEmploymentProof(record)}>
+                                      View proof <ChevronRight className="h-3.5 w-3.5" />
+                                    </button>
+                                  </td>
                                 </tr>
                               );
                             })}
@@ -4592,20 +4880,16 @@ export default function App() {
                       </div>
                     ) : (
                       <div className="border-t border-slate-100 p-8 text-center">
-                        <div className="mx-auto grid h-20 w-20 place-items-center rounded-3xl bg-blue-50 text-saffron"><FileText className="h-10 w-10" /></div>
-                        <h4 className="mt-5 text-2xl font-black text-ink">{workerCopy.incomePassport.emptyTitle}</h4>
+                        <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-blue-50 text-blue-700"><FileText className="h-8 w-8" /></div>
+                        <h4 className="mt-4 text-xl font-black text-ink">{workerCopy.incomePassport.emptyTitle}</h4>
                         <p className="mx-auto mt-2 max-w-lg text-sm font-semibold leading-6 text-slate-600">{workerCopy.incomePassport.emptyCopy}</p>
-                        <div className="mt-5 flex flex-wrap justify-center gap-3">
+                        <div className="mt-4 flex flex-wrap justify-center gap-3">
                           <ActionButton icon={Plus} onClick={openWorkRecordModal}>{workerCopy.workRecord.title}</ActionButton>
                           <ActionButton icon={Info} variant="secondary" onClick={() => setStatusMessage(workerCopy.incomePassport.learnMoreMessage)}>{workerCopy.actions.learnMore}</ActionButton>
                         </div>
                       </div>
                     )}
                   </section>
-
-                  <div className="rounded-xl border border-blue-100 bg-blue-50/70 p-4 text-sm font-semibold leading-6 text-slate-700">
-                    This passport helps workers demonstrate income consistency, verified work history, and payment records to employers, NGOs, and financial partners.
-                  </div>
                 </div>
               )}
 
@@ -4619,17 +4903,17 @@ export default function App() {
                     <div className="flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">
                       <div>
                         <p className="text-sm font-black uppercase tracking-[0.16em] text-saffron">
-                          {routeDemoProfile
+                          {isDemoWorkerWorkspace
                             ? (isLocalizedLanguage ? "AI नौकरी सुझाव" : workerCopy.recommendations.aiTitle)
                             : (isLocalizedLanguage ? "नियोक्ता नौकरी पोस्ट" : workerCopy.recommendations.employerTitle)}
                         </p>
                         <h3 className="mt-2 text-3xl font-black text-ink">
-                          {routeDemoProfile
+                          {isDemoWorkerWorkspace
                             ? (isLocalizedLanguage ? "आपके लिए उपयुक्त सत्यापित काम" : workerCopy.recommendations.aiTitle)
                             : (isLocalizedLanguage ? "नियोक्ताओं द्वारा जोड़ी गई नौकरियां" : workerCopy.recommendations.employerSubtitle)}
                         </h3>
                         <p className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-slate-600">
-                          {routeDemoProfile
+                          {isDemoWorkerWorkspace
                             ? (isLocalizedLanguage
                               ? "आपके सत्यापित कौशल, काम के इतिहास, मजदूरी अपेक्षा, भाषा और सुरक्षा पसंद के आधार पर सुझाव।"
                               : workerCopy.recommendations.aiCopy)
@@ -4647,13 +4931,13 @@ export default function App() {
                           <option value="">{isLocalizedLanguage ? "सभी शहर" : "City"}</option>
                           {jobCityOptions.map((city) => <option key={city} value={city}>{cityLabel(city)}</option>)}
                         </select>
-                        {routeDemoProfile && (
+                        {isDemoWorkerWorkspace && (
                           <button type="button" onClick={() => setJobFilters({ ...jobFilters, verifiedOnly: !jobFilters.verifiedOnly })} className={`focus-ring min-h-10 rounded-lg border px-3 text-sm font-black ${jobFilters.verifiedOnly ? "border-green-200 bg-green-50 text-neem" : "border-slate-200 bg-white text-ink"}`}>
                             {isLocalizedLanguage ? "केवल सत्यापित" : workerCopy.recommendations.verifiedOnly}
                           </button>
                         )}
                         {[
-                          ["match", routeDemoProfile ? (isLocalizedLanguage ? "सबसे अच्छा मिलान" : workerCopy.recommendations.highestMatch) : (isLocalizedLanguage ? "प्रोफ़ाइल फिट" : workerCopy.recommendations.profileFit)],
+                          ["match", isDemoWorkerWorkspace ? (isLocalizedLanguage ? "सबसे अच्छा मिलान" : workerCopy.recommendations.highestMatch) : (isLocalizedLanguage ? "प्रोफ़ाइल फिट" : workerCopy.recommendations.profileFit)],
                           ["salary", isLocalizedLanguage ? "सबसे अधिक वेतन" : workerCopy.recommendations.highestSalary],
                           ["nearest", isLocalizedLanguage ? "शहर मिलान" : workerCopy.recommendations.cityMatch]
                         ].map(([sortKey, label]) => (
@@ -4784,18 +5068,18 @@ export default function App() {
                     <div className="panel p-8 text-center">
                       <Search className="mx-auto h-8 w-8 text-slate-400" />
                       <h3 className="mt-3 text-xl font-black text-ink">
-                        {!routeDemoProfile && !identityPageMatches.length
+                        {!isDemoWorkerWorkspace && !identityPageMatches.length
                           ? (isLocalizedLanguage ? "अभी कोई नियोक्ता नौकरी पोस्ट नहीं है" : workerCopy.recommendations.noEmployerJobs)
                           : (isLocalizedLanguage ? "इस फ़िल्टर में नौकरी नहीं मिली" : workerCopy.recommendations.noFilteredJobs)}
                       </h3>
                       <p className="mt-2 text-sm font-semibold text-slate-600">
-                        {!routeDemoProfile && !identityPageMatches.length
+                        {!isDemoWorkerWorkspace && !identityPageMatches.length
                           ? (isLocalizedLanguage
                             ? "Employer Workspace से प्रकाशित नौकरियां यहां दिखाई देंगी।"
                             : workerCopy.recommendations.employerEmpty)
                           : (isLocalizedLanguage ? "भूमिका या शहर फ़िल्टर बदलकर फिर देखें।" : workerCopy.recommendations.filtersEmpty)}
                       </p>
-                      {!routeDemoProfile && !identityPageMatches.length && (
+                      {!isDemoWorkerWorkspace && !identityPageMatches.length && (
                         <button type="button" onClick={() => navigateTo("/employer/jobs")} className="focus-ring mt-5 rounded-lg bg-saffron px-4 py-2.5 text-sm font-black text-white shadow-sm hover:bg-blue-700">
                           {isLocalizedLanguage ? "Employer Jobs खोलें" : workerCopy.recommendations.openEmployerJobs}
                         </button>
@@ -5788,7 +6072,7 @@ export default function App() {
         <AdminDiagnostics account={account} onBack={() => navigateTo(getDefaultRouteForRole(activeAccountRole))} />
       )}
 
-      {!isAdminRoute && !workspaceShellActive && !routePath.startsWith("/employer") && !isNgoRoute && (
+      {!isAdminRoute && (!workspaceShellActive || isDemoExperience) && !routePath.startsWith("/employer") && !isNgoRoute && (
       <header className={`site-nav ${isNavScrolled ? "site-nav-scrolled" : ""}`}>
         <div className="section-shell site-nav-inner">
           <button type="button" className="site-brand group focus-ring" onClick={goHomeTop} aria-label={t.navMain.homeAria}>
@@ -5976,9 +6260,9 @@ export default function App() {
         lang={lang}
       />
 
-      <main className={workspaceShellActive ? `workspace-shell ${isFirstRunOnboarding ? "workspace-shell-onboarding" : ""}` : ""}>
-        {workspaceShellActive && !isFirstRunOnboarding && workerSidebar}
-        <div className={workspaceShellActive ? "workspace-content" : ""}>
+      <main className={workspaceShellActive ? `workspace-shell ${isFirstRunOnboarding ? "workspace-shell-onboarding" : ""} ${isDemoExperience ? "worker-demo-workspace" : ""}` : ""}>
+        {workspaceShellActive && !isFirstRunOnboarding && !isDemoExperience && workerSidebar}
+        <div className={workspaceShellActive ? `workspace-content ${isDemoExperience ? "worker-demo-content" : ""}` : ""}>
         {isNgoRoute && routePath === "/ngo/onboarding" && activeAccountRole === ROLES.NGO && !isNgoDemoMode && (
           <NgoOnboarding
             account={account}
@@ -6456,8 +6740,29 @@ export default function App() {
               </div>
             </div>
           ) : (
-            <div className="space-y-5 pb-20 lg:pb-0">
-              {isFirstRunOnboarding ? (
+            <div className={isDemoExperience ? "worker-demo-layout" : "space-y-5 pb-20 lg:pb-0"}>
+              {isDemoExperience ? (
+                <section className="demo-workspace-control-bar" aria-label="Worker demo workspace controls">
+                  <div className="demo-control-identity">
+                    <div className="demo-control-kicker">
+                      <span>Worker Workspace</span>
+                      <span className="demo-control-mode"><span aria-hidden="true" /> Demo Mode</span>
+                    </div>
+                    <h2>Worker Demo Workspace</h2>
+                  </div>
+                  <div className="demo-control-message">
+                    <span className="demo-control-message-icon" aria-hidden="true"><ShieldCheck className="h-4 w-4" /></span>
+                    <p>
+                      <strong>Explore the complete worker journey with sample data.</strong>
+                      <span>Nothing here affects a real account.</span>
+                    </p>
+                  </div>
+                  <div className="demo-control-actions">
+                    <ActionButton icon={Mic} className="demo-control-primary" onClick={createProfileFromDemo}>{workerCopy.createMyProfile}</ActionButton>
+                    <ActionButton icon={X} variant="secondary" className="demo-control-secondary" onClick={exitDemoMode}>{workerCopy.exitDemo}</ActionButton>
+                  </div>
+                </section>
+              ) : isFirstRunOnboarding ? (
                 <header className="first-run-topbar">
                   <button type="button" className="flex min-w-0 items-center gap-3 text-left" onClick={() => navigateTo("/dashboard")} aria-label={workerCopy.aria.workerWorkspace}>
                     <img src={logoMark} alt={logoAlt} className="h-10 w-10 rounded-xl object-contain" />
@@ -6498,20 +6803,6 @@ export default function App() {
                 </header>
               )}
 
-              {isDemoExperience && (
-                <section className="demo-mode-banner" role="status" aria-live="polite">
-                  <div>
-                    <span className="demo-mode-pill">{workerCopy.demo}</span>
-                    <strong>{workerCopy.demoTitle}</strong>
-                    <p>{workerCopy.demoCopy}</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <ActionButton icon={Mic} onClick={createProfileFromDemo}>{workerCopy.createMyProfile}</ActionButton>
-                    <ActionButton icon={X} variant="secondary" onClick={exitDemoMode}>{workerCopy.exitDemo}</ActionButton>
-                  </div>
-                </section>
-              )}
-
               {workerDashboardRoute === "home" && (
                 <>
                   {profileFetchError ? (
@@ -6523,10 +6814,10 @@ export default function App() {
                       </div>
                     </section>
                   ) : true ? (
-                    <section className="onboarding-choice-card">
+                    <section className={`onboarding-choice-card ${isDemoExperience ? "worker-demo-hero-card" : ""}`}>
                       <div className="dashboard-hero-glow dashboard-hero-glow-blue" />
                       <div className="dashboard-hero-glow dashboard-hero-glow-green" />
-                      <div className="relative z-10 mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+                      <div className="worker-demo-hero-grid relative z-10 mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
                         <div className="first-run-copy">
                           <p className="dashboard-eyebrow">{workerCopy.welcome}</p>
                           <h1 className="mt-3 text-3xl font-black leading-tight text-ink sm:text-5xl">
@@ -6548,9 +6839,9 @@ export default function App() {
                               </div>
                             ))}
                           </div>
-                          <div className="mt-8 grid gap-4 sm:max-w-xl sm:grid-cols-[1.1fr_0.9fr]">
+                          <div className="first-run-cta-grid mt-8 grid gap-4 sm:max-w-xl sm:grid-cols-[1.1fr_0.9fr]">
                             <div>
-                              <ActionButton icon={latestUserProfile ? IdCard : Mic} className="min-h-12 w-full rounded-xl px-5 shadow-lg shadow-blue-600/20" onClick={() => latestUserProfile ? navigateTo(`/worker/${encodeURIComponent(latestUserProfile.workerId)}`) : startRealWorkerOnboarding()}>
+                              <ActionButton icon={latestUserProfile ? IdCard : Mic} className="min-h-12 w-full rounded-xl px-5 shadow-lg shadow-blue-600/20" onClick={() => latestUserProfile ? navigateTo(`/worker/${encodeURIComponent(latestUserProfile.workerId)}`) : isWorkerDemoFlow ? createProfileFromDemo() : startRealWorkerOnboarding()}>
                                 {latestUserProfile ? workerCopy.openMyWorkerIdentity : workerCopy.createMyWorkerIdentity}
                               </ActionButton>
                               <p className="mt-2 text-center text-xs font-black text-slate-500">
@@ -6574,13 +6865,13 @@ export default function App() {
                             ))}
                           </div>
                         </div>
-                        <div className="flex w-full justify-center overflow-hidden py-4 lg:justify-start lg:py-0" aria-label={workerCopy.demoPreview}>
-                          <div className="pointer-events-none w-full max-w-[42rem] shrink-0 origin-center scale-[0.68] select-none sm:-my-28 lg:-my-36">
+                        <div className="worker-demo-preview-wrap flex w-full justify-center overflow-hidden py-4 lg:justify-start lg:py-0" aria-label={workerCopy.demoPreview}>
+                          <div className={`worker-demo-preview-card pointer-events-none w-full max-w-[42rem] shrink-0 origin-center select-none ${isDemoExperience ? "" : "scale-100 sm:-my-6 lg:-my-8"}`}>
                             <DigitalCareerIdentityCard identity={toEnglishArtifactIdentity(onboardingDemoIdentity, onboardingDemoProfile, localWageEstimate(onboardingDemoProfile))} labels={artifactLabels} variant="full" contentMode="identityOnly" />
                           </div>
                         </div>
                       </div>
-                      <p className="relative z-10 mt-10 text-center text-xs font-bold text-slate-500">{workerCopy.dataPrivate}</p>
+                      {!isDemoExperience && <p className="relative z-10 mt-10 text-center text-xs font-bold text-slate-500">{workerCopy.dataPrivate}</p>}
                     </section>
                   ) : (
                   <div className="dashboard-premium-grid">
@@ -6598,10 +6889,10 @@ export default function App() {
                               {workerCopy.completeHeroCopy || "RozgaarAI is turning your work history into a trusted employment profile employers can understand in seconds."}
                             </p>
                             <div className="mt-6 flex flex-wrap gap-3">
-                              <ActionButton icon={WalletCards} className="min-h-12 rounded-xl px-5 shadow-lg shadow-blue-600/20" onClick={() => dashboardIdentityReady ? navigateTo(`${dashboardBasePath}/income`) : navigateTo("/create-profile")}>
+                              <ActionButton icon={WalletCards} className="min-h-12 rounded-xl px-5 shadow-lg shadow-blue-600/20" onClick={() => dashboardIdentityReady ? navigateTo(`${dashboardBasePath}/income`) : openWorkerOnboarding()}>
                                 {workerCopy.continueIncome || workerCopy.incomePassport}
                               </ActionButton>
-                              <ActionButton icon={BriefcaseBusiness} variant="secondary" className="min-h-12 rounded-xl px-5" onClick={() => dashboardIdentityReady ? navigateTo(`${dashboardBasePath}/jobs`) : navigateTo("/create-profile")}>
+                              <ActionButton icon={BriefcaseBusiness} variant="secondary" className="min-h-12 rounded-xl px-5" onClick={() => dashboardIdentityReady ? navigateTo(`${dashboardBasePath}/jobs`) : openWorkerOnboarding()}>
                                 {withCopyTokens(workerCopy.viewJobMatches || "View {count} Job Matches", { count: activeWorkerMatches.length || 40 })}
                               </ActionButton>
                             </div>
@@ -6658,7 +6949,7 @@ export default function App() {
                           </div>
                         </div>
                         <div className="dashboard-action-layout">
-                          <button type="button" className="dashboard-featured-action" onClick={() => dashboardIdentityReady ? navigateTo(`${dashboardBasePath}/income`) : navigateTo("/create-profile")}>
+                          <button type="button" className="dashboard-featured-action" onClick={() => dashboardIdentityReady ? navigateTo(`${dashboardBasePath}/income`) : openWorkerOnboarding()}>
                             <span className="grid h-12 w-12 place-items-center rounded-2xl bg-white/18 text-white"><WalletCards className="h-6 w-6" /></span>
                             <span>
                               <small>{workerCopy.featuredAction}</small>
@@ -6669,11 +6960,11 @@ export default function App() {
                           </button>
                           <div className="dashboard-action-mini-grid">
                             {[
-                              [IdCard, workerCopy.digitalIdentity, dashboardIdentityReady ? workerCopy.viewProfileCard : workerCopy.createIdentityShort, () => dashboardIdentityReady ? navigateTo(`/worker/${encodeURIComponent(dashboardIdentity.workerId)}`) : navigateTo("/create-profile")],
+                              [IdCard, workerCopy.digitalIdentity, dashboardIdentityReady ? workerCopy.viewProfileCard : workerCopy.createIdentityShort, () => dashboardIdentityReady ? navigateTo(`/worker/${encodeURIComponent(dashboardIdentity.workerId)}`) : openWorkerOnboarding()],
                               [BriefcaseBusiness, workerCopy.browseJobs, withCopyTokens(workerCopy.matchesReady, { count: activeWorkerMatches.length || 40 }), () => navigateTo(`${dashboardBasePath}/jobs`)],
                               [MessageSquare, workerCopy.interviewPractice, practiceHistory.length ? workerCopy.continuePractice : workerCopy.startCoaching, openInterviewPracticePage],
                               [ShieldAlert, workerCopy.safetyCheck, workerCopy.scanRiskyOffers, () => navigateTo(`${dashboardBasePath}/safety`)],
-                              [FileText, workerCopy.resume, hasResumeReady ? workerCopy.downloadResume : workerCopy.generateResume, () => dashboardIdentityReady ? downloadResume({ preview: true }) : navigateTo("/create-profile")]
+                              [FileText, workerCopy.resume, hasResumeReady ? workerCopy.downloadResume : workerCopy.generateResume, () => dashboardIdentityReady ? downloadResume({ preview: true }) : openWorkerOnboarding()]
                             ].map(([Icon, title, copy, action]) => (
                               <button key={title} type="button" className="dashboard-mini-action" onClick={action}>
                                 <Icon className="h-5 w-5" />
@@ -6748,7 +7039,7 @@ export default function App() {
                           <div className="dashboard-empty-state">
                             <BriefcaseBusiness className="h-6 w-6 text-saffron" />
                             <p>{workerCopy.emptyJobMatch}</p>
-                            <ActionButton icon={Mic} onClick={() => navigateTo("/create-profile")}>{workerCopy.createIdentity}</ActionButton>
+                            <ActionButton icon={Mic} onClick={openWorkerOnboarding}>{workerCopy.createIdentity}</ActionButton>
                           </div>
                         )}
                       </section>
@@ -6818,7 +7109,7 @@ export default function App() {
                             </div>
                           ))}
                         </div>
-                        <ActionButton icon={IdCard} className="mt-5 w-full" onClick={() => dashboardIdentityReady ? navigateTo(`/worker/${encodeURIComponent(dashboardIdentity.workerId)}`) : navigateTo("/create-profile")}>
+                        <ActionButton icon={IdCard} className="mt-5 w-full" onClick={() => dashboardIdentityReady ? navigateTo(`/worker/${encodeURIComponent(dashboardIdentity.workerId)}`) : openWorkerOnboarding()}>
                           {workerCopy.openIdentity}
                         </ActionButton>
                       </section>
@@ -6840,8 +7131,8 @@ export default function App() {
                       : workerCopy.routeCopy.default}
                   </p>
                   <div className="mt-5 flex flex-wrap gap-3">
-                    {workerDashboardRoute === "identity" && <ActionButton icon={IdCard} onClick={() => hasPrimaryIdentity ? navigateTo(`/worker/${encodeURIComponent(activeWorkerIdentity.workerId)}`) : navigateTo("/create-profile")}>{hasPrimaryIdentity ? workerCopy.openIdentity : workerCopy.createIdentity}</ActionButton>}
-                    {workerDashboardRoute === "jobs" && <ActionButton icon={BriefcaseBusiness} onClick={() => hasPrimaryIdentity ? setActiveWorkspaceTab("jobs") : navigateTo("/create-profile")}>{workerCopy.browse}</ActionButton>}
+                    {workerDashboardRoute === "identity" && <ActionButton icon={IdCard} onClick={() => hasPrimaryIdentity ? navigateTo(`/worker/${encodeURIComponent(activeWorkerIdentity.workerId)}`) : openWorkerOnboarding()}>{hasPrimaryIdentity ? workerCopy.openIdentity : workerCopy.createIdentity}</ActionButton>}
+                    {workerDashboardRoute === "jobs" && <ActionButton icon={BriefcaseBusiness} onClick={() => hasPrimaryIdentity ? setActiveWorkspaceTab("jobs") : openWorkerOnboarding()}>{workerCopy.browse}</ActionButton>}
                     {workerDashboardRoute === "income" && <ActionButton icon={WalletCards} onClick={openWorkRecordModal}>{workerCopy.addRecord}</ActionButton>}
                     {workerDashboardRoute === "resume" && <ActionButton icon={FileText} disabled={!hasPrimaryIdentity} onClick={() => downloadResume({ preview: true })}>{workerCopy.generate}</ActionButton>}
                     {workerDashboardRoute === "coach" && <ActionButton icon={MessageSquare} onClick={openInterviewPracticePage}>{workerCopy.practice}</ActionButton>}
@@ -6860,6 +7151,132 @@ export default function App() {
         {!routePath.startsWith("/dashboard") && !isDemoDashboardRoute && (
         <>
         {routePath === "/demo" && (
+        <Section id="demo" eyebrow="" title="">
+          <div className="demo-hub-section">
+            <div className="demo-hub-hero">
+              <div className="demo-hub-copy">
+                <p className="demo-hub-eyebrow"><PlayCircle className="h-4 w-4" /> Interactive Product Demo</p>
+                <h2>
+                  <span>Explore </span>
+                  <span className="demo-title-blue">RozgaarAI</span>
+                  <span> in </span>
+                  <span className="demo-title-green">Action</span>
+                </h2>
+                <p className="demo-hub-subtitle">
+                  Experience the platform from every side of the employment ecosystem —<br className="hidden sm:block" />
+                  no account or registration required.
+                </p>
+              </div>
+              <div className="demo-mode-badge" aria-label="Demo mode status">
+                <ShieldCheck className="h-5 w-5" />
+                <span>Demo Mode Active · No login required</span>
+              </div>
+            </div>
+
+            <div className="demo-role-grid">
+              {[
+                {
+                  key: "worker",
+                  Icon: UserRound,
+                  accent: "blue",
+                  label: "Worker Demo",
+                  title: "Experience as a Worker",
+                  copy: "Build an AI-powered profile, discover opportunities, track wages and create a verified digital work identity.",
+                  cta: "Open Worker Demo",
+                  image: createWorkerIdentityPhoto,
+                  onClick: startOnboardingDemo
+                },
+                {
+                  key: "employer",
+                  Icon: BriefcaseBusiness,
+                  accent: "green",
+                  label: "Employer Demo",
+                  title: "Experience as an Employer",
+                  copy: "Discover verified workers, review trusted profiles and experience the hiring workflow.",
+                  cta: "Open Employer Demo",
+                  image: employerDemoCardImage,
+                  onClick: () => navigateTo("/employer/onboarding")
+                },
+                {
+                  key: "ngo",
+                  Icon: Handshake,
+                  accent: "cyan",
+                  label: "NGO / Foundation Demo",
+                  title: "Experience as an NGO",
+                  copy: "Onboard workers, verify skills and credentials, and help communities access better employment opportunities.",
+                  cta: "Open NGO Demo",
+                  image: ngoDemoCardImage,
+                  onClick: () => navigateTo("/ngo/onboarding")
+                }
+              ].map(({ key, Icon, accent, label, title, copy, cta, image, onClick }) => (
+                <article
+                  key={key}
+                  className={`demo-role-card demo-role-card-${accent}`}
+                  style={{ "--demo-card-image": `url(${image})` }}
+                >
+                  <div className="demo-role-icon">
+                    <Icon className="h-9 w-9" />
+                  </div>
+                  <p className="demo-role-label">{label}</p>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                  <div className="demo-role-badges">
+                    <span className="demo-role-pill"><LockKeyhole className="h-3.5 w-3.5" /> No login required</span>
+                    <span className="demo-role-pill"><Sparkles className="h-3.5 w-3.5" /> Sample data</span>
+                  </div>
+                  <button type="button" className="demo-role-cta focus-ring button-press" onClick={onClick}>
+                    {cta}
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </article>
+              ))}
+            </div>
+
+            <div className="demo-ecosystem-panel" aria-label="RozgaarAI demo ecosystem">
+              <h3 className="demo-ecosystem-title">One connected employment ecosystem</h3>
+              <div className="demo-ecosystem-row">
+                <div className="demo-ecosystem-step">
+                  <span className="demo-ecosystem-icon"><UserRound className="h-6 w-6" /></span>
+                  <span className="demo-ecosystem-copy">
+                    <strong>Worker</strong>
+                    <small>Build identity & career profile</small>
+                  </span>
+                </div>
+                <ChevronRight className="demo-ecosystem-arrow h-6 w-6" />
+                <div className="demo-ecosystem-step">
+                  <span className="demo-ecosystem-icon"><ShieldCheck className="h-6 w-6" /></span>
+                  <span className="demo-ecosystem-copy">
+                    <strong>Verified Identity</strong>
+                    <small>Skills, credentials & verification</small>
+                  </span>
+                </div>
+                <ChevronRight className="demo-ecosystem-arrow h-6 w-6" />
+                <div className="demo-ecosystem-step">
+                  <span className="demo-ecosystem-icon"><BriefcaseBusiness className="h-6 w-6" /></span>
+                  <span className="demo-ecosystem-copy">
+                    <strong>Employer</strong>
+                    <small>Discover & match with trusted opportunities</small>
+                  </span>
+                </div>
+                <ChevronRight className="demo-ecosystem-arrow h-6 w-6" />
+                <div className="demo-ecosystem-step">
+                  <span className="demo-ecosystem-icon"><Handshake className="h-6 w-6" /></span>
+                  <span className="demo-ecosystem-copy">
+                    <strong>Employment</strong>
+                    <small>Stronger careers, better livelihoods</small>
+                  </span>
+                </div>
+              </div>
+              <div className="demo-support-layer">
+                <span className="demo-support-icon"><Landmark className="h-4 w-4" /></span>
+                <span>NGO / Foundation verification and support layer connects workers to trusted opportunities.</span>
+              </div>
+            </div>
+          </div>
+        </Section>
+        )}
+
+        {routePath === "/demo/worker" && (
         <Section id="demo" eyebrow="" title="">
           <div className="demo-workers-section">
             <div className="grid gap-8 lg:grid-cols-[1fr_0.96fr] lg:items-center">
@@ -9071,11 +9488,11 @@ export default function App() {
                       : "Designed for workers, employers, NGOs, housing societies, and workforce development programs across India."}
                   </p>
                   <div className="mt-7 flex flex-wrap gap-3">
-                    <ActionButton icon={Mic} variant="secondary" onClick={() => navigateTo("/create-profile")}>
+                    <ActionButton icon={Mic} variant="secondary" onClick={openWorkerOnboarding}>
                       {isLocalizedLanguage ? "Start Voice Onboarding" : "Start Voice Onboarding"}
                     </ActionButton>
                     <ActionButton icon={PlayCircle} variant="dark" onClick={openDemoSection}>
-                      {isLocalizedLanguage ? "Explore Demo Workers" : "Explore Demo Workers"}
+                      {t.navMain.exploreDemo}
                     </ActionButton>
                   </div>
                 </div>
@@ -9131,7 +9548,7 @@ export default function App() {
         )}
 
         {routePath === "/" && (
-          <NgoProductStory copy={t.insideProduct} logoMark={logoMark} onExploreNgo={openNgoDemoMode} />
+          <NgoProductStory copy={t.insideProduct} logoMark={logoMark} onExploreNgo={() => navigateTo("/ngo/onboarding")} />
         )}
         </>
         )}

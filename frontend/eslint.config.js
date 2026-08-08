@@ -18,6 +18,7 @@ export default [
         navigator: "readonly",
         fetch: "readonly",
         Blob: "readonly",
+        Event: "readonly",
         URL: "readonly",
         URLSearchParams: "readonly",
         ResizeObserver: "readonly",
